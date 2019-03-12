@@ -40,6 +40,7 @@
 			<!--SECTION: Microsoft Windows-->
 			<CommandLine condition="is">C:\Windows\system32\SearchIndexer.exe /Embedding</CommandLine> <!--Microsoft:Windows: Search Indexer-->
 			<Image condition="contains">C:\Program Files (x86)\NVIDIA Corporation\Update Core\</Image>
+			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image>
 			<Image condition="is">C:\Program Files (x86)\Fortinet\FortiClient\FortiScand.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\SWELF\SWELF.exe</Image>
 			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
@@ -298,6 +299,7 @@
 			<Signature condition="contains">microsoft</Signature> <!--Exclude signed Microsoft drivers-->
 			<Signature condition="contains">windows</Signature> <!--Exclude signed Microsoft drivers-->
 			<Signature condition="begin with">Intel </Signature> <!--Exclude signed Intel drivers-->
+			<Signature condition="begin with">Fortinet Technologies (Canada) Inc.</Signature> <!--Exclude signed Intel drivers-->
 		</DriverLoad>
 
 		<CreateRemoteThread onmatch="exclude">
