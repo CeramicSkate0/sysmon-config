@@ -355,6 +355,7 @@
 			<Image condition="is">C:\Program Files (x86)\</Image> 
 			<Image condition="is">C:\Program Files \</Image> 
 			<Image condition="is">C:\Windows\</Image> 
+			<Image condition="is">C:\Windows\System32\svchost.exe</Image> 
 		</RawAccessRead>
 	<!--SYSMON EVENT ID 10 : INTER-PROCESS ACCESS [ProcessAccess]-->
 		<!--EVENT 10: "Process accessed"-->
@@ -395,6 +396,7 @@
 			<Image condition="begin with">C:\Windows\winsxs\amd64_microsoft-windows</Image> <!-- Microsoft:Windows: Windows update-->
 			<Image condition="is">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</Image>
 			<Image condition="is">C:\Windows\system32\igfxCUIService.exe</Image> <!--Intel: Drops bat and other files in \Windows in normal operation-->
+			<Image condition="begin with">C:\Program Files (x86)\Microsoft Visual Studio\</Image> <!--Intel: Drops bat and other files in \Windows in normal operation-->
 			<TargetFilename condition="is">C:\Windows\System32\Tasks\Adobe Acrobat Update Task</TargetFilename>
 			<TargetFilename condition="is">C:\Windows\System32\Tasks\Adobe Flash Player Updater</TargetFilename>
 			<TargetFilename condition="begin with">C:\Windows\System32\LogFiles\</TargetFilename>
