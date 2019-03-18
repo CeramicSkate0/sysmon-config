@@ -259,7 +259,31 @@
 		<!--TECHNICAL:	These exe do not initiate their connections, and thus includes do not work in this section: BITSADMIN NLTEST-->
 		
 		<!-- https://www.first.org/resources/papers/conf2017/APT-Log-Analysis-Tracking-Attack-Tools-by-Audit-Policy-and-Sysmon.pdf -->
-
+		<NetworkConnect onmatch="include">
+			<!--Ports: Suspicious-->
+			<DestinationPort condition="is">22</DestinationPort> <!--SSH protocol, monitor admin connections-->
+			<DestinationPort condition="is">23</DestinationPort> <!--Telnet protocol, monitor admin connections, insecure-->
+			<DestinationPort condition="is">25</DestinationPort> <!--SMTP mail protocol port, insecure, used by threats-->
+			<DestinationPort condition="is">53</DestinationPort> 
+			<DestinationPort condition="is">80</DestinationPort> 
+			<DestinationPort condition="is">443</DestinationPort> 
+			<DestinationPort condition="is">142</DestinationPort> <!--IMAP mail protocol port, insecure, used by threats-->
+			<DestinationPort condition="is">135</DestinationPort> 
+			<DestinationPort condition="is">445</DestinationPort> 
+			<DestinationPort condition="is">3389</DestinationPort> <!--Microsoft:Windows:RDP: Monitor admin connections-->
+			<DestinationPort condition="is">5800</DestinationPort> <!--VNC protocol: Monitor admin connections, often insecure-->
+			<DestinationPort condition="is">5900</DestinationPort> <!--VNC protocol Monitor admin connections, often insecure-->
+			<!--Ports: Proxy-->
+			<DestinationPort condition="is">1080</DestinationPort> <!--Socks proxy port | Credit @ion-storm-->
+			<DestinationPort condition="is">3128</DestinationPort> <!--Socks proxy port | Credit @ion-storm-->
+			<DestinationPort condition="is">8080</DestinationPort> <!--Socks proxy port | Credit @ion-storm-->
+			<!--Ports: Tor-->
+			<DestinationPort condition="is">1723</DestinationPort> <!--Tor protocol [ https://attack.mitre.org/wiki/Technique/T1090 ] | Credit @ion-storm-->
+			<DestinationPort condition="is">4500</DestinationPort> <!--Tor protocol, also triggers on IPsec [ https://attack.mitre.org/wiki/Technique/T1090 ] | Credit @ion-storm-->
+			<DestinationPort condition="is">9001</DestinationPort> <!--Tor protocol [ http://www.computerworlduk.com/tutorial/security/tor-enterprise-2016-blocking-malware-darknet-use-rogue-nodes-3633907/ ] -->
+			<DestinationPort condition="is">9030</DestinationPort> <!--Tor protocol [ http://www.computerworlduk.com/tutorial/security/tor-enterprise-2016-blocking-malware-darknet-use-rogue-nodes-3633907/ ] -->
+		</NetworkConnect>
+		
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, User, Protocol, Initiated, SourceIsIpv6, SourceIp, SourceHostname, SourcePort, SourcePortName, DestinationIsIpV6, DestinationIp, DestinationHostname, DestinationPort, DestinationPortName-->
 		<NetworkConnect onmatch="exclude">
 			<Image condition="image">g2ax_comm_expert.exe</Image> <!--GoToMeeting-->
