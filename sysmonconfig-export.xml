@@ -376,6 +376,7 @@
 		</ProcessAccess>
 
 		<FileCreate onmatch="exclude">
+			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image> <!--Microsoft:EMET: Writes to C:\Windows\AppPatch\-->
 			<Image condition="is">C:\Program Files (x86)\EMET 5.5\EMET_Service.exe</Image> <!--Microsoft:EMET: Writes to C:\Windows\AppPatch\-->
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image> 
 			<TargetFilename condition="is">C:\Windows\System32\Tasks\OfficeSoftwareProtectionPlatform\SvcRestartTask</TargetFilename>
