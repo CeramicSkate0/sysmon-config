@@ -539,7 +539,20 @@
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Safeboot\</TargetObject> <!--Microsoft:Windows: Services approved to load in safe mode-->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Winlogon\</TargetObject> <!--Microsoft:Windows: Providers notified by WinLogon-->
 			<TargetObject condition="end with">\FriendlyName</TargetObject> <!--Microsoft:Windows: New devices connected and remembered-->
-			<TargetObject condition="is">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\InProgress\(Default)</TargetObject> <!--Microsoft:Windows: See when WindowsInstaller is engaged, useful for timeline matching with other events-->
+			<TargetObject condition="contains">VirtualStore</TargetObject> <!--Microsoft:Windows: Registry virtualization [ https://msdn.microsoft.com/en-us/library/windows/desktop/aa965884(v=vs.85).aspx ] -->
+			<TargetObject condition="contains">\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Publishers\</TargetObject> 
+			<TargetObject condition="contains">\CurrentControlSet\Control\Lsa\OSConfig\Security Packages</TargetObject> 
+			<TargetObject condition="contains">\SYSTEM\CurrentControlSet\Services\PortProxy\v4tov4</TargetObject> 
+			<TargetObject condition="contains">\SYSTEM\CurrentControlSet\Control\WMI\Autologger\</TargetObject> 
+			<TargetObject condition="contains">\StartupItems</TargetObject> 
+			<TargetObject condition="contains">\SOFTWARE\Wow6432Node\Google\Update\ClientState\</TargetObject> 
+			<TargetObject condition="contains">Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders</TargetObject> 
+			<TargetObject condition="contains">Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders</TargetObject> 
+			<TargetObject condition="contains">\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</TargetObject> 
+			<TargetObject condition="contains">\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce</TargetObject> 
+			<TargetObject condition="contains">\InProcServer32</TargetObject> 
+			<TargetObject condition="contains">\SOFTWARE\MICROSOFT\WINDOWS NT\CURRENTVERSION\WINLOGON\</TargetObject> 
+			<TargetObject condition="is">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\InProgress\(Default)</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Tracing\RASAPI32</TargetObject> <!--Microsoft:Windows: Malware sometimes disables tracing to obfuscate tracks-->
 		</RegistryEvent>
 
