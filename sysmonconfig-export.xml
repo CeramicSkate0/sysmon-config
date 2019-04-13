@@ -366,6 +366,12 @@
 			<TargetImage condition="is">C:\WINDOWS\system32\lsass.exe</TargetImage>
 			<TargetImage condition="is">chrome.exe</TargetImage>
 			<GrantedAccess condition="is">0x800</GrantedAccess>
+			<GrantedAccess condition="is">0x010</GrantedAccess>
+			<GrantedAccess condition="is">0x1010</GrantedAccess>
+			<GrantedAccess condition="is">0x0400</GrantedAccess>
+			<GrantedAccess condition="is">0x1410</GrantedAccess>
+			<GrantedAccess condition="is">0x0010</GrantedAccess>
+			<!--<GrantedAccess condition="is">0x1000</GrantedAccess>-->
 		</ProcessAccess>
 		
 		<ProcessAccess onmatch="exclude">
