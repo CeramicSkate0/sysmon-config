@@ -283,14 +283,12 @@
 		
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, User, Protocol, Initiated, SourceIsIpv6, SourceIp, SourceHostname, SourcePort, SourcePortName, DestinationIsIpV6, DestinationIp, DestinationHostname, DestinationPort, DestinationPortName-->
 		<NetworkConnect onmatch="exclude">
-		        <DestinationPort condition="is">67</DestinationPort>
-			<DestinationPort condition="is">137</DestinationPort>
-			<DestinationPort condition="is">138</DestinationPort>
-			<DestinationPort condition="is">1900</DestinationPort>
-			<DestinationPort condition="is">8000</DestinationPort>
 			<Image condition="image">g2ax_comm_expert.exe</Image> <!--GoToMeeting-->
 			<Image condition="image">g2mcomm.exe</Image> <!--GoToMeeting-->
 			<Image condition="image">SWELF.exe</Image>
+			<Image condition="image">iexplorer.exe.exe</Image>
+			<Image condition="image">firefox.exe</Image>
+			<Image condition="image">chrome.exe</Image>
 			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image>
 			<Image condition="begin with">C:\Program Files (x86)\OpenDNS Updater\</Image>
 			<DestinationHostname condition="end with">microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
