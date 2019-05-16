@@ -286,9 +286,9 @@
 			<Image condition="image">g2ax_comm_expert.exe</Image> <!--GoToMeeting-->
 			<Image condition="image">g2mcomm.exe</Image> <!--GoToMeeting-->
 			<Image condition="image">SWELF.exe</Image>
-			<Image condition="image">iexplorer.exe.exe</Image>
-			<Image condition="image">firefox.exe</Image>
-			<Image condition="image">chrome.exe</Image>
+			<Image condition="contains">iexplorer.exe.exe</Image>
+			<Image condition="contains">firefox.exe</Image>
+			<Image condition="contains">chrome.exe</Image>
 			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image>
 			<Image condition="begin with">C:\Program Files (x86)\OpenDNS Updater\</Image>
 			<DestinationHostname condition="end with">microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
