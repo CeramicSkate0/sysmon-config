@@ -363,6 +363,7 @@
 		<!--COMMENT:	Monitor for processes accessing other process' memory.-->
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceThreadId, SourceImage, TargetProcessGuid, TargetProcessId, TargetImage, GrantedAccess, CallTrace-->
 		<ProcessAccess onmatch="include">
+			<SourceImage condition="end with">\procexp64.exe</SourceImage>
 			<TargetImage condition="is">C:\WINDOWS\system32\lsass.exe</TargetImage>
 			<TargetImage condition="is">chrome.exe</TargetImage>
 			<GrantedAccess condition="is">0x800</GrantedAccess>
