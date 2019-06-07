@@ -577,6 +577,8 @@
 			<TargetObject condition="contains">\Shell\</TargetObject>
 			<TargetObject condition="contains">\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Publishers\</TargetObject>
 			<TargetObject condition="contains">\SYSTEM\CurrentControlSet\Services\PortProxy\v4tov4</TargetObject>
+			<TargetObject condition="contains">\ShellEx\</TargetObject>
+			<TargetObject condition="begin with">HKLM\Software\Classes\Directory\Shellex\</TargetObject>
 		</RegistryEvent>
 
 		<RegistryEvent onmatch="exclude">
