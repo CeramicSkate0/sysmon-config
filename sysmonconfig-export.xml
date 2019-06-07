@@ -565,6 +565,18 @@
 			<TargetObject condition="begin with">HKLM\Software\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls</TargetObject>
 			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Control\Session Manager\AppCertDlls</TargetObject>
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows NT\currentversion\image file execution options</TargetObject>
+			<TargetObject condition="contains">\CurrentControlSet\Control\SecurityProviders\WDigest</TargetObject>
+			<TargetObject condition="contains">\CurrentControlSet\Control\WMI\Autologger\</TargetObject>
+			<TargetObject condition="contains">\RunOnce\</TargetObject>
+			<TargetObject condition="contains">\Explorer\Run</TargetObject>
+			<TargetObject condition="contains">\CurrentVersion\Run</TargetObject>
+			<TargetObject condition="contains">\SOFTWARE\Wow6432Node\Google\Update\ClientState\</TargetObject>
+			<TargetObject condition="contains">\StartupItems</TargetObject>
+			<TargetObject condition="contains">CurrentControlSet\Control\Lsa\Security Packages</TargetObject>
+			<TargetObject condition="contains">\CurrentControlSet\Control\Lsa\OSConfig\Security Packages</TargetObject>
+			<TargetObject condition="contains">\Shell\</TargetObject>
+			<TargetObject condition="contains">\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Publishers\</TargetObject>
+			<TargetObject condition="contains">\SYSTEM\CurrentControlSet\Services\PortProxy\v4tov4</TargetObject>
 		</RegistryEvent>
 
 		<RegistryEvent onmatch="exclude">
