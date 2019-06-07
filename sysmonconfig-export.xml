@@ -715,6 +715,7 @@
 			<Image condition="is">c:\program files (x86)\google\update\googleupdate.exe</Image>
 			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
+			<Image condition="is">C:\Program Files\Mozilla Firefox\firefox.exe</Image>
 		</PipeEvent>
 	<!--SYSMON EVENT ID 19 & 20 & 21 : WMI EVENT MONITORING [WmiEvent]-->
 		<!--EVENT 19: "WmiEventFilter activity detected"-->
