@@ -286,7 +286,8 @@
 			<Image condition="image">g2ax_comm_expert.exe</Image> <!--GoToMeeting-->
 			<Image condition="image">g2mcomm.exe</Image> <!--GoToMeeting-->
 			<Image condition="image">SWELF.exe</Image>
-			<Image condition="contains">iexplorer.exe.exe</Image>
+			<Image condition="contains">iexplorer.exe</Image>
+			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
 			<Image condition="contains">firefox.exe</Image>
 			<Image condition="contains">chrome.exe</Image>
 			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image>
