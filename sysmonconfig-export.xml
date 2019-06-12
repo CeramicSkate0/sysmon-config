@@ -904,6 +904,7 @@
 			<!--SocialNet-->
 			<QueryName condition="end with">.pscp.tv</QueryName> <!--Twitter:Periscope-->
 			<!--OSCP/CRL Common-->
+			<QueryName condition="end with">.doubleclick.net</QueryName>
 			<QueryName condition="end with">.digicert.com</QueryName>
 			<QueryName condition="end with">.globalsign.com</QueryName>
 			<QueryName condition="end with">.globalsign.net</QueryName>
