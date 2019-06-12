@@ -273,6 +273,7 @@
 			<Image condition="contains">firefox.exe</Image>
 			<Image condition="contains">chrome.exe</Image>
 			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image>
+			<Image condition="contains">C:\Program Files\Fortinet\FortiClient\</Image>
 			<Image condition="begin with">C:\Program Files (x86)\OpenDNS Updater\</Image>
 			<DestinationHostname condition="end with">microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.akadns.net</DestinationHostname> <!--Microsoft:Update delivery-->
@@ -340,6 +341,7 @@
 			<Image condition="is">C:\Windows\</Image> 
 			<Image condition="is">C:\Windows\System32\svchost.exe</Image> 
 		</RawAccessRead>
+		
 	<!--SYSMON EVENT ID 10 : INTER-PROCESS ACCESS [ProcessAccess]-->
 		<!--EVENT 10: "Process accessed"-->
 		<!--COMMENT:	Can cause high system load, disabled by default.-->
@@ -372,7 +374,8 @@
 
 <!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime-->
 		<FileCreate onmatch="exclude">
-			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image> <!--Microsoft:EMET: Writes to C:\Windows\AppPatch\-->
+			<Image condition="contains">C:\Program Files\Fortinet\FortiClient\</Image>
+			<Image condition="contains">C:\Program Files (x86)\Fortinet\FortiClient\</Image> 
 			<Image condition="is">C:\Program Files (x86)\EMET 5.5\EMET_Service.exe</Image> <!--Microsoft:EMET: Writes to C:\Windows\AppPatch\-->
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image> 
 			<TargetFilename condition="is">C:\Windows\System32\Tasks\OfficeSoftwareProtectionPlatform\SvcRestartTask</TargetFilename>
@@ -622,6 +625,7 @@
 		<RegistryEvent onmatch="exclude">
 		<!--COMMENT:	Remove low-information noise. Often these hide a procress recreating an empty key and do not hide the values created subsequently.-->
 			<!--SECTION: Microsoft binaries-->
+			<Image condition="contains">C:\Program Files\Fortinet\FortiClient\</Image>
 			<Image condition="end with">Office\root\integration\integrator.exe</Image> <!--Microsoft:Office: C2R client-->
 			<Image condition="is">C:\Windows\system32\backgroundTaskHost.exe</Image> <!--Microsoft:Windows: Changes association registry keys-->
 			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeClickToRun.exe</Image> <!--Microsoft:Office: C2R client-->
