@@ -746,7 +746,8 @@
 			<QueryName condition="end with">-pushp.svc.ms</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
 			<QueryName condition="end with">.b-msedge.net</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
 			<QueryName condition="end with">.bing.com</QueryName> <!-- Microsoft | Microsoft default exclusion -->
-			<QueryName condition="end with">.hotmail.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
+			<QueryName condition="end with">.hotmail.com</QueryName> <!--Microsoft | Microsoft default exclusion-->			
+			<QueryName condition="end with">.githubusercontent.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
 			<QueryName condition="end with">.live.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
 			<QueryName condition="end with">.live.net</QueryName> <!--Microsoft | Microsoft default exclusion-->
 			<QueryName condition="end with">.s-microsoft.com</QueryName> <!--Microsoft-->
