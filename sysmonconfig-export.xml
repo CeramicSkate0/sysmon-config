@@ -352,6 +352,7 @@
 		<!--COMMENT:	Monitor for processes accessing other process' memory.-->
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceThreadId, SourceImage, TargetProcessGuid, TargetProcessId, TargetImage, GrantedAccess, CallTrace-->
 		<ProcessAccess onmatch="include">
+			<SourceImage condition="begin with">C:\$Recycle.Bin</SourceImage>
 			<TargetImage condition="is">C:\WINDOWS\system32\lsass.exe</TargetImage>
 			<TargetImage condition="is">chrome.exe</TargetImage>
 			<TargetImage condition="is">firefox.exe</TargetImage>
@@ -429,6 +430,7 @@
 
 		<!--DATA: EventType, UtcTime, ProcessGuid, ProcessId, Image, TargetObject, Details (can't filter on), NewName (can't filter on)-->
 		<RegistryEvent onmatch="include">
+			<Image condition="begin with">C:\$Recycle.Bin</Image>
 	        <Image name="Suspicious,ImageBeginWithBackslash" condition="begin with">\</Image> <!--Devices and VSC shouldn't be executing changes | Credit: @SBousseaden @ionstorm @neu5ron @PerchedSystems [ https://twitter.com/SwiftOnSecurity/status/1133167323991486464 ] -->			<TargetObject condition="contains">CurrentVersion\Run</TargetObject> <!--Microsoft:Windows: Wildcard for Run keys, including RunOnce, RunOnceEx, RunServices, RunServicesOnce [Also covers terminal server] -->
 			<TargetObject condition="contains">Policies\Explorer\Run</TargetObject> <!--Microsoft:Windows: Alternate runs keys | Credit @ion-storm-->
 			<TargetObject condition="contains">Group Policy\Scripts</TargetObject> <!--Microsoft:Windows: Group policy scripts-->
