@@ -787,6 +787,7 @@
 			<QueryName condition="end with">.live.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
 			<QueryName condition="end with">.live.net</QueryName> <!--Microsoft | Microsoft default exclusion-->
 			<QueryName condition="end with">.s-microsoft.com</QueryName> <!--Microsoft-->
+			<QueryName condition="end with">.windowsupdate.com</QueryName> <!--Microsoft-->
 			<QueryName condition="end with">.microsoft.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
 			<QueryName condition="end with">.microsoftonline.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
 			<QueryName condition="end with">.microsoftstore.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
