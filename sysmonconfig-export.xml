@@ -812,6 +812,8 @@
 			<QueryName condition="is">outlook.office365.com</QueryName> <!--Microsoft: Protected by HSTS-->
 			<QueryName condition="is">portal.azure.com</QueryName> <!--Microsoft: AzureAD/InTune-->
 			<!--3rd-party applications-->
+			<QueryName condition="end with">.twimg.com</QueryName> 
+			<QueryName condition="end with">.twitter.com</QueryName> 
 			<QueryName condition="end with">.mozaws.net</QueryName> <!--Mozilla-->
 			<QueryName condition="end with">.mozilla.com</QueryName> <!--Mozilla-->
 			<QueryName condition="end with">.mozilla.net</QueryName> <!--Mozilla-->
