@@ -1,5 +1,5 @@
 # Note about this fork:
-Ceramicskate0's fork of SwiftOnSecurity's sysmon config differs in 1 key area. With the exception of reg keys I have tried to take a exclude only approach. This leads to more logs. But I use [SWELF](https://github.com/ceramicskate0/SWELF) to ship my logs and thus do not get all of them on the SIEM. I only get the logs I want and if ever needed all the logs are on the end point until they roll.
+Ceramicskate0's fork of SwiftOnSecurity's sysmon config differs in 1 key area. With the exception of RegistryEvent,FileCreateTime, and ProcessAccess I have tried to take a exclude only approach. This leads to more logs. But I use [SWELF](https://github.com/ceramicskate0/SWELF) to ship my logs and thus do not get all of them on the SIEM. I only get the logs I want and if ever needed all the logs are on the end point until they roll.
 
 # sysmon-config | A Sysmon configuration file for everybody to fork #
 
