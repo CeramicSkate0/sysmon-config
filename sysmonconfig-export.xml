@@ -821,6 +821,7 @@
 			<!--3rd-party applications-->
 			<QueryName condition="end with">.twimg.com</QueryName> 
 			<QueryName condition="end with">.twitter.com</QueryName> 
+			<QueryName condition="is">twitter.com</QueryName> 
 			<QueryName condition="end with">.mozaws.net</QueryName> <!--Mozilla-->
 			<QueryName condition="end with">.mozilla.com</QueryName> <!--Mozilla-->
 			<QueryName condition="end with">.mozilla.net</QueryName> <!--Mozilla-->
