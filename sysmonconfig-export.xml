@@ -308,6 +308,7 @@
 			<Image condition="begin with">C:\Program Files (x86)\</Image>
 			<Image condition="begin with">C:\Program Files\</Image>
 			<Image condition="contains">C:\Windows\System32\conhost.exe</Image>
+			<Image condition="is">C:\Windows\System32\dllhost.exe</Image>
 			<Image condition="contains">SWELF.exe</Image>
 		</ProcessTerminate>
 
