@@ -973,6 +973,7 @@
 			<!--SocialNet-->
 			<QueryName condition="end with">.pscp.tv</QueryName> <!--Twitter:Periscope-->
 			<!--OSCP/CRL Common-->
+			<QueryName condition="is">detectportal.firefox.com</QueryName>
 			<QueryName condition="end with">.doubleclick.net</QueryName>
 			<QueryName condition="is">nexusrules.officeapps.live.com</QueryName>
 			<QueryName condition="is">ctldl.windowsupdate.com</QueryName>
