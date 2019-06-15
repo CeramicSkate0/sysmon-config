@@ -39,6 +39,10 @@
 		<ProcessCreate onmatch="exclude">
 			<!--SECTION: Microsoft Windows-->
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image>
+			<Image condition="is">C:\Program Files\Oracle\VirtualBox\VBoxHeadless.exe</Image>
+			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
+			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
+			<Image condition="is">C:\Program Files\Oracle\VirtualBox\VBoxNetDHCP.exe</Image>
 			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
 			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
 			<CommandLine condition="is">C:\Windows\system32\SearchIndexer.exe /Embedding</CommandLine> <!--Microsoft:Windows: Search Indexer-->
@@ -861,7 +865,6 @@
 			<!--Ads-->
 			<QueryName condition="end with">.2mdn.net</QueryName> <!--Ads: Google | Microsoft default exclusion-->
 			<QueryName condition="end with">.adadvisor.net</QueryName> <!--Ads: Neustar [ https://better.fyi/trackers/adadvisor.net/ ] -->
-			<QueryName condition="end with">.adap.tv</QueryName> <!--Ads:AOL | Microsoft default exclusion [ https://www.crunchbase.com/organization/adap-tv ] -->
 			<QueryName condition="end with">.addthis.com</QueryName> <!--Ads:Oracle | Microsoft default exclusion [ https://en.wikipedia.org/wiki/AddThis ] -->
 			<QueryName condition="end with">.adform.net</QueryName> <!--Ads-->
 			<QueryName condition="end with">.adnxs.com</QueryName> <!--Ads: AppNexus | Microsoft default exclusion-->
@@ -924,7 +927,7 @@
 			<QueryName condition="end with">.scorecardresearch.com</QueryName> <!--Ads: Comscore | Microsoft default exclusion-->
 			<QueryName condition="end with">.serving-sys.com</QueryName> <!--Ads | Microsoft default exclusion-->
 			<QueryName condition="end with">.sharethrough.com</QueryName> <!--Ads-->
-			<QueryName condition="end with">.simpli.fi</QueryName>
+			<QueryName condition="end with">.windowsupdate.com</QueryName>
 			<QueryName condition="end with">.sitescout.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.smartadserver.com</QueryName> <!--Ads-->
 			<QueryName condition="end with">.snapads.com</QueryName> <!--Ads-->
@@ -955,6 +958,7 @@
 			<QueryName condition="is">mtalk.google.com</QueryName> <!--Google-->
 			<QueryName condition="is">update.googleapis.com</QueryName> <!--Google-->
 			<QueryName condition="is">1rx.io</QueryName>
+			<QueryName condition="end with">.visualstudio.com</QueryName>
 			<QueryName condition="is">www.googletagservices.com</QueryName>
 			<!--SocialNet-->
 			<QueryName condition="end with">.pscp.tv</QueryName> <!--Twitter:Periscope-->
