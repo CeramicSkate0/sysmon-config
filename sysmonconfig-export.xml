@@ -5,7 +5,7 @@
   Source project:	https://github.com/SwiftOnSecurity/sysmon-config
   Source license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
   Fork version:	<N/A>
-  Fork author:	<N/A>
+  Fork author:	Ceramicskate0
   Fork project:	<N/A>
   Fork license:	<N/A>
   REQUIRED: Sysmon version 9.10 or higher (due to changes in syntax and bug-fixes)
@@ -80,6 +80,7 @@
 			<Image condition="is">C:\Windows\ImmersiveControlPanel\SystemSettings.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image>
 			<Image condition="is">C:\Windows\System32\SearchProtocolHost.exe</Image>
+			<Image condition="contains">C:\Windows\System32\SearchProtocolHost.exe</Image>
 			<Image condition="contains">C:\Windows\System32\SearchFilterHost.exe</Image>
 			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
 			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
