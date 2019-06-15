@@ -279,9 +279,10 @@
 		
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, User, Protocol, Initiated, SourceIsIpv6, SourceIp, SourceHostname, SourcePort, SourcePortName, DestinationIsIpV6, DestinationIp, DestinationHostname, DestinationPort, DestinationPortName-->
 		<NetworkConnect onmatch="exclude">
-			<Image condition="image">g2ax_comm_expert.exe</Image> <!--GoToMeeting-->
-			<Image condition="image">g2mcomm.exe</Image> <!--GoToMeeting-->
-			<Image condition="image">SWELF.exe</Image>
+	    <!--<Image condition="contains">svchost.exe</Image>-->
+			<Image condition="end with">g2ax_comm_expert.exe</Image> <!--GoToMeeting-->
+			<Image condition="contains">g2mcomm.exe</Image> <!--GoToMeeting-->
+			<Image condition="contains">SWELF.exe</Image>
 			<Image condition="contains">iexplorer.exe</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
 			<Image condition="contains">firefox.exe</Image>
