@@ -41,6 +41,7 @@
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image>
 			<Image condition="is">C:\Windows\System32\SearchProtocolHost.exe</Image>
 			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
+			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
 			<Image condition="is">C:\Program Files\Oracle\VirtualBox\VBoxHeadless.exe</Image>
 			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
 			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
