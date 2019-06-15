@@ -957,6 +957,7 @@
 			<QueryName condition="end with">.w55c.net</QueryName> <!--Ads:dataxu-->
 			<QueryName condition="end with">.ytimg.com</QueryName> <!--Google-->
 			<QueryName condition="end with">.zorosrv.com</QueryName> <!--Ads:Taboola-->
+			<QueryName condition="end with">.youtube.com</QueryName>
 			<QueryName condition="is">adservice.google.com</QueryName> <!--Google-->
 			<QueryName condition="is">ampcid.google.com</QueryName> <!--Google-->
 			<QueryName condition="is">clientservices.googleapis.com</QueryName> <!--Google-->
