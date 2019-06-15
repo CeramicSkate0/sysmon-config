@@ -38,6 +38,8 @@
 		<!--DATA: UtcTime, ProcessGuid, ProcessID, Image, FileVersion, Description, Product, Company, CommandLine, CurrentDirectory, User, LogonGuid, LogonId, TerminalSessionId, IntegrityLevel, Hashes, ParentProcessGuid, ParentProcessId, ParentImage, ParentCommandLine-->
 		<ProcessCreate onmatch="exclude">
 			<!--SECTION: Microsoft Windows-->
+			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image>
+			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
 			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
 			<CommandLine condition="is">C:\Windows\system32\SearchIndexer.exe /Embedding</CommandLine> <!--Microsoft:Windows: Search Indexer-->
 			<Image condition="contains">C:\Program Files (x86)\NVIDIA Corporation\Update Core\</Image>
@@ -144,7 +146,9 @@
 			<CommandLine condition="is">C:\WINDOWS\System32\svchost.exe -k wsappx -p -s ClipSVC</CommandLine> <!--Microsoft:Windows:Apps: Client License Service-->
 			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k wsappx -p -s AppXSvc</CommandLine> <!--Microsoft:Windows:Apps: AppX Deployment Service-->
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k wsappx -s ClipSVC</CommandLine> <!--Microsoft:Windows:Apps: Client License Service-->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k wsappx</CommandLine> <!--Microsoft:Windows:Apps [ https://www.howtogeek.com/320261/what-is-wsappx-and-why-is-it-running-on-my-pc/ ] -->
+			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k wsappx</CommandLine>
+			<CommandLine condition="is">C:\WINDOWS\System32\svchost.exe -k netsvcs -p -s NetSetupSvc</CommandLine>
+			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k LocalService -p -s tzautoupdate</CommandLine>
 			<ParentCommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs</ParentCommandLine> <!--Microsoft:Windows: Network services: Spawns Consent.exe-->
 			<ParentCommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted</ParentCommandLine> <!--Microsoft:Windows-->
 			<!--SECTION: Microsoft:dotNet-->
@@ -298,7 +302,8 @@
 			<Image condition="is">C:\Windows\System32\SearchProtocolHost.exe</Image>
 			<Image condition="begin with">C:\Program Files (x86)\</Image>
 			<Image condition="begin with">C:\Program Files\</Image>
-			<Image condition="image">SWELF.exe</Image>
+			<Image condition="contains">C:\Windows\System32\conhost.exe</Image>
+			<Image condition="contains">SWELF.exe</Image>
 		</ProcessTerminate>
 
 	<!--SYSMON EVENT ID 6 : DRIVER LOADED INTO KERNEL [DriverLoad]-->
@@ -323,7 +328,7 @@
 			<SourceImage condition="is">C:\Windows\system32\services.exe</SourceImage>
 			<SourceImage condition="is">C:\Windows\system32\winlogon.exe</SourceImage>
 			<SourceImage condition="is">C:\Windows\system32\audiodg.exe</SourceImage>
-			<StartModule condition="is">C:\Windows\system32\kernel32.dll</StartModule>
+			<StartModule condition="is">C:\Windows\system32\kernel32.dll</StartModule><!--This does to createremote thread for injection as well as other things-->
 			<TargetImage condition="end with">Google\Chrome\Application\chrome.exe</TargetImage>
 			<SourceImage condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</SourceImage>
 			<SourceImage condition="contains">C:\Program Files (x86)\Fortinet\FortiClient\</SourceImage>
@@ -343,7 +348,8 @@
 		<RawAccessRead onmatch="exclude">
 			<Image condition="is">C:\Program Files (x86)\</Image> 
 			<Image condition="is">C:\Program Files \</Image> 
-			<Image condition="is">C:\Windows\</Image> 
+			<Image condition="is">C:\Windows\</Image>
+			<Image condition="is">system</Image> 
 			<Image condition="is">C:\Windows\System32\svchost.exe</Image> 
 		</RawAccessRead>
 		
@@ -380,11 +386,11 @@
 
 <!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime-->
 		<FileCreate onmatch="exclude">
-			<Image condition="contains">C:\Program Files\Fortinet\FortiClient\</Image>
-			<Image condition="contains">C:\Program Files (x86)\Fortinet\FortiClient\</Image> 
+			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
+			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image> 
 			<Image condition="is">C:\Program Files (x86)\EMET 5.5\EMET_Service.exe</Image> <!--Microsoft:EMET: Writes to C:\Windows\AppPatch\-->
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image> 
-			<TargetFilename condition="is">C:\Windows\System32\Tasks\OfficeSoftwareProtectionPlatform\SvcRestartTask</TargetFilename>
+			<TargetFilename condition="begin with">C:\Windows\System32\Tasks\OfficeSoftwareProtectionPlatform\SvcRestartTask</TargetFilename>
 			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeC2RClient.exe</Image> 
 			<Image condition="is">C:\Windows\system32\smss.exe</Image> <!-- Microsoft:Windows: Session Manager SubSystem: Creates swapfile.sys,pagefile.sys,hiberfile.sys-->
 			<Image condition="is">C:\Windows\system32\CompatTelRunner.exe</Image> 
@@ -638,7 +644,6 @@
 			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeClickToRun.exe</Image> <!--Microsoft:Office: C2R client-->
 			<Image condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</Image> <!--Microsoft:Windows:Defender-->
 			<Image condition="is">C:\Windows\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy\SearchUI.exe</Image> <!--Microsoft:Cortana-->
-			<Image condition="is">C:\Tools\SysinternalsSuite\Sysmon64.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\EMET 5.5\EMET_Service.exe</Image> <!--Microsoft:EMET: Routinely refreshes EMET configuration keys from Group Policy-->
 			<!--Misc-->
 			<TargetObject condition="end with">Toolbar\WebBrowser</TargetObject> <!--Microsoft:IE: Extraneous activity-->
@@ -750,7 +755,7 @@
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
 		
 		<PipeEvent onmatch="exclude">
-			<Image condition="begin with">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Image> 
+			<Image condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Image> 
 			<Image condition="begin with">c:\program files (x86)\opendns updater\</Image> 
 			<Image condition="is">c:\windows\system32\smartscreen.exe</Image> 
 			<Image condition="is">c:\windows\system32\sppsvc.exe</Image> 
@@ -760,6 +765,7 @@
 			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
 			<Image condition="is">C:\Program Files\Mozilla Firefox\firefox.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\VMware\VMware Player\vmplayer.exe</Image>
 			<Image condition="contains">SWELF.exe</Image>
 		</PipeEvent>
 	<!--SYSMON EVENT ID 19 & 20 & 21 : WMI EVENT MONITORING [WmiEvent]-->
@@ -786,6 +792,7 @@
 			<QueryName condition="end with">.msftncsi.com</QueryName> <!--Microsoft proxy detection | Microsoft default exclusion-->
 			<QueryName condition="is">..localmachine</QueryName>
 			<!--Microsoft-->
+			<QueryName condition="end with">.microsoft.com</QueryName>
 			<QueryName condition="end with">-pushp.svc.ms</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
 			<QueryName condition="end with">.b-msedge.net</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
 			<QueryName condition="end with">.bing.com</QueryName> <!-- Microsoft | Microsoft default exclusion -->
@@ -973,6 +980,7 @@
 			<QueryName condition="is">status.rapidssl.com</QueryName>
 			<QueryName condition="is">status.thawte.com</QueryName>
 			<Image condition="is">C:\Program Files (x86)\OpenDNS Updater\OpenDNSUpdater.exe</Image>
+			<Image condition="is">c:\windows\sysmon.exe</Image>
 			<QueryName condition="is">ocsp.int-x3.letsencrypt.org</QueryName>
 		</DnsQuery>
     </EventFiltering>
