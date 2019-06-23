@@ -389,7 +389,7 @@
 			<Image condition="contains">jscript</Image> 
 			<Image condition="contains">msxm</Image>
 			<Image condition="contains">ole32</Image>
-			<Image condition="contains"> mimi</Image>
+			<Image condition="contains">mimi</Image>
 			<Image condition="contains">lxssmanager</Image> 
 			<Image condition="contains">WebClient</Image> 
 			<Image condition="contains">WebClient</Image> 
