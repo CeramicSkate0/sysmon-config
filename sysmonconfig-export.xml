@@ -421,7 +421,6 @@
 			<Image condition="contains">SQL Server</Image>
 			<Image condition="is">C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe</Image>
 			<Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image> <!-- Windows Store apps unsigned -->
-			<Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image>
 			<Image condition="contains">Exchange Server</Image>
 			<ImageLoaded condition="contains">Exchange Server</ImageLoaded>
 			<ImageLoaded condition="contains">SQL Server</ImageLoaded>
