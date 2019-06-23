@@ -412,6 +412,7 @@
 		
 		<ImageLoad onmatch="exclude">
 		    <Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image>
+			<Image condition="begin with">C:\Program Files\Fortinet\</Image>
 			<Image condition="is">C:\Windows\System32\mmc.exe</Image>
 			<Image condition="is">C:\Windows\sysmon64.exe</Image>
 			<Image condition="is">C:\Windows\sysmon.exe</Image>
