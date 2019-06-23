@@ -5,7 +5,7 @@
   Source project:	https://github.com/SwiftOnSecurity/sysmon-config
   Source license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
   Fork version:	<N/A>
-  Fork author:	Ceramicskate0
+  Fork author:	Ceramiskate0
   Fork project:	<N/A>
   Fork license:	<N/A>
   REQUIRED: Sysmon version 9.10 or higher (due to changes in syntax and bug-fixes)
@@ -381,8 +381,86 @@
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
 		<!--NOTE: There is possibly a huge gap here for LOLbin's. However to reduce the loggging we are only excluding valid signed dlls-->
+		<ImageLoad onmatch="include">
+		    <ImageLoaded condition="contains">\Temp\</ImageLoaded>
+			<ImageLoaded condition="begin with">C:\Users</ImageLoaded>
+			<Image condition="contains">system.management.automation</Image> 
+			<Image condition="contains">Crypto</Image> 
+			<Image condition="contains">jscript</Image> 
+			<Image condition="contains">msxm</Image>
+			<Image condition="contains">ole32</Image>
+			<Image condition="contains"> mimi</Image>
+			<Image condition="contains">lxssmanager</Image> 
+			<Image condition="contains">WebClient</Image> 
+			<Image condition="contains">WebClient</Image> 
+			<Image condition="contains">WebClient</Image> 
+			<Image name="MitreRef=T1128,Technique=Netsh Helper Beacon DLL,Tactic=Persistence" condition="contains">netsh.exe</Image>
+			<ImageLoaded name="Alert=Ramnit Banker Malware!" condition="contains">rmnsoft.dll</ImageLoaded>
+			<ImageLoaded condition="contains">C:\Windows\assembly\NativeImages</ImageLoaded>
+			<ImageLoaded name="Mitre: https://attack.mitre.org/wiki/Technique/T1098" condition="contains">samlib.dll</ImageLoaded>
+			<ImageLoaded name="Mitre: https://attack.mitre.org/wiki/Technique/T1098" condition="contains">WinSCard.dll</ImageLoaded>
+			<ImageLoaded condition="contains">C:\windows\system32\fxsst.dll</ImageLoaded>
+			<ImageLoaded condition="contains">C:\Windows\System32\wbem\oci.dll</ImageLoaded>
+			<ImageLoaded condition="contains">\Temp\</ImageLoaded>
+			<ImageLoaded name="MitreRef=T1128,Technique=Netsh Helper Beacon DLL,Tactic=Persistence,Alert=Cobalt Strike Netsh Helper Beacon" condition="contains">NetshHelperBeacon</ImageLoaded>
+			<SignatureStatus condition="is">Unavailable</SignatureStatus>
+			<SignatureStatus condition="is">Invalid</SignatureStatus>			
+			<Signature condition="is not">Microsoft Windows</Signature>
+			<Signed condition="is">Invalid hash</Signed>
+			<Signed condition="is">false</Signed>
+		</ImageLoad>
+		
 		<ImageLoad onmatch="exclude">
-			<SignatureStatus condition="is">Valid</SignatureStatus> 
+		    <Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image>
+			<Image condition="is">C:\Windows\System32\mmc.exe</Image>
+			<Image condition="is">C:\Windows\sysmon64.exe</Image>
+			<Image condition="is">C:\Windows\sysmon.exe</Image>
+			<Image condition="is">C:\Windows\System32\svchost.exe</Image>
+			<Image condition="is">C:\Windows\System32\inetsrv\w3wp.exe</Image>
+			<Image condition="contains">SQL Server</Image>
+			<Image condition="is">C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe</Image>
+			<Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image> <!-- Windows Store apps unsigned -->
+			<Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image>
+			<Image condition="contains">Exchange Server</Image>
+			<ImageLoaded condition="contains">Exchange Server</ImageLoaded>
+			<ImageLoaded condition="contains">SQL Server</ImageLoaded>
+			<ImageLoaded condition="contains">C:\Windows\assembly\NativeImages</ImageLoaded> <!-- Event Viewer -->
+			<ImageLoaded condition="contains">C:\Program Files\WindowsApps</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\wow64.dll</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\clusapi.dll</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\cryptdll.dll</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\wow64win.dll</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\wow64.dll</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\pcwum.dll</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\kernel32.dll</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\user32.dll</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\cryptdll.dll</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\dns.exe</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\zvprtmon5.dll</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\termsrv.dll</ImageLoaded>
+			<ImageLoaded condition="begin with">C:\Windows\System32\spool\</ImageLoaded>
+			<ImageLoaded condition="contains">C:\Program Files\WindowsApps</ImageLoaded>
+			<ImageLoaded condition="contains">C:\Windows\assembly\NativeImages</ImageLoaded>
+			<ImageLoaded condition="contains">C:\Program Files\WindowsApps</ImageLoaded>
+			<ImageLoaded condition="is">C:\Program Files\Microsoft SQL Server\100\Shared\dbghelp.dll</ImageLoaded>
+			<Signature condition="contains">microsoft</Signature> <!--Exclude signed Microsoft libraries-->
+			<Signature condition="is">Microsoft Windows</Signature>
+			<Signature condition="is">Microsoft Corporation</Signature>
+			<Signature condition="is">NVIDIA Corporation</Signature>
+			<Signature condition="begin with">Intel</Signature>
+			<Signature condition="contains">Lenovo</Signature> <!--Exclude signed Lenovo libraries-->
+			<Signature condition="contains">Synaptic</Signature> <!--Exclude signed Synaptic libraries-->
+			<Signature condition="contains">Nvidia</Signature> <!--Exclude signed Nvidia libraries-->
+			<Signature condition="contains">Broadcom</Signature> <!--Exclude signed Broadcom libraries-->
+			<Signature condition="contains">AMD</Signature> <!--Exclude signed AMD libraries-->
+			<Signature condition="contains">VMware</Signature> <!--Exclude signed VMware libraries-->
+			<Signature condition="contains">Realtek</Signature> <!--Exclude signed Realtek libraries-->
+			<Signature condition="contains">Micro-Star</Signature> <!--Exclude signed MSI libraries-->
+			<Signature condition="contains">Logitech</Signature> <!--Exclude signed Logitech libraries-->
+			<Signature condition="contains">Asmedia</Signature> <!--Exclude signed Asmedia libraries-->
+			<Signature condition="contains">SteelSeries</Signature> <!--Exclude signed MSI libraries-->
+			<Signature condition="contains">Fortinet</Signature> <!--Exclude signed MSI libraries-->
+			<SignatureStatus condition="is">Valid</SignatureStatus>
 		</ImageLoad>
 		
 		<!--SYSMON EVENT ID 8 : REMOTE THREAD CREATED [CreateRemoteThread]-->
