@@ -385,7 +385,7 @@
 		    <ImageLoaded condition="contains">\Temp\</ImageLoaded>
 			<ImageLoaded condition="begin with">C:\Users</ImageLoaded>
 			<Image condition="contains">system.management.automation</Image> 
-			<Image condition="contains">Crypto</Image> 
+			<Image condition="contains">Crypt</Image> 
 			<Image condition="contains">jscript</Image> 
 			<Image condition="contains">msxm</Image>
 			<Image condition="contains">ole32</Image>
@@ -432,12 +432,12 @@
 			<ImageLoaded condition="contains">C:\Program Files\WindowsApps</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\wow64.dll</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\clusapi.dll</ImageLoaded>
-			<ImageLoaded condition="is">C:\Windows\System32\cryptdll.dll</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\cryptdll.dll</ImageLoaded><!-- Often loaded in both malware and goodware -->
 			<ImageLoaded condition="is">C:\Windows\System32\wow64win.dll</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\wow64.dll</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\pcwum.dll</ImageLoaded>
-			<ImageLoaded condition="is">C:\Windows\System32\kernel32.dll</ImageLoaded>
-			<ImageLoaded condition="is">C:\Windows\System32\user32.dll</ImageLoaded>
+			<ImageLoaded condition="is">C:\Windows\System32\kernel32.dll</ImageLoaded><!-- Often loaded in both malware and goodware -->
+			<ImageLoaded condition="is">C:\Windows\System32\user32.dll</ImageLoaded><!-- Often loaded in both malware and goodware -->
 			<ImageLoaded condition="is">C:\Windows\System32\cryptdll.dll</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\dns.exe</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\zvprtmon5.dll</ImageLoaded>
