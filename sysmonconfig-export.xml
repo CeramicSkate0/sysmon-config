@@ -386,6 +386,7 @@
 			<ImageLoaded condition="begin with">C:\Users</ImageLoaded>
 			<Image condition="contains">system.management.automation</Image> 
 			<Image condition="contains">Crypt</Image> 
+			<Image condition="contains">powershell</Image> 
 			<Image condition="contains">jscript</Image> 
 			<Image condition="contains">msxm</Image>
 			<Image condition="contains">ole32</Image>
