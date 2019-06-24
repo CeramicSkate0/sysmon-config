@@ -547,6 +547,7 @@
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image>
 			<Image condition="end with">SearchUI.exe</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
+			<Image condition="end with">\AppData\Local\Microsoft\Teams\current\Teams.exe</Image>
 			<Image condition="begin with">C:\Program Files\Mozilla Firefox\</Image>
 			<Image condition="is">C:\Windows\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy\SearchUI.exe</Image>
 			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image> 
