@@ -392,8 +392,12 @@
 			<Image condition="contains">mimi</Image>
 			<Image condition="contains">lxssmanager</Image> 
 			<Image condition="contains">WebClient</Image> 
-			<Image condition="contains">WebClient</Image> 
-			<Image condition="contains">WebClient</Image> 
+			<Image condition="contains">Reflection</Image> 
+			<Image condition="contains">runtime</Image> 
+			<Image condition="contains">InteropServices</Image>
+			<Image condition="contains">Win32</Image>
+			<Image condition="contains">Cryptography</Image>
+			<Image condition="contains">System.Security.Cryptography.X509Certificates</Image>
 			<Image name="MitreRef=T1128,Technique=Netsh Helper Beacon DLL,Tactic=Persistence" condition="contains">netsh.exe</Image>
 			<ImageLoaded name="Alert=Ramnit Banker Malware!" condition="contains">rmnsoft.dll</ImageLoaded>
 			<ImageLoaded condition="contains">C:\Windows\assembly\NativeImages</ImageLoaded>
