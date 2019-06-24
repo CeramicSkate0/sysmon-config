@@ -541,7 +541,9 @@
 
 <!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime-->
 		<FileCreate onmatch="exclude">
+			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
+			<Image condition="begin with">C:\Program Files\Mozilla Firefox\</Image>
 			<Image condition="is">C:\Windows\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy\SearchUI.exe</Image>
 			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image> 
 			<Image condition="is">C:\Program Files (x86)\EMET 5.5\EMET_Service.exe</Image> <!--Microsoft:EMET: Writes to C:\Windows\AppPatch\-->
@@ -770,7 +772,7 @@
 			<TargetObject name="T1089,Tamper-SecCenter" condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\FirewallOverride</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
 			<TargetObject name="T1089,Tamper-SecCenter" condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\UacDisableNotify</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
 			<TargetObject name="T1089,Tamper-SecCenter" condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\UpdatesDisableNotify</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
-<TargetObject name="T1089,Tamper-SecCenter" condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\HideSCAHealth</TargetObject> <!--Windows:Security Center: Malware sometimes disables [ https://blog.avast.com/2013/08/12/your-documents-are-corrupted-from-image-to-an-information-stealing-trojan/ ] -->
+			<TargetObject name="T1089,Tamper-SecCenter" condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\HideSCAHealth</TargetObject> <!--Windows:Security Center: Malware sometimes disables [ https://blog.avast.com/2013/08/12/your-documents-are-corrupted-from-image-to-an-information-stealing-trojan/ ] -->
 			<!--Windows application compatibility-->
 			<TargetObject name="T1138,AppCompatShim" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom</TargetObject> <!--Windows: AppCompat [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
 			<TargetObject name="T1138,AppCompatShim" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB</TargetObject> <!--Windows: AppCompat [ https://attack.mitre.org/wiki/Technique/T1138 ] -->
@@ -914,6 +916,7 @@
 		<PipeEvent onmatch="exclude">
 			<Image condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Image> 
 			<Image condition="begin with">c:\program files (x86)\opendns updater\</Image> 
+			<Image condition="begin with">C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\</Image> 
 			<Image condition="is">c:\windows\system32\smartscreen.exe</Image> 
 			<Image condition="is">c:\windows\system32\sppsvc.exe</Image> 
 			<Image condition="begin with">c:\programdata\microsoft\windows defender\</Image> 
