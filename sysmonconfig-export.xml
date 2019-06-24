@@ -552,12 +552,16 @@
 			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image> 
 			<Image condition="is">C:\Program Files (x86)\EMET 5.5\EMET_Service.exe</Image> <!--Microsoft:EMET: Writes to C:\Windows\AppPatch\-->
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image> 
-			<TargetFilename condition="begin with">C:\Windows\System32\Tasks\OfficeSoftwareProtectionPlatform\SvcRestartTask</TargetFilename>
 			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeC2RClient.exe</Image> 
 			<Image condition="is">C:\Windows\system32\smss.exe</Image> <!-- Microsoft:Windows: Session Manager SubSystem: Creates swapfile.sys,pagefile.sys,hiberfile.sys-->
 			<Image condition="is">C:\Windows\system32\CompatTelRunner.exe</Image> 
 			<Image condition="is">\\?\C:\Windows\system32\wbem\WMIADAP.EXE</Image> <!-- Microsoft:Windows: WMI Performance updates-->
 			<Image condition="is">C:\Windows\system32\mobsync.exe</Image> <!--Microsoft:Windows: Network file syncing-->
+			<Image condition="begin with">C:\Windows\winsxs\amd64_microsoft-windows</Image> <!-- Microsoft:Windows: Windows update-->
+			<Image condition="is">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</Image>
+			<Image condition="is">C:\Windows\system32\igfxCUIService.exe</Image> <!--Intel: Drops bat and other files in \Windows in normal operation-->
+			<Image condition="begin with">C:\Program Files (x86)\Microsoft Visual Studio\</Image> 
+			<TargetFilename condition="begin with">C:\Windows\System32\Tasks\OfficeSoftwareProtectionPlatform\SvcRestartTask</TargetFilename>
 			<TargetFilename condition="begin with">C:\Windows\system32\DriverStore\Temp\</TargetFilename> <!-- Microsoft:Windows: Temp files by DrvInst.exe-->
 			<TargetFilename condition="begin with">C:\Program Files\WindowsApps\</TargetFilename>
 			<TargetFilename condition="begin with">C:\Windows\system32\wbem\Performance\</TargetFilename> <!-- Microsoft:Windows: Created in wbem by WMIADAP.exe-->
@@ -568,15 +572,13 @@
 			<TargetFilename condition="begin with">C:\Windows\SoftwareDistribution\Download\</TargetFilename>
 			<TargetFilename condition="begin with">C:\Windows\Installer\</TargetFilename> <!--Microsoft:Windows:Installer: Ignore MSI installer files caching-->
 			<TargetFilename condition="begin with">C:\$WINDOWS.~BT\Sources\</TargetFilename> <!-- Microsoft:Windows: Feature updates containing lots of .exe and .sys-->
-			<Image condition="begin with">C:\Windows\winsxs\amd64_microsoft-windows</Image> <!-- Microsoft:Windows: Windows update-->
-			<Image condition="is">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</Image>
-			<Image condition="is">C:\Windows\system32\igfxCUIService.exe</Image> <!--Intel: Drops bat and other files in \Windows in normal operation-->
-			<Image condition="begin with">C:\Program Files (x86)\Microsoft Visual Studio\</Image> 
 			<TargetFilename condition="is">C:\Windows\System32\Tasks\Adobe Acrobat Update Task</TargetFilename>
 			<TargetFilename condition="is">C:\Windows\System32\Tasks\Adobe Flash Player Updater</TargetFilename>
 			<TargetFilename condition="begin with">C:\Windows\System32\LogFiles\</TargetFilename>
 			<TargetFilename condition="is">C:\Tools\SysinternalsSuite\Sysmon64.exe</TargetFilename> 
 			<TargetFilename condition="begin with">C:\Program Files\Fortinet\FortiClient\</TargetFilename> 
+			<TargetFilename condition="contains">\AppData\Roaming\Mozilla\Firefox\Profiles\</TargetFilename>
+			<TargetFilename condition="contains">\AppData\Roaming\Microsoft\Teams\</TargetFilename>
 		</FileCreate>
 
 	<!--SYSMON EVENT ID 12 & 13 & 14 : REGISTRY MODIFICATION [RegistryEvent]-->
