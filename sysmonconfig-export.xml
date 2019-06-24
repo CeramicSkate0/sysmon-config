@@ -436,6 +436,9 @@
 			<ImageLoaded condition="is">C:\Windows\System32\wow64win.dll</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\wow64.dll</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\pcwum.dll</ImageLoaded>
+			<ImageLoaded condition="contains">ntdll.dll</ImageLoaded><!-- Often loaded in both malware and goodware -->
+			<ImageLoaded condition="contains">advapi32.dll</ImageLoaded><!-- Often loaded in both malware and goodware -->
+			<ImageLoaded condition="contains">Secur32.dll</ImageLoaded><!-- Often loaded in both malware and goodware -->
 			<ImageLoaded condition="is">C:\Windows\System32\kernel32.dll</ImageLoaded><!-- Often loaded in both malware and goodware -->
 			<ImageLoaded condition="is">C:\Windows\System32\user32.dll</ImageLoaded><!-- Often loaded in both malware and goodware -->
 			<ImageLoaded condition="is">C:\Windows\System32\cryptdll.dll</ImageLoaded>
