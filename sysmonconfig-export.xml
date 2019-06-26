@@ -297,6 +297,7 @@
 			<Image condition="begin with">C:\Program Data</Image>
 			<Image condition="begin with">C:\$Recycle.Bin</Image>
 			<TargetFilename condition="begin with">C:\$Recycle.Bin</TargetFilename>
+			<TargetFilename condition="contains">\AppData\Local\Microsoft\Teams\current\ </TargetFilename>
 			<Image condition="begin with">C:\Program Files</Image>
 			<Image condition="begin with">C:\Users</Image> <!--Look for timestomping in user area-->
 		</FileCreateTime>
