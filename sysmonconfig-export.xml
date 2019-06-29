@@ -77,6 +77,7 @@
 		<!--DATA: UtcTime, ProcessGuid, ProcessID, Image, FileVersion, Description, Product, Company, CommandLine, CurrentDirectory, User, LogonGuid, LogonId, TerminalSessionId, IntegrityLevel, Hashes, ParentProcessGuid, ParentProcessId, ParentImage, ParentCommandLine-->
 		<ProcessCreate onmatch="exclude">
 			<!--SECTION: Microsoft Windows-->
+			<Image condition="is">C:\Program Files (x86)\Microsoft Office\root\VFS\ProgramFilesCommonX86\Microsoft Shared\OFFICE16\SDXHelper.exe</Image>
 			<Image condition="end with">AppData\Roaming\Resilio Sync\Resilio Sync.exe</Image> <!--Resilio Sync-->
 			<Image condition="is">C:\Windows\ImmersiveControlPanel\SystemSettings.exe</Image>
 			<Image condition="is">C:\Windows\System32\audiodg.exe</Image>
@@ -291,13 +292,13 @@
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, PreviousCreationUtcTime-->
 		<FileCreateTime onmatch="include">
-			<Image condition="begin with">C:\Windows\Temp</Image>
-			<Image condition="begin with">C:\Program Data</Image>
-			<Image condition="begin with">C:\$Recycle.Bin</Image>
-			<TargetFilename condition="begin with">C:\$Recycle.Bin</TargetFilename>
-			<TargetFilename condition="contains">\AppData\Local\Microsoft\Teams\current\ </TargetFilename>
-			<Image condition="begin with">C:\Program Files</Image>
-			<Image condition="begin with">C:\Users</Image> <!--Look for timestomping in user area-->
+			<Image name="FileCreateTime changed from file from Windows Temp" condition="begin with">C:\Windows\Temp</Image>
+			<Image name="FileCreateTime changed from file from ProgramData" condition="begin with">C:\Program Data</Image>
+			<Image name="FileCreateTime changed from file from RecycleBin" condition="begin with">C:\$Recycle.Bin</Image>
+			<Image name="FileCreateTime changed a file from ProgramData" condition="begin with">C:\Program Files</Image>
+			<Image name="FileCreateTime changed a file from a Users Folder"condition="begin with">C:\Users</Image> <!--Look for timestomping in user area-->
+			<TargetFilename name="FileCreateTime changed a file located in RecycleBin" condition="begin with">C:\$Recycle.Bin</TargetFilename>
+			<TargetFilename name="FileCreateTime changed a file located in Appdata" condition="contains">\AppData\Local\Microsoft\Teams\current\ </TargetFilename>
 		</FileCreateTime>
 
 		<FileCreateTime onmatch="exclude">
@@ -383,37 +384,37 @@
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
 		<!--NOTE: There is possibly a huge gap here for LOLbin's. However to reduce the loggging we are only excluding valid signed dlls-->
 		<ImageLoad onmatch="include">
-		    <ImageLoaded condition="contains">\Temp\</ImageLoaded>
-			<ImageLoaded condition="begin with">C:\Users</ImageLoaded>
-			<Image condition="contains">system.management.automation</Image> 
-			<Image condition="contains">Crypt</Image> 
-			<Image condition="contains">powershell</Image> 
-			<Image condition="contains">jscript</Image> 
-			<Image condition="contains">msxm</Image>
-			<Image condition="contains">ole32</Image>
-			<Image condition="contains">mimi</Image>
-			<Image condition="contains">lxssmanager</Image> 
-			<Image condition="contains">WebClient</Image> 
-			<Image condition="contains">Reflection</Image> 
-			<Image condition="contains">runtime</Image> 
-			<Image condition="contains">InteropServices</Image>
-			<Image condition="contains">Win32</Image>
-			<Image condition="contains">Cryptography</Image>
-			<Image condition="contains">System.Security.Cryptography.X509Certificates</Image>
+		    <ImageLoaded name="" condition="contains">\Temp\</ImageLoaded>
+			<ImageLoaded name="" condition="begin with">C:\Users</ImageLoaded>
+			<Image name="" condition="contains">system.management.automation</Image> 
+			<Image name="" condition="contains">Crypt</Image> 
+			<Image name="" condition="contains">powershell</Image> 
+			<Image name="" condition="contains">jscript</Image> 
+			<Image name="" condition="contains">msxm</Image>
+			<Image name="" condition="contains">ole32</Image>
+			<Image name="" condition="contains">mimi</Image>
+			<Image name="" condition="contains">lxssmanager</Image> 
+			<Image name="DLL used to Download and upload" condition="contains">WebClient</Image> 
+			<Image name="DLL used to " condition="contains">Reflection</Image> 
+			<Image name="" condition="contains">runtime</Image> 
+			<Image name="" condition="contains">InteropServices</Image>
+			<Image name="" condition="contains">Win32</Image>
+			<Image name="" condition="contains">Cryptography</Image>
+			<Image name="" condition="contains">System.Security.Cryptography.X509Certificates</Image>
 			<Image name="MitreRef=T1128,Technique=Netsh Helper Beacon DLL,Tactic=Persistence" condition="contains">netsh.exe</Image>
 			<ImageLoaded name="Alert=Ramnit Banker Malware!" condition="contains">rmnsoft.dll</ImageLoaded>
-			<ImageLoaded condition="contains">C:\Windows\assembly\NativeImages</ImageLoaded>
+			<ImageLoaded name="" condition="contains">C:\Windows\assembly\NativeImages</ImageLoaded>
 			<ImageLoaded name="Mitre: https://attack.mitre.org/wiki/Technique/T1098" condition="contains">samlib.dll</ImageLoaded>
 			<ImageLoaded name="Mitre: https://attack.mitre.org/wiki/Technique/T1098" condition="contains">WinSCard.dll</ImageLoaded>
-			<ImageLoaded condition="contains">C:\windows\system32\fxsst.dll</ImageLoaded>
-			<ImageLoaded condition="contains">C:\Windows\System32\wbem\oci.dll</ImageLoaded>
-			<ImageLoaded condition="contains">\Temp\</ImageLoaded>
+			<ImageLoaded name="" condition="contains">C:\windows\system32\fxsst.dll</ImageLoaded>
+			<ImageLoaded name="" condition="contains">C:\Windows\System32\wbem\oci.dll</ImageLoaded>
+			<ImageLoaded name="" condition="contains">\Temp\</ImageLoaded>
 			<ImageLoaded name="MitreRef=T1128,Technique=Netsh Helper Beacon DLL,Tactic=Persistence,Alert=Cobalt Strike Netsh Helper Beacon" condition="contains">NetshHelperBeacon</ImageLoaded>
-			<SignatureStatus condition="is">Unavailable</SignatureStatus>
-			<SignatureStatus condition="is">Invalid</SignatureStatus>			
-			<Signature condition="is not">Microsoft Windows</Signature>
-			<Signed condition="is">Invalid hash</Signed>
-			<Signed condition="is">false</Signed>
+			<SignatureStatus name="" condition="is">Unavailable</SignatureStatus>
+			<SignatureStatus name="" condition="is">Invalid</SignatureStatus>			
+			<Signature name="Non Micrsoft DLL" condition="is not">Microsoft Windows</Signature>
+			<Signed name="" condition="is">Invalid hash</Signed>
+			<Signed name="" condition="is">false</Signed>
 		</ImageLoad>
 		
 		<ImageLoad onmatch="exclude">
@@ -515,25 +516,48 @@
 		<!--COMMENT:	Can cause high system load, disabled by default.-->
 		<!--COMMENT:	Monitor for processes accessing other process' memory.-->
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceThreadId, SourceImage, TargetProcessGuid, TargetProcessId, TargetImage, GrantedAccess, CallTrace-->
-		<ProcessAccess onmatch="include">
-			<SourceImage condition="begin with">C:\$Recycle.Bin</SourceImage>
-			<TargetImage condition="is">C:\WINDOWS\system32\lsass.exe</TargetImage>
-			<TargetImage condition="is">chrome.exe</TargetImage>
-			<TargetImage condition="is">firefox.exe</TargetImage>
-			<GrantedAccess condition="is">0x800</GrantedAccess>
-			<GrantedAccess condition="is">0x010</GrantedAccess>
-			<GrantedAccess condition="is">0x1010</GrantedAccess>
-			<GrantedAccess condition="is">0x0400</GrantedAccess>
-			<GrantedAccess condition="is">0x1410</GrantedAccess>
-			<GrantedAccess condition="is">0x0010</GrantedAccess>
+		<ProcessAccess onmatch="include">	
+			<SourceImage name="Process acess from RecycleBin, suspicious action" condition="begin with">C:\$Recycle.Bin</SourceImage>
+			<TargetImage name="Possible LSASS Process access" condition="is">C:\WINDOWS\system32\lsass.exe</TargetImage>
+			<TargetImage name="Possible brower inject" condition="is">chrome.exe</TargetImage>
+			<TargetImage name="Possible brower inject" condition="is">firefox.exe</TargetImage>
+			<GrantedAccess name="Possible Mimikatz like process access,PROCESS_SUSPEND_RESUME" condition="is">0x800</GrantedAccess>
+			<GrantedAccess name="Possible Mimikatz like process access" condition="is">0x010</GrantedAccess>
+			<GrantedAccess name="Possible Mimikatz like process access" condition="is">0x1010</GrantedAccess>
+			<GrantedAccess name="Possible Mimikatz like process access" condition="is">0x0400</GrantedAccess>
+			<GrantedAccess name="Possible Mimikatz like process access" condition="is">0x1410</GrantedAccess>
+			<GrantedAccess name="Possible Mimikatz like process access" condition="is">0x0010</GrantedAccess>
+			<GrantedAccess name="technique_id=T1003,technique_name=Credential Dumping">0x0810</GrantedAccess> <!-- PROCESS_SUSPEND_RESUME + PROCESS_VM_READ - possible memory dump to extract sensitive information -->
+			<GrantedAccess name="technique_id=T1055,technique_name=Process Injection">0x0820</GrantedAccess> <!-- PROCESS_SUSPEND_RESUME + PROCESS_VM_WRITE - possible memory injection -->
 		</ProcessAccess>
 		
 		<ProcessAccess onmatch="exclude">
+			<SourceImage condition="is">C:\Program Files (x86)\VMware\VMWare Player\vmware-authd.exe</SourceImage>
+			<SourceImage condition="is">C:\Program Files\Microsoft Security Client\MsMpEng.exe</SourceImage>
+			<SourceImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</SourceImage>
+			<SourceImage condition="is">C:\Program Files\McAfee\Endpoint Security\Endpoint Security Platform\mfeesp.exe</SourceImage><!--McAfee:Endpoint Security Platform-->
+			<SourceImage condition="is">C:\Program Files\McAfee\Agent\x86\macompatsvc.exe</SourceImage><!--McAfee:Agent-->
+			<SourceImage condition="is">C:\Program Files\WinZip\FAHWindow64.exe</SourceImage>
+			<SourceImage condition="is">C:\Program Files (x86)\VMware\VMware Workstation\vmware-authd.exe</SourceImage>
+			<SourceImage condition="is">C:\WINDOWS\CCM\CcmExec.exe</SourceImage>
 			<SourceImage condition="end with">\procexp64.exe</SourceImage>
 			<SourceImage condition="begin with">C:\WINDOWS\</SourceImage> 
 			<SourceImage condition="begin with">C:\Program Files (x86)\</SourceImage> 
 			<SourceImage condition="begin with">C:\Program Files\</SourceImage> 
 			<SourceImage condition="begin with">C:\programdata\microsoft\windows defender\platform\</SourceImage>
+			<SourceImage condition="end with">GoogleUpdate.exe</SourceImage>
+			<SourceImage condition="end with">LTSVC.exe</SourceImage>
+			<SourceImage condition="end with">taskmgr.exe</SourceImage>
+			<SourceImage condition="end with">VBoxService.exe</SourceImage> <!-- Virtual Box -->
+			<SourceImage condition="end with">vmtoolsd.exe</SourceImage> <!-- VMWare -->
+			<SourceImage condition="end with">\Citrix\System32\wfshell.exe</SourceImage> <!--Citrix process in C:\Program Files (x86)\Citrix\System32\wfshell.exe -->
+			<SourceImage condition="is">C:\Windows\System32\lsm.exe</SourceImage> <!-- System process under C:\Windows\System32\lsm.exe -->
+			<SourceImage condition="end with">Microsoft.Identity.AadConnect.Health.AadSync.Host.exe</SourceImage> <!-- Microsoft Azure AD Connect Health Sync Agent -->
+			<SourceImage condition="begin with">C:\Program Files (x86)\Symantec\Symantec Endpoint Protection</SourceImage> <!-- Symantec -->
+			<GrantedAccess>0x1000</GrantedAccess> <!-- PROCESS_QUERY_LIMITED_INFORMATION Generic call, quite noisy and tells not much-->
+			<GrantedAccess>0x1400</GrantedAccess> <!-- PROCESS_QUERY_LIMITED_INFORMATION + PROCESS_QUERY_INFORMATION Generic call, quite noisy and tells nothing-->
+			<GrantedAccess>0x101400</GrantedAccess> <!-- PROCESS_QUERY_LIMITED_INFORMATION + PROCESS_QUERY_INFORMATION + SYNCHRONIZE Generic call, quite noisy and tells nothing-->
+			<GrantedAccess>0x101000</GrantedAccess>
 		</ProcessAccess>
 
 	<!--SYSMON EVENT ID 11 : FILE CREATED [FileCreate]-->
@@ -749,6 +773,39 @@
 			<TargetObject condition="contains">\ShellEx\</TargetObject>
 			<TargetObject condition="begin with">HKLM\Software\Classes\Directory\Shellex\</TargetObject>
 			<TargetObject condition="begin with">HKCR\CLSID</TargetObject>
+			<TargetObject condition="contains">\Microsoft\Office\Outlook\Addins</TargetObject> <!--Microsoft:Office: Outlook add-ins-->
+			<TargetObject condition="contains">\Software\Microsoft\VSTO\Security\Inclusion</TargetObject> <!-- Uncommon place to load add-ins, especially in HKCU-->
+			<TargetObject condition="contains">\Software\Microsoft\VSTO\SolutionMetadata</TargetObject><!--Uncommon place to declare add-in metadata, especially in HKCU-->
+			<TargetObject name="technique_id=T1060,technique_name=Registry Run Keys / Start Folder" condition="contains">\CurrentVersion\Run</TargetObject><!--Microsoft:Windows: Run keys, incld RunOnce, RunOnceEx, RunServices, RunServicesOnce [Also covers terminal server] -->
+			<TargetObject condition="contains">\Group Policy\Scripts</TargetObject> <!--Microsoft:Windows: Group policy scripts-->
+			<TargetObject name="technique_id=T1037,technique_name=Logon Scripts" condition="contains">\Windows\System\Scripts</TargetObject> <!--Microsoft:Windows: Logon, Loggoff, Shutdown-->
+			<TargetObject name="technique_id=T1060,technique_name=Registry Run Keys / Start Folder" condition="contains">\Policies\Explorer\Run</TargetObject><!--Microsoft:Windows -->
+			<TargetObject condition="end with">\ServiceDll</TargetObject> <!--Microsoft:Windows: Points to a service's DLL [ https://blog.cylance.com/windows-registry-persistence-part-1-introduction-attack-phases-and-windows-services ] -->
+			<TargetObject condition="end with">\ImagePath</TargetObject> <!--Microsoft:Windows: Points to a service's EXE [ https://github.com/crypsisgroup/Splunkmon/blob/master/sysmon.cfg ] -->
+			<TargetObject condition="end with">\Start</TargetObject> <!--Microsoft:Windows: Services start mode changes (Disabled, Automatically, Manual)-->
+			<TargetObject name="technique_id=T1004,technique_name=Winlogon Helper DLL" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify</TargetObject><!--Microsoft:Windows: Autorun location [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
+			<TargetObject name="technique_id=T1004,technique_name=Winlogon Helper DLL" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit</TargetObject> <!--Microsoft:Windows: Autorun location [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
+			<TargetObject name="technique_id=T1004,technique_name=Winlogon Helper DLL" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell</TargetObject>
+			<TargetObject condition="begin with">HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Drivers32</TargetObject> <!--Microsoft:Windows: Legacy driver loading | Credit @ion-storm -->
+			<TargetObject name="technique_id=T1060,technique_name=Registry Run Keys / Start Folder" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\BootExecute</TargetObject> <!--Microsoft:Windows: Autorun | Credit @ion-storm | [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
+			<TargetObject name="technique_id=T1042,technique_name=Change Default File Association" condition="contains">\Explorer\FileExts</TargetObject><!--Microsoft:Windows: Changes to file extension mapping-->
+			<TargetObject condition="contains">\shell\install\command</TargetObject> <!--Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command-->
+			<TargetObject condition="contains">\shell\open\command</TargetObject> <!--Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command-->
+			<TargetObject condition="contains">\shell\open\ddeexec</TargetObject> <!--Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command-->
+			<TargetObject name="technique_id=T1060,technique_name=Registry Run Keys / Start Folder" condition="contains">Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders\Startup</TargetObject>
+			<TargetObject condition="contains">\Classes\AllFilesystemObjects</TargetObject> <!--Microsoft:Windows:Explorer: [ http://www.silentrunners.org/launchpoints.html ] -->
+			<TargetObject condition="contains">\Classes\Directory</TargetObject> <!--Microsoft:Windows:Explorer: [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
+			<TargetObject condition="contains">\Classes\Drive</TargetObject> <!--Microsoft:Windows:Explorer: [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
+			<TargetObject condition="contains">\Classes\Folder</TargetObject> <!--Microsoft:Windows:Explorer: ContextMenuHandlers, DragDropHandlers, CopyHookHandlers, [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
+			<TargetObject condition="contains">\ContextMenuHandlers</TargetObject> <!--Microsoft:Windows: [ http://oalabs.openanalysis.net/2015/06/04/malware-persistence-hkey_current_user-shell-extension-handlers/ ] -->
+			<TargetObject condition="contains">\CurrentVersion\Shell</TargetObject> <!--Microsoft:Windows: Shell Folders, ShellExecuteHooks, ShellIconOverloadIdentifers, ShellServiceObjects, ShellServiceObjectDelayLoad [ http://oalabs.openanalysis.net/2015/06/04/malware-persistence-hkey_current_user-shell-extension-handlers/ ] -->
+			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\explorer\ShellExecuteHooks</TargetObject> <!--Microsoft:Windows: ShellExecuteHooks-->
+			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\explorer\ShellServiceObjectDelayLoad</TargetObject> <!--Microsoft:Windows: ShellExecuteHooks-->
+			<TargetObject name="technique_id=T1130,technique_name=Install Root Certificate" condition="begin with">HKLM\SOFTWARE\Microsoft\EnterpriseCertificates\Root\Certificates</TargetObject>
+			<TargetObject name="technique_id=T1130,technique_name=Install Root Certificate" condition="contains">\Microsoft\SystemCertificates\Root\Certificates</TargetObject>
+			<TargetObject name="technique_id=T1103,technique_name=Appinit DLLs" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls</TargetObject><!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/windows/desktop/dd744762(v=vs.85).aspx ] -->
+			<TargetObject name="technique_id=T1103,technique_name=Appinit DLLs" condition="begin with">HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls</TargetObject><!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/windows/desktop/dn280412(v=vs.85).aspx ] -->
+			<TargetObject name="technique_id=T1047,technique_name=Windows Management Instrumentation" condition="contains">SYSTEM\CurrentControlSet\Control\CrashControl</TargetObject>
 			<!--Networking-->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\NetworkProvider\Order\</TargetObject> <!--Windows: Order of network providers that are checked to connect to destination [ https://www.malwarearchaeology.com/cheat-sheets ] -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles</TargetObject> <!--Windows: | Credit @ion-storm -->
@@ -936,6 +993,25 @@
 			<Image condition="is">C:\Program Files\Mozilla Firefox\firefox.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\VMware\VMware Player\vmplayer.exe</Image>
 			<Image condition="contains">SWELF.exe</Image>
+			<Image condition="end with">Program Files\SplunkUniversalForwarder\bin\splunkd.exe</Image>
+			<Image condition="end with">Program Files\SplunkUniversalForwarder\bin\splunk.exe</Image>
+			<Image condition="end with">Program Files\SplunkUniversalForwarder\bin\splunk-MonitorNoHandle.exe</Image>
+			<Image condition="is">c:\windows\system32\inetsrv\w3wp.exe</Image> 
+			<Image condition="end with">Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\CMAgent\OfcCMAgent.exe</Image>
+			<Image condition="end with">Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\web\service\ofcservice.exe</Image>
+			<Image condition="end with">Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\Web\Service\DbServer.exe</Image>                    
+			<Image condition="end with">Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\web\service\verconn.exe</Image>  
+			<Image condition="end with">Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\WEB_OSCE\WEB\CGI\cgiOnClose.exe</Image>  
+			<Image condition="end with">Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\WEB_OSCE\WEB\CGI\cgiRqHotFix.exe</Image>
+			<Image condition="end with">Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\LWCS\LWCSService.exe</Image>
+			<Image condition="end with">Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\WSS\iCRCService.exe</Image>
+			<Image condition="end with">Program Files\Trend\SPROTECT\x64\tsc.exe</Image>
+			<Image condition="end with">Program Files\Trend\SPROTECT\x64\tsc64.exe</Image>
+			<Image condition="end with">Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\web\service\osceintegrationservice.exe</Image>
+			<Image condition="end with">Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\web\service\OfcLogReceiverSvc.exe</Image>
+			<Image condition="is">Program Files\Qlik\Sense\Engine\Engine.exe</Image>
+			<PipeName condition="contains">Anonymous Pipe</PipeName>
+			<PipeName condition="begin with">\Vivisimo Velocity</PipeName>
 		</PipeEvent>
 	<!--SYSMON EVENT ID 19 & 20 & 21 : WMI EVENT MONITORING [WmiEvent]-->
 		<!--EVENT 19: "WmiEventFilter activity detected"-->
