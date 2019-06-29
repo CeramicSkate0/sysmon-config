@@ -81,6 +81,7 @@
 			<Image condition="is">C:\Program Files (x86)\Microsoft Office\root\VFS\ProgramFilesCommonX86\Microsoft Shared\OFFICE16\SDXHelper.exe</Image>
 			<Image condition="end with">AppData\Roaming\Resilio Sync\Resilio Sync.exe</Image> <!--Resilio Sync-->
 			<Image condition="is">C:\Windows\ImmersiveControlPanel\SystemSettings.exe</Image>
+			<Image condition="is">C:\Windows\Sysmon.exe</Image>
 			<Image condition="is">C:\Windows\System32\audiodg.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image>
 			<Image condition="is">C:\Windows\System32\SearchProtocolHost.exe</Image>
@@ -990,6 +991,7 @@
 			<Image condition="begin with">C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\</Image> 
 			<Image condition="is">c:\windows\system32\smartscreen.exe</Image> 
 			<Image condition="is">c:\windows\system32\sppsvc.exe</Image> 
+			<Image condition="is">C:\WINDOWS\system32\vmms.exe</Image>
 			<Image condition="begin with">c:\programdata\microsoft\windows defender\</Image> 
 			<Image condition="is">c:\windows\system32\logonui.exe</Image>
 			<Image condition="is">c:\program files (x86)\google\update\googleupdate.exe</Image>
