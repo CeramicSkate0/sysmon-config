@@ -386,18 +386,18 @@
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
 		<!--NOTE: There is possibly a huge gap here for LOLbin's. However to reduce the loggging we are only excluding valid signed dlls-->
 		<ImageLoad onmatch="include">
-		    <ImageLoaded name="" condition="contains">\Temp\</ImageLoaded>
-			<ImageLoaded name="" condition="begin with">C:\Users</ImageLoaded>
-			<Image name="" condition="contains">system.management.automation</Image> 
+		    <ImageLoaded name="DLL loaded from non standard location (\Temp\)" condition="contains">\Temp\</ImageLoaded>
+			<ImageLoaded name="DLL loaded from non standard location (C:\Users\)" condition="begin with">C:\Users</ImageLoaded>
+			<Image name="Powershell DLL loaded, Possible Powershell use without Powershell.exe" condition="contains">system.management.automation</Image> 
 			<Image name="" condition="contains">Crypt</Image> 
 			<Image name="" condition="contains">powershell</Image> 
 			<Image name="" condition="contains">jscript</Image> 
 			<Image name="" condition="contains">msxm</Image>
 			<Image name="" condition="contains">ole32</Image>
-			<Image name="" condition="contains">mimi</Image>
+			<Image name="Possible Mimikatz DLL Load" condition="contains">mimi</Image>
 			<Image name="" condition="contains">lxssmanager</Image> 
 			<Image name="DLL used to Download and upload" condition="contains">WebClient</Image> 
-			<Image name="DLL used to " condition="contains">Reflection</Image> 
+			<Image name="DLL used to allow injection and other suspicious activities." condition="contains">Reflection</Image> 
 			<Image name="" condition="contains">runtime</Image> 
 			<Image name="" condition="contains">InteropServices</Image>
 			<Image name="" condition="contains">Win32</Image>
@@ -410,13 +410,12 @@
 			<ImageLoaded name="Mitre: https://attack.mitre.org/wiki/Technique/T1098" condition="contains">WinSCard.dll</ImageLoaded>
 			<ImageLoaded name="" condition="contains">C:\windows\system32\fxsst.dll</ImageLoaded>
 			<ImageLoaded name="" condition="contains">C:\Windows\System32\wbem\oci.dll</ImageLoaded>
-			<ImageLoaded name="" condition="contains">\Temp\</ImageLoaded>
 			<ImageLoaded name="MitreRef=T1128,Technique=Netsh Helper Beacon DLL,Tactic=Persistence,Alert=Cobalt Strike Netsh Helper Beacon" condition="contains">NetshHelperBeacon</ImageLoaded>
-			<SignatureStatus name="" condition="is">Unavailable</SignatureStatus>
-			<SignatureStatus name="" condition="is">Invalid</SignatureStatus>			
+			<SignatureStatus name="DLL loaded with Invalid signature. Suspicous." condition="is">Unavailable</SignatureStatus>
+			<SignatureStatus name="DLL loaded with Invalid signature. Suspicous." condition="is">Invalid</SignatureStatus>			
 			<Signature name="Non Micrsoft DLL" condition="is not">Microsoft Windows</Signature>
-			<Signed name="" condition="is">Invalid hash</Signed>
-			<Signed name="" condition="is">false</Signed>
+			<Signed name="DLL loaded with Invalid Hash Signature. Suspicous." condition="is">Invalid hash</Signed>
+			<Signed name="Unsigned DLL loaded" condition="is">false</Signed>
 		</ImageLoad>
 		
 		<ImageLoad onmatch="exclude">
