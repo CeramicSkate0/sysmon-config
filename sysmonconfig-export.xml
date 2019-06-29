@@ -296,7 +296,7 @@
 			<Image name="FileCreateTime changed from file from ProgramData" condition="begin with">C:\Program Data</Image>
 			<Image name="FileCreateTime changed from file from RecycleBin" condition="begin with">C:\$Recycle.Bin</Image>
 			<Image name="FileCreateTime changed a file from ProgramData" condition="begin with">C:\Program Files</Image>
-			<Image name="FileCreateTime changed a file from a Users Folder"condition="begin with">C:\Users</Image> <!--Look for timestomping in user area-->
+			<Image name="FileCreateTime changed a file from a Users Folder" condition="begin with">C:\Users</Image> <!--Look for timestomping in user area-->
 			<TargetFilename name="FileCreateTime changed a file located in RecycleBin" condition="begin with">C:\$Recycle.Bin</TargetFilename>
 			<TargetFilename name="FileCreateTime changed a file located in Appdata" condition="contains">\AppData\Local\Microsoft\Teams\current\ </TargetFilename>
 		</FileCreateTime>
