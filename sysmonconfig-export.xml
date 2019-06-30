@@ -140,6 +140,7 @@
 			<Image condition="begin with">C:\Windows\SoftwareDistribution\Download\Install\AM_</Image> <!--Microsoft:Defender: Signature updates-->
 			<!--SECTION: Microsoft:Windows:svchost-->
 			<!--COMMENT: These generally not exclude sub-processes, which may be important. Do not exclude RemoteRegistry or Schedule.-->
+			<CommandLine condition="begin with">C:\Program Files\Mozilla Firefox\firefox.exe" -contentproc --channel=</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k appmodel -s StateRepository</CommandLine>
 			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k wusvcs -p -s WaaSMedicSvc</CommandLine>
 			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k netsvcs -p -s DsmSvc</CommandLine>
