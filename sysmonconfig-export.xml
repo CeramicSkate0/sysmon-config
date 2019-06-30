@@ -98,6 +98,7 @@
 			<Image condition="is">C:\Program Files\Oracle\VirtualBox\VBoxNetDHCP.exe</Image>
 			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
 			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k wsappx -p -s AppXSvc</CommandLine>
+			<CommandLine condition="is">C:\WINDOWS\system32\rundll32.exe /d sdengin2.dll,ExecuteScheduledBackup</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\SearchIndexer.exe /Embedding</CommandLine> <!--Microsoft:Windows: Search Indexer-->
 			<Image condition="contains">C:\Program Files (x86)\NVIDIA Corporation\Update Core\</Image>
 			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image>
@@ -350,7 +351,8 @@
 			<Image condition="contains">SWELF.exe</Image>
 			<Image condition="contains">iexplorer.exe</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
-			<Image condition="contains">firefox.exe</Image>			
+			<Image condition="contains">firefox.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\ossec-agent\ossec-agent.exe</Image>			
 			<Image condition="contains">chrome.exe</Image>
 			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image>
 			<Image condition="contains">C:\Program Files\Fortinet\FortiClient\</Image>
