@@ -388,7 +388,7 @@
 		<!--COMMENT:	[ https://attack.mitre.org/wiki/Technique/T1073 ] [ https://attack.mitre.org/wiki/Technique/T1038 ] [ https://attack.mitre.org/wiki/Technique/T1034 ] -->
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
-		<!--NOTE: There is possibly a huge gap here for LOLbin's. However to reduce the loggging we are only excluding valid signed dlls-->
+		<!--NOTE: There is possibly a huge gap here for LOLbin's. Please add as you find them to the repo-->
 		<ImageLoad onmatch="include">
 		    <ImageLoaded name="DLL loaded from suspicious location (\Temp\)" condition="contains">\Temp\</ImageLoaded>
 			<ImageLoaded name="DLL loaded from suspicious location (C:\Users\)" condition="begin with">C:\Users</ImageLoaded>
@@ -431,33 +431,30 @@
 			<Image condition="is">C:\Windows\sysmon.exe</Image>
 			<Image condition="is">C:\Windows\System32\svchost.exe</Image>
 			<Image condition="is">C:\Windows\System32\inetsrv\w3wp.exe</Image>
-			<Image condition="contains">SQL Server</Image>
 			<Image condition="is">C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe</Image>
 			<Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image> <!-- Windows Store apps unsigned -->
+			<Image condition="contains">SQL Server</Image>
 			<Image condition="contains">Exchange Server</Image>
 			<ImageLoaded condition="contains">Exchange Server</ImageLoaded>
 			<ImageLoaded condition="contains">SQL Server</ImageLoaded>
-			<ImageLoaded condition="contains">C:\Windows\assembly\NativeImages</ImageLoaded> <!-- Event Viewer -->
-			<ImageLoaded condition="contains">C:\Program Files\WindowsApps</ImageLoaded>
+			<ImageLoaded condition="begin with">C:\Windows\assembly\NativeImages</ImageLoaded> <!-- Event Viewer -->
+			<ImageLoaded condition="begin with">C:\Program Files\WindowsApps</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\wow64.dll</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\clusapi.dll</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\cryptdll.dll</ImageLoaded><!-- Often loaded in both malware and goodware -->
 			<ImageLoaded condition="is">C:\Windows\System32\wow64win.dll</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\wow64.dll</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\pcwum.dll</ImageLoaded>
-			<ImageLoaded condition="contains">ntdll.dll</ImageLoaded><!-- Often loaded in both malware and goodware -->
-			<ImageLoaded condition="contains">advapi32.dll</ImageLoaded><!-- Often loaded in both malware and goodware -->
-			<ImageLoaded condition="contains">Secur32.dll</ImageLoaded><!-- Often loaded in both malware and goodware -->
+			<ImageLoaded condition="end with">ntdll.dll</ImageLoaded><!-- Often loaded in both malware and goodware -->
+			<ImageLoaded condition="end with">advapi32.dll</ImageLoaded><!-- Often loaded in both malware and goodware -->
+			<ImageLoaded condition="end with">Secur32.dll</ImageLoaded><!-- Often loaded in both malware and goodware -->
 			<ImageLoaded condition="is">C:\Windows\System32\kernel32.dll</ImageLoaded><!-- Often loaded in both malware and goodware -->
 			<ImageLoaded condition="is">C:\Windows\System32\user32.dll</ImageLoaded><!-- Often loaded in both malware and goodware -->
-			<ImageLoaded condition="is">C:\Windows\System32\cryptdll.dll</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\dns.exe</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\zvprtmon5.dll</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\termsrv.dll</ImageLoaded>
 			<ImageLoaded condition="begin with">C:\Windows\System32\spool\</ImageLoaded>
-			<ImageLoaded condition="contains">C:\Program Files\WindowsApps</ImageLoaded>
-			<ImageLoaded condition="contains">C:\Windows\assembly\NativeImages</ImageLoaded>
-			<ImageLoaded condition="contains">C:\Program Files\WindowsApps</ImageLoaded>
+			<ImageLoaded condition="begin with">C:\Program Files\WindowsApps</ImageLoaded>
 			<ImageLoaded condition="is">C:\Program Files\Microsoft SQL Server\100\Shared\dbghelp.dll</ImageLoaded>
 			<Signature condition="contains">microsoft</Signature> <!--Exclude signed Microsoft libraries-->
 			<Signature condition="is">Microsoft Windows</Signature>
