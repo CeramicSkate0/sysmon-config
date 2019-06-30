@@ -291,7 +291,6 @@
 			<ParentImage condition="is">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</ParentImage> <!--Dell:CommandUpdate: Detection process-->
 			<Image condition="is">C:\Program Files\Dell\SupportAssist\pcdrcui.exe</Image> <!--Dell:SupportAssist: routine actions-->
 			<Image condition="is">C:\Program Files\Dell\SupportAssist\koala.exe</Image> <!--Dell:SupportAssist: routine actions-->
-			<CurrentDirectory condition="is">C:\Program Files (x86)\ossec-agent\</CurrentDirectory>
 			<ParentCommandLine condition="end with">"-outc=C:\ProgramData\Dell\CommandUpdate\inventory.xml" "-logc=C:\ProgramData\Dell\CommandUpdate\scanerrs.xml" "-lang=en" "-enc=UTF-16" </ParentCommandLine>
 		</ProcessCreate>
 </RuleGroup>
@@ -304,7 +303,7 @@
 			<Image name="FileCreateTime(TimeStomped) changed from file in Windows Temp" condition="begin with">C:\Windows\Temp</Image>
 			<Image name="FileCreateTime(TimeStomped) changed from file in ProgramData" condition="begin with">C:\Program Data</Image>
 			<Image name="FileCreateTime(TimeStomped) changed from file in RecycleBin" condition="begin with">C:\$Recycle.Bin</Image>
-			<Image name="FileCreateTime(TimeStomped) changed from file in Program Files" condition="begin with">C:\Program Files</Image>
+			<Image name="FileCreateTime(TimeStomped) changed from file in ProgramData" condition="begin with">C:\Program Files</Image>
 			<Image name="FileCreateTime(TimeStomped) changed from file in Users Folder" condition="begin with">C:\Users</Image> <!--Look for timestomping in user area-->
 			<TargetFilename name="FileCreateTime(TimeStomped) changed a file located in RecycleBin" condition="begin with">C:\$Recycle.Bin</TargetFilename>
 			<TargetFilename name="FileCreateTime(TimeStomped) changed a file located in Appdata" condition="contains">\AppData\</TargetFilename>
@@ -412,13 +411,12 @@
 			<ImageLoaded name="DLL loaded from suspicious location (C:\Users\)" condition="begin with">C:\Users</ImageLoaded>
 			<Image name="Powershell DLL loaded, Possible Powershell use without Powershell.exe" condition="contains">system.management.automation</Image> 
 			<Image name="Attempts to ID by name the DLL that deals with Certificate and Cryptographic Messaging functions" condition="contains">Crypt</Image> 
-			<Image name="Powershell Lib loaded" condition="contains">powershell</Image> 
 			<Image name="Javascript Lib" condition="contains">jscript</Image> 
 			<Image name="Visual basic Lib" condition="contains">vbscript</Image> 
 			<Image name="Attempts to ID Microsoft DLL that contains a set of services that allowed applications written in JScript, VBScript, and Microsoft development tools to build Windows-native XML-based applications." condition="contains">msxm</Image>
 			<Image name="Attempts to ID Microsoft DLL that contains a library which contains core OLE functions" condition="contains">ole32</Image>
 			<Image name="Possible unaltered Mimikatz DLL Load" condition="contains">mimi</Image>
-			<Image name="" condition="contains">lxssmanager</Image> 
+			<Image name="DLL lxssmanager loaded. Microsoft recommends blocking it." condition="contains">lxssmanager</Image> 
 			<Image name="Attempts to ID Microsoft DLL used to Download and upload" condition="contains">WebClient</Image> 
 			<Image name="Attempts to ID Microsoft DLL used to allow injection and other suspicious activities." condition="contains">Reflection</Image> 
 			<Image name="Attempts to ID Microsoft DLL loaded that is often used in Malware to add functionality to do things like injection" condition="contains">runtime</Image> 
@@ -431,12 +429,13 @@
 			<ImageLoaded name="" condition="contains">C:\Windows\assembly\NativeImages</ImageLoaded>
 			<ImageLoaded name="Mitre: https://attack.mitre.org/wiki/Technique/T1098" condition="contains">samlib.dll</ImageLoaded>
 			<ImageLoaded name="Mitre: https://attack.mitre.org/wiki/Technique/T1098" condition="contains">WinSCard.dll</ImageLoaded>
-			<ImageLoaded name="" condition="contains">C:\windows\system32\fxsst.dll</ImageLoaded>
+			<ImageLoaded name="" condition="is">C:\windows\system32\fxsst.dll</ImageLoaded>
+			<ImageLoaded name="Powershell Lib loaded" condition="contains">powershell</ImageLoaded> 
 			<ImageLoaded name="" condition="contains">C:\Windows\System32\wbem\oci.dll</ImageLoaded>
 			<ImageLoaded name="MitreRef=T1128,Technique=Netsh Helper Beacon DLL,Tactic=Persistence,Alert=Cobalt Strike Netsh Helper Beacon" condition="contains">NetshHelperBeacon</ImageLoaded>
 			<SignatureStatus name="DLL loaded with Invalid signature. Suspicous." condition="is">Unavailable</SignatureStatus>
 			<SignatureStatus name="DLL loaded with Invalid signature. Suspicous." condition="is">Invalid</SignatureStatus>			
-			<Signature name="Non Micrsoft DLL" condition="is not">Microsoft Windows</Signature>
+			<Signature name="Non Micrsoft DLL found" condition="is not">Microsoft Windows</Signature>
 			<Signed name="DLL loaded with Invalid Hash Signature. Suspicous." condition="is">Invalid hash</Signed>
 			<Signed name="Unsigned DLL loaded" condition="is">false</Signed>
 		</ImageLoad>
