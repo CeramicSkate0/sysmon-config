@@ -337,8 +337,7 @@
 		<!-- https://www.first.org/resources/papers/conf2017/APT-Log-Analysis-Tracking-Attack-Tools-by-Audit-Policy-and-Sysmon.pdf -->
 		<!--<NetworkConnect onmatch="include">
 
-		</NetworkConnect>-->
-		
+		</NetworkConnect>-->	
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, User, Protocol, Initiated, SourceIsIpv6, SourceIp, SourceHostname, SourcePort, SourcePortName, DestinationIsIpV6, DestinationIp, DestinationHostname, DestinationPort, DestinationPortName-->
 		<RuleGroup name="NetworkConnect exclude" groupRelation="or">
 		<NetworkConnect onmatch="exclude">
@@ -346,11 +345,12 @@
 			<Image condition="end with">g2ax_comm_expert.exe</Image> <!--GoToMeeting-->
 			<Image condition="contains">g2mcomm.exe</Image> <!--GoToMeeting-->
 			<Image condition="contains">SWELF.exe</Image>
-			<Image condition="contains">iexplorer.exe</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
-			<Image condition="contains">firefox.exe</Image>
+			<Image condition="end with">firefox.exe</Image>
+			<Image condition="end with">chrome.exe</Image>
+			<Image condition="end with">iexplore.exe</Image>
+			<Image condition="end with">MicrosoftEdge.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\ossec-agent\ossec-agent.exe</Image>			
-			<Image condition="contains">chrome.exe</Image>
 			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image>
 			<Image condition="contains">C:\Program Files\Fortinet\FortiClient\</Image>
 			<Image condition="begin with">C:\Program Files (x86)\OpenDNS Updater\</Image>
