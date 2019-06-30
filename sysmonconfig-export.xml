@@ -75,6 +75,7 @@
 			code signatures to validate, but Sysmon does not support that. Look into Windows Device Guard for whitelisting support. -->
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessID, Image, FileVersion, Description, Product, Company, CommandLine, CurrentDirectory, User, LogonGuid, LogonId, TerminalSessionId, IntegrityLevel, Hashes, ParentProcessGuid, ParentProcessId, ParentImage, ParentCommandLine-->
+		<RuleGroup name="ProcessCreate Exclude" groupRelation="or">
 		<ProcessCreate onmatch="exclude">
 			<!--SECTION: Microsoft Windows-->
 			<CommandLine condition="begin with">C:\Windows\system32\DllHost.exe /Processid</CommandLine>
@@ -290,12 +291,14 @@
 			<Image condition="is">C:\Program Files\Dell\SupportAssist\koala.exe</Image> <!--Dell:SupportAssist: routine actions-->
 			<ParentCommandLine condition="end with">"-outc=C:\ProgramData\Dell\CommandUpdate\inventory.xml" "-logc=C:\ProgramData\Dell\CommandUpdate\scanerrs.xml" "-lang=en" "-enc=UTF-16" </ParentCommandLine>
 		</ProcessCreate>
-
+</RuleGroup>
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM [FileCreateTime]-->
 		<!--COMMENT:	[ https://attack.mitre.org/wiki/Technique/T1099 ] -->
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, PreviousCreationUtcTime-->
+		<RuleGroup name="FileCreateTime Include" groupRelation="or">
 		<FileCreateTime onmatch="include">
+		
 			<Image name="FileCreateTime(TimeStomped) changed from file in Windows Temp" condition="begin with">C:\Windows\Temp</Image>
 			<Image name="FileCreateTime(TimeStomped) changed from file in ProgramData" condition="begin with">C:\Program Data</Image>
 			<Image name="FileCreateTime(TimeStomped) changed from file in RecycleBin" condition="begin with">C:\$Recycle.Bin</Image>
@@ -306,7 +309,9 @@
 			<TargetFilename name="FileCreateTime(TimeStomped) changed a file located in Users folder" condition="begin with">C:\Users\</TargetFilename>
 			<TargetFilename name="FileCreateTime(TimeStomped) changed a file located in Windows folder" condition="begin with">C:\Windows\</TargetFilename>
 		</FileCreateTime>
-
+		</RuleGroup>
+		
+		<RuleGroup name="FileCreateTime Exclude" groupRelation="or">
 		<FileCreateTime onmatch="exclude">
 			<Image condition="image">C:\Program Files (x86)\Notepad++\notepad++.exe</Image>
 			<Image condition="image">OneDrive.exe</Image> <!--OneDrive constantly changes file times-->
@@ -318,8 +323,11 @@
 			<Image condition="is">TrustedInstaller.exe</Image> <!--Ignore setups-->
 			<Image condition="contains">notepad++.exe</Image> <!--Ignore setups-->
 			<Image condition="contains">SWELF.exe</Image> <!--Ignore setups-->
+			<Image condition="begin with">C:\Windows\winsxs\amd64_microsoft-windows</Image> <!-- Windows: Windows update-->
+			<Image condition="is">C:\Windows\system32\igfxCUIService.exe</Image>
+			<TargetFilename condition="begin with">C:\$WINDOWS.~BT\Sources\</TargetFilename> <!-- Windows: Feature updates containing lots of .exe and .sys-->
 		</FileCreateTime>
-
+		</RuleGroup>
 	<!--SYSMON EVENT ID 3 : NETWORK CONNECTION INITIATED [NetworkConnect]-->
 		<!--COMMENT:	By default this configuration takes a very conservative approach to network logging, limited to only extremely high-signal events.-->
 		<!--COMMENT:	[ https://attack.mitre.org/wiki/Command_and_Control ] [ https://attack.mitre.org/wiki/Exfiltration ] [ https://attack.mitre.org/wiki/Lateral_Movement ] -->
@@ -333,6 +341,7 @@
 		</NetworkConnect>-->
 		
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, User, Protocol, Initiated, SourceIsIpv6, SourceIp, SourceHostname, SourcePort, SourcePortName, DestinationIsIpV6, DestinationIp, DestinationHostname, DestinationPort, DestinationPortName-->
+		<RuleGroup name="NetworkConnect exclude" groupRelation="or">
 		<NetworkConnect onmatch="exclude">
 	    <!--<Image condition="contains">C:\Windows\System32\svchost.exe</Image>-->
 			<Image condition="end with">g2ax_comm_expert.exe</Image> <!--GoToMeeting-->
@@ -345,12 +354,13 @@
 			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image>
 			<Image condition="contains">C:\Program Files\Fortinet\FortiClient\</Image>
 			<Image condition="begin with">C:\Program Files (x86)\OpenDNS Updater\</Image>
+			<Image condition="end with">AppData\Local\Microsoft\Teams\current\Teams.exe</Image> <!--Microsoft: Teams-->
 			<DestinationHostname condition="end with">microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.akadns.net</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.nsatc.net</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationPort condition="is">137</DestinationPort>
 		</NetworkConnect>
-
+		</RuleGroup>
 	<!--SYSMON EVENT ID 4 : RESERVED FOR SYSMON STATUS MESSAGES-->
 
 		<!--DATA: UtcTime, State, Version, SchemaVersion-->
@@ -360,6 +370,7 @@
 		<!--COMMENT:	Useful data in building infection timelines.-->
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image-->
+		<RuleGroup name="ProcessTerminate exclude" groupRelation="or">
 		<ProcessTerminate onmatch="exclude">
 			<Image condition="is">C:\Windows\System32\SearchProtocolHost.exe</Image>
 			<Image condition="begin with">C:\Program Files (x86)\</Image>
@@ -368,7 +379,7 @@
 			<Image condition="is">C:\Windows\System32\dllhost.exe</Image>
 			<Image condition="contains">SWELF.exe</Image>
 		</ProcessTerminate>
-
+		</RuleGroup>
 	<!--SYSMON EVENT ID 6 : DRIVER LOADED INTO KERNEL [DriverLoad]-->
 		<!--COMMENT:	Because drivers with bugs can be used to escalate to kernel permissions, be extremely selective
 			about what you exclude from monitoring. Low event volume, little incentive to exclude.
@@ -376,19 +387,21 @@
 		<!--TECHNICAL:	Sysmon will check the signing certificate revocation status of any driver you don't exclude.-->
 
 		<!--DATA: UtcTime, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
+		<RuleGroup name="DriverLoad exclude" groupRelation="or">
 		<DriverLoad onmatch="exclude">
 			<Signature condition="contains">microsoft</Signature> <!--Exclude signed Microsoft drivers-->
 			<Signature condition="contains">windows</Signature> <!--Exclude signed Microsoft drivers-->
 			<Signature condition="begin with">Intel </Signature> <!--Exclude signed Intel drivers-->
 			<Signature condition="begin with">Fortinet Technologies (Canada) Inc.</Signature> <!--Exclude signed Intel drivers-->
 		</DriverLoad>
-		
+		</RuleGroup>
 	<!--SYSMON EVENT ID 7 : DLL (IMAGE) LOADED BY PROCESS [ImageLoad]-->
 		<!--COMMENT:	Can cause high system load, disabled by default.-->
 		<!--COMMENT:	[ https://attack.mitre.org/wiki/Technique/T1073 ] [ https://attack.mitre.org/wiki/Technique/T1038 ] [ https://attack.mitre.org/wiki/Technique/T1034 ] -->
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
 		<!--NOTE: There is possibly a huge gap here for LOLbin's. Please add as you find them to the repo-->
+		<RuleGroup name="ImageLoad include" groupRelation="or">
 		<ImageLoad onmatch="include">
 		    <ImageLoaded name="DLL loaded from suspicious location (\Temp\)" condition="contains">\Temp\</ImageLoaded>
 			<ImageLoaded name="DLL loaded from suspicious location (C:\Users\)" condition="begin with">C:\Users</ImageLoaded>
@@ -422,7 +435,9 @@
 			<Signed name="DLL loaded with Invalid Hash Signature. Suspicous." condition="is">Invalid hash</Signed>
 			<Signed name="Unsigned DLL loaded" condition="is">false</Signed>
 		</ImageLoad>
+		</RuleGroup>
 		
+		<RuleGroup name="ImageLoad exclude" groupRelation="or">
 		<ImageLoad onmatch="exclude">
 		    <Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\</Image>
@@ -474,12 +489,13 @@
 			<Signature condition="contains">Fortinet</Signature> <!--Exclude signed MSI libraries-->
 			<SignatureStatus condition="is">Valid</SignatureStatus>
 		</ImageLoad>
-		
+		</RuleGroup>
 		<!--SYSMON EVENT ID 8 : REMOTE THREAD CREATED [CreateRemoteThread]-->
 		<!--COMMENT:	Monitor for processes injecting code into other processes. Often used by malware to cloak their actions. Also when Firefox loads Flash.
 		[ https://attack.mitre.org/wiki/Technique/T1055 ] -->
 
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceImage, TargetProcessId, TargetImage, NewThreadId, StartAddress, StartModule, StartFunction-->
+		<RuleGroup name="CreateRemoteThread exclude" groupRelation="or">
 		<CreateRemoteThread onmatch="exclude">
 			<!--COMMENT: Exclude mostly-safe sources and log anything else.-->
 			<SourceImage condition="is">C:\Windows\system32\svchost.exe</SourceImage>
@@ -495,7 +511,7 @@
 			<SourceImage condition="contains">C:\Program Files (x86)\</SourceImage>
 			<SourceImage condition="contains">C:\Program Files\</SourceImage>
 		</CreateRemoteThread>
-
+		</RuleGroup>
 	<!--SYSMON EVENT ID 9 : RAW DISK ACCESS [RawAccessRead]-->
 		<!--EVENT 9: "RawAccessRead detected"-->
 		<!--COMMENT:	Can cause high system load, disabled by default.-->
@@ -505,6 +521,7 @@
 		<!--COMMENT:	You will likely want to set this to a full capture on domain controllers, where no process should be doing raw reads.-->
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, Device-->
+		<RuleGroup name="RawAccessRead exclude" groupRelation="or">
 		<RawAccessRead onmatch="exclude">
 			<Image condition="is">C:\Program Files (x86)\</Image> 
 			<Image condition="is">C:\Program Files \</Image> 
@@ -512,12 +529,13 @@
 			<Image condition="is">system</Image> 
 			<Image condition="is">C:\Windows\System32\svchost.exe</Image> 
 		</RawAccessRead>
-		
+		</RuleGroup>
 	<!--SYSMON EVENT ID 10 : INTER-PROCESS ACCESS [ProcessAccess]-->
 		<!--EVENT 10: "Process accessed"-->
 		<!--COMMENT:	Can cause high system load, disabled by default.-->
 		<!--COMMENT:	Monitor for processes accessing other process' memory.-->
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceThreadId, SourceImage, TargetProcessGuid, TargetProcessId, TargetImage, GrantedAccess, CallTrace-->
+		<RuleGroup name="ProcessAccess include" groupRelation="or">
 		<ProcessAccess onmatch="include">	
 			<SourceImage name="Process acess from RecycleBin, SUSPICIOUS action" condition="begin with">C:\$Recycle.Bin</SourceImage>
 			<TargetImage name="Possible LSASS Process access, SUSPICIOUS action" condition="is">C:\WINDOWS\system32\lsass.exe</TargetImage>
@@ -532,7 +550,9 @@
 			<GrantedAccess name="technique_id=T1003,technique_name=Credential Dumping">0x0810</GrantedAccess> <!-- PROCESS_SUSPEND_RESUME + PROCESS_VM_READ - possible memory dump to extract sensitive information -->
 			<GrantedAccess name="technique_id=T1055,technique_name=Process Injection">0x0820</GrantedAccess> <!-- PROCESS_SUSPEND_RESUME + PROCESS_VM_WRITE - possible memory injection -->
 		</ProcessAccess>
+		</RuleGroup>
 		
+		<RuleGroup name="ProcessAccess exclude" groupRelation="or">
 		<ProcessAccess onmatch="exclude">
 			<SourceImage condition="is">C:\Program Files (x86)\VMware\VMWare Player\vmware-authd.exe</SourceImage>
 			<SourceImage condition="is">C:\Program Files\Microsoft Security Client\MsMpEng.exe</SourceImage>
@@ -561,13 +581,14 @@
 			<GrantedAccess>0x101400</GrantedAccess> <!-- PROCESS_QUERY_LIMITED_INFORMATION + PROCESS_QUERY_INFORMATION + SYNCHRONIZE Generic call, quite noisy and tells nothing-->
 			<GrantedAccess>0x101000</GrantedAccess>
 		</ProcessAccess>
-
+		</RuleGroup>
 	<!--SYSMON EVENT ID 11 : FILE CREATED [FileCreate]-->
 			<!--EVENT 11: "File created"-->
 		<!--NOTE:	Other filesystem "minifilters" can make it appear to Sysmon that some files are being written twice. This is not a Sysmon issue, per Mark Russinovich.-->
 		<!--NOTE:	You may not see files detected by antivirus. Other filesystem minifilters, like antivirus, can act before Sysmon receives the alert a file was written.-->
 
 	<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime-->
+	<RuleGroup name="FileCreate exclude" groupRelation="or">
 		<FileCreate onmatch="exclude">
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
@@ -609,7 +630,7 @@
 			<TargetFilename condition="contains">\AppData\Roaming\Mozilla\Firefox\Profiles\</TargetFilename>
 			<TargetFilename condition="contains">\AppData\Roaming\Microsoft\Teams\</TargetFilename>
 		</FileCreate>
-
+		</RuleGroup>
 	<!--SYSMON EVENT ID 12 & 13 & 14 : REGISTRY MODIFICATION [RegistryEvent]-->
 		<!--EVENT 12: "Registry object added or deleted"-->
 		<!--EVENT 13: "Registry value set-->
@@ -629,6 +650,7 @@
 		<!-- ! CRITICAL NOTE !:	It may appear this section is MISSING important entries, but SOME RULES MONITOR MANY KEYS, so look VERY CAREFULLY to see if something is already covered.-->
 
 		<!--DATA: EventType, UtcTime, ProcessGuid, ProcessId, Image, TargetObject, Details (can't filter on), NewName (can't filter on)-->
+		<RuleGroup name="RegistryEvent include" groupRelation="or">
 		<RegistryEvent onmatch="include">
 			<Image name="Something from RecycleBin touched the registry, SUSPICIOUS" condition="begin with">C:\$Recycle.Bin</Image>
 			<Image name="Suspicious,ImageBeginWithBackslash" condition="begin with">\</Image> <!--Devices and VSC shouldn't be executing changes | Credit: @SBousseaden @ionstorm @neu5ron @PerchedSystems [ https://twitter.com/SwiftOnSecurity/status/1133167323991486464 ] -->			
@@ -865,7 +887,9 @@
 			<TargetObject name="InvDB" condition="contains">Compatibility Assistant\Store\</TargetObject>
 <!--Suspicious sources-->
 		</RegistryEvent>
-
+		</RuleGroup>
+		
+		<RuleGroup name="RegistryEvent exclude" groupRelation="or">
 		<RegistryEvent onmatch="exclude">
 		<!--COMMENT:	Remove low-information noise. Often these hide a procress recreating an empty key and do not hide the values created subsequently.-->
 			<!--SECTION: Microsoft binaries-->
@@ -956,7 +980,7 @@
 			<TargetObject condition="begin with">HKCR\VLC.</TargetObject> <!--VLC update noise-->
 			<TargetObject condition="begin with">HKCR\iTunes.</TargetObject> <!--Apple: iTunes update noise-->
 		</RegistryEvent>
-
+		</RuleGroup>
 	<!--SYSMON EVENT ID 15 : ALTERNATE DATA STREAM CREATED [FileCreateStreamHash]-->
 		<!--EVENT 15: "File stream created"-->
 		<!--COMMENT:	Any files created with an NTFS Alternate Data Stream which match these rules will be hashed and logged.
@@ -965,26 +989,11 @@
 			[ https://textslashplain.com/2016/04/04/downloads-and-the-mark-of-the-web/ ] -->
 		<!--NOTE: Other filesystem minifilters can make it appear to Sysmon that some files are being written twice. This is not a Sysmon issue, per Mark Russinovich.-->
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, Hash-->
-		<FileCreateStreamHash onmatch="exclude">
-			<Image condition="image">SWELF.exe</Image>
-		</FileCreateStreamHash>
 
-	<!--SYSMON EVENT ID 16 : SYSMON CONFIGURATION CHANGE-->
-		<!--EVENT 16: "Sysmon config state changed"-->
-		<!--COMMENT:	This ONLY logs if the hash of the configuration changes. Running "sysmon.exe -c" with the current configuration will not be logged with Event 16-->
-		
-		<!--DATA: UtcTime, Configuration, ConfigurationFileHash-->
-		<!--Cannot be filtered.-->
-
-	<!--SYSMON EVENT ID 17 & 18 : PIPE CREATED / PIPE CONNECTED [PipeEvent]-->
-		<!--EVENT 17: "Pipe Created"-->
-		<!--EVENT 18: "Pipe Connected"-->
-
-		<!--ADDITIONAL REFERENCE: [ https://www.cobaltstrike.com/help-smb-beacon ] -->
 		<!--ADDITIONAL REFERENCE: [ https://blog.cobaltstrike.com/2015/10/07/named-pipe-pivoting/ ] -->
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
-		
+		<RuleGroup name="PipeEvent exclude" groupRelation="or">
 		<PipeEvent onmatch="exclude">
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
 			<Image condition="is">C:\Program Files\Fortinet\FortiClient\FCVbltScan.exe</Image>
@@ -1023,7 +1032,7 @@
 			<PipeName condition="contains">Anonymous Pipe</PipeName>
 			<PipeName condition="begin with">\Vivisimo Velocity</PipeName>
 		</PipeEvent>
-	
+		</RuleGroup>
 	<!--SYSMON EVENT ID 19 & 20 & 21 : WMI EVENT MONITORING [WmiEvent]-->
 		<!--EVENT 19: "WmiEventFilter activity detected"-->
 		<!--EVENT 20: "WmiEventConsumer activity detected"-->
@@ -1036,7 +1045,7 @@
 		<WmiEvent onmatch="exclude">
 		</WmiEvent>
 
-
+		<RuleGroup name="DnsQuery exclude" groupRelation="or">
 		<DnsQuery onmatch="exclude">
 		
 		<!--SYSMON EVENT ID 255 : ERROR-->
@@ -1249,6 +1258,7 @@
 			<QueryName condition="end with">.googleusercontent.com</QueryName>
 			<QueryName condition="end with">.googleapis.com</QueryName>
 		</DnsQuery>
+		</RuleGroup>
     </EventFiltering>
 
 	</Sysmon>
