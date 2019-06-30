@@ -304,7 +304,7 @@
 			<Image name="FileCreateTime(TimeStomped) changed from file in Windows Temp" condition="begin with">C:\Windows\Temp</Image>
 			<Image name="FileCreateTime(TimeStomped) changed from file in ProgramData" condition="begin with">C:\Program Data</Image>
 			<Image name="FileCreateTime(TimeStomped) changed from file in RecycleBin" condition="begin with">C:\$Recycle.Bin</Image>
-			<Image name="FileCreateTime(TimeStomped) changed from file in ProgramData" condition="begin with">C:\Program Files</Image>
+			<Image name="FileCreateTime(TimeStomped) changed from file in Program Files" condition="begin with">C:\Program Files</Image>
 			<Image name="FileCreateTime(TimeStomped) changed from file in Users Folder" condition="begin with">C:\Users</Image> <!--Look for timestomping in user area-->
 			<TargetFilename name="FileCreateTime(TimeStomped) changed a file located in RecycleBin" condition="begin with">C:\$Recycle.Bin</TargetFilename>
 			<TargetFilename name="FileCreateTime(TimeStomped) changed a file located in Appdata" condition="contains">\AppData\</TargetFilename>
