@@ -397,12 +397,12 @@
 			<Image name="Powershell Lib loaded" condition="contains">powershell</Image> 
 			<Image name="Javascript Lib" condition="contains">jscript</Image> 
 			<Image name="Visual basic Lib" condition="contains">vbscript</Image> 
-			<Image name="DLL that contains a set of services that allowed applications written in JScript, VBScript, and Microsoft development tools to build Windows-native XML-based applications." condition="contains">msxm</Image>
-			<Image name="DLL that contains a library which contains core OLE functions" condition="contains">ole32</Image>
+			<Image name="Attempts to ID Microsoft DLL that contains a set of services that allowed applications written in JScript, VBScript, and Microsoft development tools to build Windows-native XML-based applications." condition="contains">msxm</Image>
+			<Image name="Attempts to ID Microsoft DLL that contains a library which contains core OLE functions" condition="contains">ole32</Image>
 			<Image name="Possible unaltered Mimikatz DLL Load" condition="contains">mimi</Image>
 			<Image name="" condition="contains">lxssmanager</Image> 
-			<Image name="DLL used to Download and upload" condition="contains">WebClient</Image> 
-			<Image name="DLL used to allow injection and other suspicious activities." condition="contains">Reflection</Image> 
+			<Image name="Attempts to ID Microsoft DLL used to Download and upload" condition="contains">WebClient</Image> 
+			<Image name="Attempts to ID Microsoft DLL used to allow injection and other suspicious activities." condition="contains">Reflection</Image> 
 			<Image name="Attempts to ID Microsoft DLL loaded that is often used in Malware to add functionality to do things like injection" condition="contains">runtime</Image> 
 			<Image name="Attempts to ID Microsoft DLL loaded that is often used in Malware to add functionality to do things like injection" condition="contains">InteropServices</Image>
 			<Image name="Attempts to ID Microsoft DLL loaded that is often used in Malware to add functionality to do things like native windows execution and injection" condition="contains">Win32</Image>
@@ -437,7 +437,6 @@
 			<Image condition="contains">Exchange Server</Image>
 			<ImageLoaded condition="contains">Exchange Server</ImageLoaded>
 			<ImageLoaded condition="contains">SQL Server</ImageLoaded>
-			<ImageLoaded condition="begin with">C:\Windows\assembly\NativeImages</ImageLoaded> <!-- Event Viewer -->
 			<ImageLoaded condition="begin with">C:\Program Files\WindowsApps</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\wow64.dll</ImageLoaded>
 			<ImageLoaded condition="is">C:\Windows\System32\clusapi.dll</ImageLoaded>
