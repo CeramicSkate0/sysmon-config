@@ -704,7 +704,7 @@
 			<TargetObject name="Monitor for firewall disablement, all firewall profiles" condition="end with">\EnableFirewall</TargetObject> <!--Microsoft:Windows: Monitor for firewall disablement, all firewall profiles [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
 			<TargetObject name="Microsoft:Windows: Monitor for firewall disablement, all firewall profiles" condition="end with">\DoNotAllowExceptions</TargetObject> <!--Microsoft:Windows: Monitor for firewall disablement, all firewall profiles [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
 			<TargetObject name="Windows Firewall authorized applications for all networks" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\AuthorizedApplications\List</TargetObject> <!--Windows Firewall authorized applications for all networks| Credit @ion-storm -->
-			<TargetObject name+"Windows Firewall authorized applications for domain networks" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\AuthorizedApplications\List</TargetObject> <!--Windows Firewall authorized applications for domain networks -->
+			<TargetObject name="Windows Firewall authorized applications for domain networks" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\AuthorizedApplications\List</TargetObject> <!--Windows Firewall authorized applications for domain networks -->
 			<!--DLLs that get injected into every process at launch-->
 			<TargetObject name="DLLs that get injected into every process at launch" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Microsoft:Windows: Feature disabled by default [ https://attack.mitre.org/wiki/Technique/T1103 ] -->
 			<TargetObject name="DLLs that get injected into every process at launch" condition="begin with">HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Microsoft:Windows:  Feature disabled by default [ https://attack.mitre.org/wiki/Technique/T1103 ] -->
@@ -832,7 +832,7 @@
 			<TargetObject name="Alert,Sysinternals Tool Used. Watch for SDelete and ProcDump" condition="end with">\EulaAccepted</TargetObject> <!--Sysinternals tool launched first time. Lots of useful abilities for attackers -->
 			<!--Install/Infection artifacts-->
 			<TargetObject name="Source URL is stored in this value" condition="end with">\UrlUpdateInfo</TargetObject> <!--Microsoft:ClickOnce: Source URL is stored in this value [ https://subt0x10.blogspot.com/2016/12/mimikatz-delivery-via-clickonce-with.html ] -->
-			<TargetObject cname="Source folder for certain program and component installations" ondition="end with">\InstallSource</TargetObject> <!--Windows: Source folder for certain program and component installations-->
+			<TargetObject name="Source folder for certain program and component installations" condition="end with">\InstallSource</TargetObject> <!--Windows: Source folder for certain program and component installations-->
 			<!--Antivirus tampering-->
 			<TargetObject name="T1089,Tamper-Defender Antivirus tampering" condition="end with">\DisableAntiSpyware</TargetObject> <!--Windows:Defender: State modified via registry-->
 			<TargetObject name="T1089,Tamper-Defender Antivirus tampering" condition="end with">\DisableAntiVirus</TargetObject> <!--Windows:Defender: State modified via registry-->
