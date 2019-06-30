@@ -31,6 +31,8 @@ sysmon.exe -accepteula -i sysmonconfig-export.xml
 Run with administrator rights
 ~~~~
 sysmon.exe -c sysmonconfig-export.xml
+or
+sysmon.exe -i sysmonconfig-export.xml
 ~~~~
 
 ### Uninstall ###
