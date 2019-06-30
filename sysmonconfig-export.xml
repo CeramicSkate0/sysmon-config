@@ -617,6 +617,7 @@
 			<TargetFilename condition="end with">.cdownload</TargetFilename> 
 			<TargetFilename condition="end with">.tmp</TargetFilename> 
 			<TargetFilename condition="end with">.etl</TargetFilename>
+			<TargetFilename condition="end with">.pf</TargetFilename>
 			<TargetFilename condition="end with">.log</TargetFilename>
 			<TargetFilename condition="end with">.rslc</TargetFilename> 
 			<TargetFilename condition="begin with">C:\Windows\SoftwareDistribution\Download\</TargetFilename>
