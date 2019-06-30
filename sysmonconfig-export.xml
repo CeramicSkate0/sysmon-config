@@ -82,6 +82,8 @@
 			<Image condition="end with">AppData\Roaming\Resilio Sync\Resilio Sync.exe</Image> <!--Resilio Sync-->
 			<Image condition="is">C:\Windows\ImmersiveControlPanel\SystemSettings.exe</Image>
 			<Image condition="is">C:\Windows\Sysmon.exe</Image>
+			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
+			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
 			<Image condition="is">C:\Windows\System32\audiodg.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image>
 			<Image condition="is">C:\Windows\System32\SearchProtocolHost.exe</Image>
@@ -93,7 +95,6 @@
 			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
 			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
 			<Image condition="is">C:\Program Files\Oracle\VirtualBox\VBoxNetDHCP.exe</Image>
-			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
 			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
 			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k wsappx -p -s AppXSvc</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\SearchIndexer.exe /Embedding</CommandLine> <!--Microsoft:Windows: Search Indexer-->
@@ -295,13 +296,15 @@
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, PreviousCreationUtcTime-->
 		<FileCreateTime onmatch="include">
-			<Image name="FileCreateTime changed from file from Windows Temp" condition="begin with">C:\Windows\Temp</Image>
-			<Image name="FileCreateTime changed from file from ProgramData" condition="begin with">C:\Program Data</Image>
-			<Image name="FileCreateTime changed from file from RecycleBin" condition="begin with">C:\$Recycle.Bin</Image>
-			<Image name="FileCreateTime changed a file from ProgramData" condition="begin with">C:\Program Files</Image>
-			<Image name="FileCreateTime changed a file from a Users Folder" condition="begin with">C:\Users</Image> <!--Look for timestomping in user area-->
-			<TargetFilename name="FileCreateTime changed a file located in RecycleBin" condition="begin with">C:\$Recycle.Bin</TargetFilename>
-			<TargetFilename name="FileCreateTime changed a file located in Appdata" condition="contains">\AppData\Local\Microsoft\Teams\current\ </TargetFilename>
+			<Image name="FileCreateTime(TimeStomped) changed from file in Windows Temp" condition="begin with">C:\Windows\Temp</Image>
+			<Image name="FileCreateTime(TimeStomped) changed from file in ProgramData" condition="begin with">C:\Program Data</Image>
+			<Image name="FileCreateTime(TimeStomped) changed from file in RecycleBin" condition="begin with">C:\$Recycle.Bin</Image>
+			<Image name="FileCreateTime(TimeStomped) changed from file in ProgramData" condition="begin with">C:\Program Files</Image>
+			<Image name="FileCreateTime(TimeStomped) changed from file in Users Folder" condition="begin with">C:\Users</Image> <!--Look for timestomping in user area-->
+			<TargetFilename name="FileCreateTime(TimeStomped) changed a file located in RecycleBin" condition="begin with">C:\$Recycle.Bin</TargetFilename>
+			<TargetFilename name="FileCreateTime(TimeStomped) changed a file located in Appdata" condition="contains">\AppData\</TargetFilename>
+			<TargetFilename name="FileCreateTime(TimeStomped) changed a file located in Users folder" condition="begin with">C:\Users\</TargetFilename>
+			<TargetFilename name="FileCreateTime(TimeStomped) changed a file located in Windows folder" condition="begin with">C:\Windows\</TargetFilename>
 		</FileCreateTime>
 
 		<FileCreateTime onmatch="exclude">
@@ -337,8 +340,7 @@
 			<Image condition="contains">SWELF.exe</Image>
 			<Image condition="contains">iexplorer.exe</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
-			<Image condition="contains">firefox.exe</Image>
-			<DestinationPort condition="is">137</DestinationPort>
+			<Image condition="contains">firefox.exe</Image>			
 			<Image condition="contains">chrome.exe</Image>
 			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image>
 			<Image condition="contains">C:\Program Files\Fortinet\FortiClient\</Image>
@@ -346,6 +348,7 @@
 			<DestinationHostname condition="end with">microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.akadns.net</DestinationHostname> <!--Microsoft:Update delivery-->
 			<DestinationHostname condition="end with">microsoft.com.nsatc.net</DestinationHostname> <!--Microsoft:Update delivery-->
+			<DestinationPort condition="is">137</DestinationPort>
 		</NetworkConnect>
 
 	<!--SYSMON EVENT ID 4 : RESERVED FOR SYSMON STATUS MESSAGES-->
@@ -387,24 +390,25 @@
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
 		<!--NOTE: There is possibly a huge gap here for LOLbin's. However to reduce the loggging we are only excluding valid signed dlls-->
 		<ImageLoad onmatch="include">
-		    <ImageLoaded name="DLL loaded from non standard location (\Temp\)" condition="contains">\Temp\</ImageLoaded>
-			<ImageLoaded name="DLL loaded from non standard location (C:\Users\)" condition="begin with">C:\Users</ImageLoaded>
+		    <ImageLoaded name="DLL loaded from suspicious location (\Temp\)" condition="contains">\Temp\</ImageLoaded>
+			<ImageLoaded name="DLL loaded from suspicious location (C:\Users\)" condition="begin with">C:\Users</ImageLoaded>
 			<Image name="Powershell DLL loaded, Possible Powershell use without Powershell.exe" condition="contains">system.management.automation</Image> 
-			<Image name="" condition="contains">Crypt</Image> 
-			<Image name="" condition="contains">powershell</Image> 
-			<Image name="" condition="contains">jscript</Image> 
-			<Image name="" condition="contains">msxm</Image>
-			<Image name="" condition="contains">ole32</Image>
-			<Image name="Possible Mimikatz DLL Load" condition="contains">mimi</Image>
+			<Image name="Attempts to ID by name the DLL that deals with Certificate and Cryptographic Messaging functions" condition="contains">Crypt</Image> 
+			<Image name="Powershell Lib loaded" condition="contains">powershell</Image> 
+			<Image name="Javascript Lib" condition="contains">jscript</Image> 
+			<Image name="Visual basic Lib" condition="contains">vbscript</Image> 
+			<Image name="DLL that contains a set of services that allowed applications written in JScript, VBScript, and Microsoft development tools to build Windows-native XML-based applications." condition="contains">msxm</Image>
+			<Image name="DLL that contains a library which contains core OLE functions" condition="contains">ole32</Image>
+			<Image name="Possible unaltered Mimikatz DLL Load" condition="contains">mimi</Image>
 			<Image name="" condition="contains">lxssmanager</Image> 
 			<Image name="DLL used to Download and upload" condition="contains">WebClient</Image> 
 			<Image name="DLL used to allow injection and other suspicious activities." condition="contains">Reflection</Image> 
-			<Image name="" condition="contains">runtime</Image> 
-			<Image name="" condition="contains">InteropServices</Image>
-			<Image name="" condition="contains">Win32</Image>
-			<Image name="" condition="contains">Cryptography</Image>
-			<Image name="" condition="contains">System.Security.Cryptography.X509Certificates</Image>
-			<Image name="MitreRef=T1128,Technique=Netsh Helper Beacon DLL,Tactic=Persistence" condition="contains">netsh.exe</Image>
+			<Image name="Attempts to ID Microsoft DLL loaded that is often used in Malware to add functionality to do things like injection" condition="contains">runtime</Image> 
+			<Image name="Attempts to ID Microsoft DLL loaded that is often used in Malware to add functionality to do things like injection" condition="contains">InteropServices</Image>
+			<Image name="Attempts to ID Microsoft DLL loaded that is often used in Malware to add functionality to do things like native windows execution and injection" condition="contains">Win32</Image>
+			<Image name="Attempts to ID Microsoft DLL loaded that is often used in Malware to add functionality to do things like encrypt and encrypt data, files, and other things in memory and on disk." condition="contains">Cryptography</Image>
+			<Image name="Attempts to ID Microsoft DLL loaded that is often used in Malware to add functionality to do things like encrypt and encrypt data, files, and other things in memory and on disk." condition="contains">System.Security.Cryptography.X509Certificates</Image>
+			<Image name="MitreRef=T1128,Technique=Netsh Helper Beacon DLL,Tactic=Persistence, also it manages windows firewall." condition="contains">netsh.exe</Image>
 			<ImageLoaded name="Alert=Ramnit Banker Malware!" condition="contains">rmnsoft.dll</ImageLoaded>
 			<ImageLoaded name="" condition="contains">C:\Windows\assembly\NativeImages</ImageLoaded>
 			<ImageLoaded name="Mitre: https://attack.mitre.org/wiki/Technique/T1098" condition="contains">samlib.dll</ImageLoaded>
@@ -519,10 +523,10 @@
 		<!--COMMENT:	Monitor for processes accessing other process' memory.-->
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceThreadId, SourceImage, TargetProcessGuid, TargetProcessId, TargetImage, GrantedAccess, CallTrace-->
 		<ProcessAccess onmatch="include">	
-			<SourceImage name="Process acess from RecycleBin, suspicious action" condition="begin with">C:\$Recycle.Bin</SourceImage>
-			<TargetImage name="Possible LSASS Process access" condition="is">C:\WINDOWS\system32\lsass.exe</TargetImage>
-			<TargetImage name="Possible brower inject" condition="is">chrome.exe</TargetImage>
-			<TargetImage name="Possible brower inject" condition="is">firefox.exe</TargetImage>
+			<SourceImage name="Process acess from RecycleBin, SUSPICIOUS action" condition="begin with">C:\$Recycle.Bin</SourceImage>
+			<TargetImage name="Possible LSASS Process access, SUSPICIOUS action" condition="is">C:\WINDOWS\system32\lsass.exe</TargetImage>
+			<TargetImage name="Possible brower inject, often done to dump passwords from browser" condition="is">chrome.exe</TargetImage>
+			<TargetImage name="Possible brower inject, often done to dump passwords from browser" condition="is">firefox.exe</TargetImage>
 			<GrantedAccess name="Possible Mimikatz like process access,PROCESS_SUSPEND_RESUME" condition="is">0x800</GrantedAccess>
 			<GrantedAccess name="Possible Mimikatz like process access" condition="is">0x010</GrantedAccess>
 			<GrantedAccess name="Possible Mimikatz like process access" condition="is">0x1010</GrantedAccess>
@@ -567,7 +571,7 @@
 		<!--NOTE:	Other filesystem "minifilters" can make it appear to Sysmon that some files are being written twice. This is not a Sysmon issue, per Mark Russinovich.-->
 		<!--NOTE:	You may not see files detected by antivirus. Other filesystem minifilters, like antivirus, can act before Sysmon receives the alert a file was written.-->
 
-<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime-->
+	<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime-->
 		<FileCreate onmatch="exclude">
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
@@ -630,16 +634,17 @@
 
 		<!--DATA: EventType, UtcTime, ProcessGuid, ProcessId, Image, TargetObject, Details (can't filter on), NewName (can't filter on)-->
 		<RegistryEvent onmatch="include">
-			<Image condition="begin with">C:\$Recycle.Bin</Image>
-			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\services\DNS\Parameters\</TargetObject> <!--Microsoft:Windows:DNS: ServerLevelPluginDll Issue https://medium.com/@esnesenon/feature-not-bug-dnsadmin-to-dc-compromise-in-one-line-a0f779b8dc83 -->
+			<Image name="Something from RecycleBin touched the registry, SUSPICIOUS" condition="begin with">C:\$Recycle.Bin</Image>
+			<Image name="Suspicious,ImageBeginWithBackslash" condition="begin with">\</Image> <!--Devices and VSC shouldn't be executing changes | Credit: @SBousseaden @ionstorm @neu5ron @PerchedSystems [ https://twitter.com/SwiftOnSecurity/status/1133167323991486464 ] -->			
+			<TargetObject name="technique_id=T1060,technique_name=Registry Run Keys / Start Folder" condition="contains">CurrentVersion\Run</TargetObject> <!--Microsoft:Windows: Wildcard for Run keys, including RunOnce, RunOnceEx, RunServices, RunServicesOnce [Also covers terminal server] -->
+			<TargetObject name="DNS Query location was changed" condition="begin with">HKLM\SYSTEM\CurrentControlSet\services\DNS\Parameters\</TargetObject> <!--Microsoft:Windows:DNS: ServerLevelPluginDll Issue https://medium.com/@esnesenon/feature-not-bug-dnsadmin-to-dc-compromise-in-one-line-a0f779b8dc83 -->
 			<TargetObject condition="contains">Policies\Explorer\Run</TargetObject>
-	        <Image name="Suspicious,ImageBeginWithBackslash" condition="begin with">\</Image> <!--Devices and VSC shouldn't be executing changes | Credit: @SBousseaden @ionstorm @neu5ron @PerchedSystems [ https://twitter.com/SwiftOnSecurity/status/1133167323991486464 ] -->			<TargetObject condition="contains">CurrentVersion\Run</TargetObject> <!--Microsoft:Windows: Wildcard for Run keys, including RunOnce, RunOnceEx, RunServices, RunServicesOnce [Also covers terminal server] -->
 			<TargetObject condition="contains">\Software\Microsoft\Internet Explorer\Main</TargetObject> 
 			<TargetObject condition="contains">\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap</TargetObject> <!--Microsoft:Windows: Alternate runs keys | Credit @ion-storm-->
 			<TargetObject condition="contains">Group Policy\Scripts</TargetObject> <!--Microsoft:Windows: Group policy scripts-->
 			<TargetObject condition="contains">Windows\System\Scripts</TargetObject> <!--Microsoft:Windows: Wildcard for Logon, Loggoff, Shutdown-->
 			<TargetObject condition="contains">CurrentVersion\Windows\Load</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/jj874148.aspx ] -->
-			<TargetObject condition="contains">CurrentVersion\Windows\Run</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/jj874148.aspx ] -->
+			<TargetObject name="technique_id=T1060,technique_name=Registry Run Keys / Start Folder" condition="contains">CurrentVersion\Windows\Run</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/jj874148.aspx ] -->
 			<TargetObject condition="contains">CurrentVersion\Winlogon\Shell</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/ms838576(v=winembedded.5).aspx ] -->
 			<TargetObject condition="contains">CurrentVersion\Winlogon\System</TargetObject> <!--Microsoft:Windows [ https://www.exterminate-it.com/malpedia/regvals/zlob-dns-changer/118 ] -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify</TargetObject> <!--Microsoft:Windows: Autorun location [ https://attack.mitre.org/wiki/Technique/T1004 ] [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
@@ -651,79 +656,79 @@
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AeDebug</TargetObject> <!--Microsoft:Windows: Automatic program crash debug program [ https://www.symantec.com/security_response/writeup.jsp?docid=2007-050712-5453-99&tabid=2 ] -->
 			<TargetObject condition="contains">UserInitMprLogonScript</TargetObject> <!--Microsoft:Windows: Legacy logon script environment variable [ http://www.hexacorn.com/blog/2014/11/14/beyond-good-ol-run-key-part-18/ ] -->
 			<!--Services-->
-			<TargetObject condition="end with">\ServiceDll</TargetObject> <!--Microsoft:Windows: Points to a service's DLL [ https://blog.cylance.com/windows-registry-persistence-part-1-introduction-attack-phases-and-windows-services ] -->
-			<TargetObject condition="end with">\ServiceManifest</TargetObject> <!--Microsoft:Windows: Manifest pointing to service's DLL [ https://www.geoffchappell.com/studies/windows/win32/services/svchost/index.htm ] -->
-			<TargetObject condition="end with">\ImagePath</TargetObject> <!--Microsoft:Windows: Points to a service's EXE [ https://attack.mitre.org/wiki/Technique/T1050 ] -->
-			<TargetObject condition="end with">\Start</TargetObject> <!--Microsoft:Windows: Services start mode changes (Disabled, Automatically, Manual)-->
+			<TargetObject name="Points to a service's DLL" condition="end with">\ServiceDll</TargetObject> <!--Microsoft:Windows: Points to a service's DLL [ https://blog.cylance.com/windows-registry-persistence-part-1-introduction-attack-phases-and-windows-services ] -->
+			<TargetObject name="Manifest pointing to service's DLL " condition="end with">\ServiceManifest</TargetObject> <!--Microsoft:Windows: Manifest pointing to service's DLL [ https://www.geoffchappell.com/studies/windows/win32/services/svchost/index.htm ] -->
+			<TargetObject name="Points to a service's EXE" condition="end with">\ImagePath</TargetObject> <!--Microsoft:Windows: Points to a service's EXE [ https://attack.mitre.org/wiki/Technique/T1050 ] -->
+			<TargetObject name="Services start mode changes (Disabled, Automatically, Manual)" condition="end with">\Start</TargetObject> <!--Microsoft:Windows: Services start mode changes (Disabled, Automatically, Manual)-->
 			<!--CLSID launch commands and Default File Association changes-->
-			<TargetObject condition="contains">shell\open\command\</TargetObject> <!--Microsoft:Windows: Sensitive sub-key under file associations and CLSID that map to launch command-->
-			<TargetObject condition="contains">shell\open\ddeexec\</TargetObject> <!--Microsoft:Windows: Sensitive sub-key under file associations and CLSID that map to launch command-->
-			<TargetObject condition="contains">shell\install\command\</TargetObject> <!--Microsoft:Windows: Sensitive sub-key under file associations and CLSID that map to launch command-->
-			<TargetObject condition="contains">Explorer\FileExts\</TargetObject> <!--Microsoft:Windows: Changes to file extension mapping-->
-			<TargetObject condition="contains">{86C86720-42A0-1069-A2E8-08002B30309D}</TargetObject> <!--Microsoft:Windows: Tooltip handler-->
-			<TargetObject condition="contains">exefile</TargetObject> <!--Microsoft:Windows Executable handler, to ensure any changes not generally monitored, for less-common shell command types like "runas"-->
+			<TargetObject name="Sensitive sub-key under file associations and CLSID that map to launch command" condition="contains">shell\open\command\</TargetObject> <!--Microsoft:Windows: Sensitive sub-key under file associations and CLSID that map to launch command-->
+			<TargetObject name="Sensitive sub-key under file associations and CLSID that map to launch command" condition="contains">shell\open\ddeexec\</TargetObject> <!--Microsoft:Windows: Sensitive sub-key under file associations and CLSID that map to launch command-->
+			<TargetObject name="Sensitive sub-key under file associations and CLSID that map to launch command" condition="contains">shell\install\command\</TargetObject> <!--Microsoft:Windows: Sensitive sub-key under file associations and CLSID that map to launch command-->
+			<TargetObject name="Changes to file extension mapping" condition="contains">Explorer\FileExts\</TargetObject> <!--Microsoft:Windows: Changes to file extension mapping-->
+			<TargetObject name="Tooltip handler" condition="contains">{86C86720-42A0-1069-A2E8-08002B30309D}</TargetObject> <!--Microsoft:Windows: Tooltip handler-->
+			<TargetObject name="Windows Executable handler, to ensure any changes not generally monitored, for less-common shell command types like runas" condition="contains">exefile</TargetObject> <!--Microsoft:Windows Executable handler, to ensure any changes not generally monitored, for less-common shell command types like "runas"-->
 			<!--Windows COM-->
-			<TargetObject condition="end with">\InprocServer32\(Default)</TargetObject> <!--Microsoft:Windows:COM Object Hijacking [ https://blog.gdatasoftware.com/2014/10/23941-com-object-hijacking-the-discreet-way-of-persistence ] | Credit @ion-storm -->
+			<TargetObject name="COM Object Hijacking" condition="end with">\InprocServer32\(Default)</TargetObject> <!--Microsoft:Windows:COM Object Hijacking [ https://blog.gdatasoftware.com/2014/10/23941-com-object-hijacking-the-discreet-way-of-persistence ] | Credit @ion-storm -->
 			<!--Windows shell visual modifications-->
-			<TargetObject condition="end with">\Hidden</TargetObject> <!--Microsoft:Windows:Explorer: Some types of malware try to hide their hidden system files from the user, good signal event -->
-			<TargetObject condition="end with">\ShowSuperHidden</TargetObject> <!--Microsoft:Windows:Explorer: Some types of malware try to hide their hidden system files from the user, good signal event [ Example: https://www.symantec.com/security_response/writeup.jsp?docid=2007-061811-4341-99&tabid=2 ] -->
-			<TargetObject condition="end with">\HideFileExt</TargetObject> <!--Microsoft:Windows:Explorer: Some malware hides file extensions to make diagnosis/disinfection more daunting to novice users -->
+			<TargetObject name="Some types of malware try to hide their hidden system files from the users" condition="end with">\Hidden</TargetObject> <!--Microsoft:Windows:Explorer: Some types of malware try to hide their hidden system files from the user, good signal event -->
+			<TargetObject name=" Some types of malware try to hide their hidden system files from the users" condition="end with">\ShowSuperHidden</TargetObject> <!--Microsoft:Windows:Explorer: Some types of malware try to hide their hidden system files from the user, good signal event [ Example: https://www.symantec.com/security_response/writeup.jsp?docid=2007-061811-4341-99&tabid=2 ] -->
+			<TargetObject name="Microsoft:Windows:Explorer: Some malware hides file extensions to make diagnosis/disinfection more daunting to novice users" condition="end with">\HideFileExt</TargetObject> <!--Microsoft:Windows:Explorer: Some malware hides file extensions to make diagnosis/disinfection more daunting to novice users -->
 			<!--Windows shell hijack and modifications-->
-			<TargetObject condition="contains">Classes\*\</TargetObject> <!--Microsoft:Windows:Explorer: [ http://www.silentrunners.org/launchpoints.html ] -->
-			<TargetObject condition="contains">Classes\AllFilesystemObjects\</TargetObject> <!--Microsoft:Windows:Explorer: [ http://www.silentrunners.org/launchpoints.html ] -->
-			<TargetObject condition="contains">Classes\Directory\</TargetObject> <!--Microsoft:Windows:Explorer: [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
-			<TargetObject condition="contains">Classes\Drive\</TargetObject> <!--Microsoft:Windows:Explorer: [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
-			<TargetObject condition="contains">Classes\Folder\</TargetObject> <!--Microsoft:Windows:Explorer: ContextMenuHandlers, DragDropHandlers, CopyHookHandlers, [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
-			<TargetObject condition="contains">ContextMenuHandlers\</TargetObject> <!--Microsoft:Windows: [ http://oalabs.openanalysis.net/2015/06/04/malware-persistence-hkey_current_user-shell-extension-handlers/ ] -->
-			<TargetObject condition="contains">CurrentVersion\Shell</TargetObject> <!--Microsoft:Windows: Shell Folders, ShellExecuteHooks, ShellIconOverloadIdentifers, ShellServiceObjects, ShellServiceObjectDelayLoad [ http://oalabs.openanalysis.net/2015/06/04/malware-persistence-hkey_current_user-shell-extension-handlers/ ] -->
-			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\explorer\ShellExecuteHooks</TargetObject> <!--Microsoft:Windows: ShellExecuteHooks-->
-			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\explorer\ShellServiceObjectDelayLoad</TargetObject> <!--Microsoft:Windows: ShellExecuteHooks-->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\explorer\ShellIconOverlayIdentifiers</TargetObject> <!--Microsoft:Windows: ShellExecuteHooks-->
+			<TargetObject name="Windows shell hijack and modifications location" condition="contains">Classes\*\</TargetObject> <!--Microsoft:Windows:Explorer: [ http://www.silentrunners.org/launchpoints.html ] -->
+			<TargetObject name="Windows shell hijack and modifications location" condition="contains">Classes\AllFilesystemObjects\</TargetObject> <!--Microsoft:Windows:Explorer: [ http://www.silentrunners.org/launchpoints.html ] -->
+			<TargetObject name="Windows shell hijack and modifications location" condition="contains">Classes\Directory\</TargetObject> <!--Microsoft:Windows:Explorer: [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
+			<TargetObject name="Windows shell hijack and modifications location" condition="contains">Classes\Drive\</TargetObject> <!--Microsoft:Windows:Explorer: [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
+			<TargetObject name="Windows shell hijack and modifications location" condition="contains">Classes\Folder\</TargetObject> <!--Microsoft:Windows:Explorer: ContextMenuHandlers, DragDropHandlers, CopyHookHandlers, [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
+			<TargetObject name="Windows shell hijack and modifications location" condition="contains">ContextMenuHandlers\</TargetObject> <!--Microsoft:Windows: [ http://oalabs.openanalysis.net/2015/06/04/malware-persistence-hkey_current_user-shell-extension-handlers/ ] -->
+			<TargetObject name="Windows shell hijack and modifications location" condition="contains">CurrentVersion\Shell</TargetObject> <!--Microsoft:Windows: Shell Folders, ShellExecuteHooks, ShellIconOverloadIdentifers, ShellServiceObjects, ShellServiceObjectDelayLoad [ http://oalabs.openanalysis.net/2015/06/04/malware-persistence-hkey_current_user-shell-extension-handlers/ ] -->
+			<TargetObject name="Windows shell hijack and modifications location" condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\explorer\ShellExecuteHooks</TargetObject> <!--Microsoft:Windows: ShellExecuteHooks-->
+			<TargetObject name="Windows shell hijack and modifications location" condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\explorer\ShellServiceObjectDelayLoad</TargetObject> <!--Microsoft:Windows: ShellExecuteHooks-->
+			<TargetObject name="Windows shell hijack and modifications location" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\explorer\ShellIconOverlayIdentifiers</TargetObject> <!--Microsoft:Windows: ShellExecuteHooks-->
 			<!--AppPaths hijacking-->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\</TargetObject> <!--Microsoft:Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] -->
+			<TargetObject name="AppPaths hijacking reg key" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\</TargetObject> <!--Microsoft:Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] -->
 			<!--Terminal service boobytrap-->
-			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\InitialProgram</TargetObject> <!--Microsoft:Windows:RDP: Note other Terminal Server run keys are handled by another wildcard already-->
+			<TargetObject name="Terminal Server run keys are handled by another wildcard already" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\InitialProgram</TargetObject> <!--Microsoft:Windows:RDP: Note other Terminal Server run keys are handled by another wildcard already-->
 			<!--Group Policy integrity-->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions\</TargetObject> <!--Microsoft:Windows: Group Policy internally uses a plug-in architecture that nothing should be modifying-->
+			<TargetObject name="Group Policy integrity" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions\</TargetObject> <!--Microsoft:Windows: Group Policy internally uses a plug-in architecture that nothing should be modifying-->
 			<!--Winsock and Winsock2-->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\WinSock\</TargetObject> <!--Microsoft:Windows: Wildcard, includes Winsock and Winsock2-->
 			<TargetObject condition="end with">\ProxyServer</TargetObject> <!--Microsoft:Windows: System and user proxy server-->
 			<!--Credential providers-->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\Credential Provider</TargetObject> <!--Wildcard, includes Credential Providers and Credential Provider Filters-->
+			<TargetObject name="Credential Providers and Credential Provider Filters" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\Credential Provider</TargetObject> <!--Wildcard, includes Credential Providers and Credential Provider Filters-->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1131 ] [ https://attack.mitre.org/wiki/Technique/T1101 ] -->
-			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SecurityProviders</TargetObject> <!--Microsoft:Windows: Changes to WDigest-UseLogonCredential for password scraping [ https://www.trustedsec.com/april-2015/dumping-wdigest-creds-with-meterpreter-mimikatzkiwi-in-windows-8-1/ ] -->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Netsh</TargetObject> <!--Microsoft:Windows: Netsh helper DLL [ https://attack.mitre.org/wiki/Technique/T1128 ] -->
+			<TargetObject name="Changes to WDigest-UseLogonCredential for password scraping" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SecurityProviders</TargetObject> <!--Microsoft:Windows: Changes to WDigest-UseLogonCredential for password scraping [ https://www.trustedsec.com/april-2015/dumping-wdigest-creds-with-meterpreter-mimikatzkiwi-in-windows-8-1/ ] -->
+			<TargetObject name="Netsh helper DLL" condition="begin with">HKLM\SOFTWARE\Microsoft\Netsh</TargetObject> <!--Microsoft:Windows: Netsh helper DLL [ https://attack.mitre.org/wiki/Technique/T1128 ] -->
 			<!--Networking-->
-			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\NetworkProvider\Order\</TargetObject> <!--Microsoft:Windows: Order of network providers that are checked to connect to destination [ https://www.malwarearchaeology.com/cheat-sheets ] -->
+			<TargetObject name="Order of network providers that are checked to connect to destination" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\NetworkProvider\Order\</TargetObject> <!--Microsoft:Windows: Order of network providers that are checked to connect to destination [ https://www.malwarearchaeology.com/cheat-sheets ] -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles</TargetObject> <!--Microsoft:Windows: | Credit @ion-storm -->
-			<TargetObject condition="end with">\EnableFirewall</TargetObject> <!--Microsoft:Windows: Monitor for firewall disablement, all firewall profiles [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
-			<TargetObject condition="end with">\DoNotAllowExceptions</TargetObject> <!--Microsoft:Windows: Monitor for firewall disablement, all firewall profiles [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
-			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\AuthorizedApplications\List</TargetObject> <!--Windows Firewall authorized applications for all networks| Credit @ion-storm -->
-			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\AuthorizedApplications\List</TargetObject> <!--Windows Firewall authorized applications for domain networks -->
+			<TargetObject name="Monitor for firewall disablement, all firewall profiles" condition="end with">\EnableFirewall</TargetObject> <!--Microsoft:Windows: Monitor for firewall disablement, all firewall profiles [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
+			<TargetObject name="Microsoft:Windows: Monitor for firewall disablement, all firewall profiles" condition="end with">\DoNotAllowExceptions</TargetObject> <!--Microsoft:Windows: Monitor for firewall disablement, all firewall profiles [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
+			<TargetObject name="Windows Firewall authorized applications for all networks" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\AuthorizedApplications\List</TargetObject> <!--Windows Firewall authorized applications for all networks| Credit @ion-storm -->
+			<TargetObject name+"Windows Firewall authorized applications for domain networks" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\AuthorizedApplications\List</TargetObject> <!--Windows Firewall authorized applications for domain networks -->
 			<!--DLLs that get injected into every process at launch-->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Microsoft:Windows: Feature disabled by default [ https://attack.mitre.org/wiki/Technique/T1103 ] -->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Microsoft:Windows:  Feature disabled by default [ https://attack.mitre.org/wiki/Technique/T1103 ] -->
-			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\AppCertDlls\</TargetObject> <!--Microsoft:Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] [ https://blog.comodo.com/malware/trojware-win32-trojanspy-volisk-a/ ] -->
+			<TargetObject name="DLLs that get injected into every process at launch" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Microsoft:Windows: Feature disabled by default [ https://attack.mitre.org/wiki/Technique/T1103 ] -->
+			<TargetObject name="DLLs that get injected into every process at launch" condition="begin with">HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Microsoft:Windows:  Feature disabled by default [ https://attack.mitre.org/wiki/Technique/T1103 ] -->
+			<TargetObject name="DLLs that get injected into every process at launch" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\AppCertDlls\</TargetObject> <!--Microsoft:Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] [ https://blog.comodo.com/malware/trojware-win32-trojanspy-volisk-a/ ] -->
 			<!--Office-->
-			<TargetObject condition="contains">Microsoft\Office\Outlook\Addins\</TargetObject> <!--Microsoft:Office: Outlook add-ins, access to sensitive data and often cause issues-->
-			<TargetObject condition="contains">Office Test\</TargetObject> <!-- Microsoft:Office: Persistence method [ http://www.hexacorn.com/blog/2014/04/16/beyond-good-ol-run-key-part-10/ ] | Credit @Hexacorn -->
-			<TargetObject condition="contains">Security\Trusted Documents\TrustRecords</TargetObject> <!--Microsoft:Office: Monitor when "Enable editing" or "Enable macros" is used | Credit @OutflankNL | [ https://outflank.nl/blog/2018/01/16/hunting-for-evil-detect-macros-being-executed/ ] -->
+			<TargetObject name="Microsoft:Office: Outlook add-ins, access to sensitive data and often cause issues" condition="contains">Microsoft\Office\Outlook\Addins\</TargetObject> <!--Microsoft:Office: Outlook add-ins, access to sensitive data and often cause issues-->
+			<TargetObject name="Microsoft:Office: Persistence method [ http://www.hexacorn.com/blog/2014/04/16/beyond-good-ol-run-key-part-10/ ]" condition="contains">Office Test\</TargetObject> <!-- Microsoft:Office: Persistence method [ http://www.hexacorn.com/blog/2014/04/16/beyond-good-ol-run-key-part-10/ ] | Credit @Hexacorn -->
+			<TargetObject name="Microsoft:Office: Monitor when Enable editing or Enable macros is used" condition="contains">Security\Trusted Documents\TrustRecords</TargetObject> <!--Microsoft:Office: Monitor when "Enable editing" or "Enable macros" is used | Credit @OutflankNL | [ https://outflank.nl/blog/2018/01/16/hunting-for-evil-detect-macros-being-executed/ ] -->
 			<!--IE-->
 			<TargetObject condition="contains">Internet Explorer\Toolbar\</TargetObject> <!--Microsoft:InternetExplorer: Machine and user [ Example: https://www.exterminate-it.com/malpedia/remove-mywebsearch ] -->
 			<TargetObject condition="contains">Internet Explorer\Extensions\</TargetObject> <!--Microsoft:InternetExplorer: Machine and user [ Example: https://www.exterminate-it.com/malpedia/remove-mywebsearch ] -->
 			<TargetObject condition="contains">Browser Helper Objects\</TargetObject> <!--Microsoft:InternetExplorer: Machine and user [ https://msdn.microsoft.com/en-us/library/bb250436(v=vs.85).aspx ] -->
 			<TargetObject condition="end with">\DisableSecuritySettingsCheck</TargetObject>
-			<TargetObject condition="end with">\3\1206</TargetObject> <!--Microsoft:InternetExplorer: Malware sometimes assures scripting is on in Internet Zone [ https://support.microsoft.com/en-us/help/182569/internet-explorer-security-zones-registry-entries-for-advanced-users ] -->
-			<TargetObject condition="end with">\3\2500</TargetObject> <!--Microsoft:InternetExplorer: Malware sometimes disables Protected Mode in Internet Zone [ https://blog.avast.com/2013/08/12/your-documents-are-corrupted-from-image-to-an-information-stealing-trojan/ ] -->
-			<TargetObject condition="end with">\3\1809</TargetObject> <!--Microsoft:InternetExplorer: Malware sometimes disables Pop-up Blocker in Internet Zone [ https://support.microsoft.com/en-us/help/182569/internet-explorer-security-zones-registry-entries-for-advanced-users ] -->
+			<TargetObject name="-Microsoft:InternetExplorer: Malware sometimes assures scripting is on in Internet Zone " condition="end with">\3\1206</TargetObject> <!--Microsoft:InternetExplorer: Malware sometimes assures scripting is on in Internet Zone [ https://support.microsoft.com/en-us/help/182569/internet-explorer-security-zones-registry-entries-for-advanced-users ] -->
+			<TargetObject name="Microsoft:InternetExplorer: Malware sometimes disables Protected Mode in Internet Zone" condition="end with">\3\2500</TargetObject> <!--Microsoft:InternetExplorer: Malware sometimes disables Protected Mode in Internet Zone [ https://blog.avast.com/2013/08/12/your-documents-are-corrupted-from-image-to-an-information-stealing-trojan/ ] -->
+			<TargetObject name="Microsoft:InternetExplorer: Malware sometimes disables Pop-up Blocker in Internet Zone " condition="end with">\3\1809</TargetObject> <!--Microsoft:InternetExplorer: Malware sometimes disables Pop-up Blocker in Internet Zone [ https://support.microsoft.com/en-us/help/182569/internet-explorer-security-zones-registry-entries-for-advanced-users ] -->
 			<!--Magic registry keys-->
-			<TargetObject condition="contains">{AB8902B4-09CA-4bb6-B78D-A8F59079A8D5}\</TargetObject> <!--Microsoft:Windows: Thumbnail cache autostart [ http://blog.trendmicro.com/trendlabs-security-intelligence/poweliks-levels-up-with-new-autostart-mechanism/ ] -->
+			<TargetObject name="Thumbnail cache autostart" condition="contains">{AB8902B4-09CA-4bb6-B78D-A8F59079A8D5}\</TargetObject> <!--Microsoft:Windows: Thumbnail cache autostart [ http://blog.trendmicro.com/trendlabs-security-intelligence/poweliks-levels-up-with-new-autostart-mechanism/ ] -->
 			<!--Install/Infection artifacts-->
-			<TargetObject condition="end with">\UrlUpdateInfo</TargetObject> <!--Microsoft:ClickOnce: Source URL is stored in this value [ https://subt0x10.blogspot.com/2016/12/mimikatz-delivery-via-clickonce-with.html ] -->
-			<TargetObject condition="end with">\InstallSource</TargetObject> <!--Microsoft:Windows: Source folder for certain program and component installations-->
+			<TargetObject name="Microsoft:ClickOnce: Source URL is stored in this value" condition="end with">\UrlUpdateInfo</TargetObject> <!--Microsoft:ClickOnce: Source URL is stored in this value [ https://subt0x10.blogspot.com/2016/12/mimikatz-delivery-via-clickonce-with.html ] -->
+			<TargetObject name="Source folder for certain program and component installations" condition="end with">\InstallSource</TargetObject> <!--Microsoft:Windows: Source folder for certain program and component installations-->
 			<!--Windows UAC tampering-->
-			<TargetObject condition="end with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\EnableLUA</TargetObject> <!--Detect: UAC Tampering | Credit @ion-storm -->
-			<TargetObject condition="end with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\LocalAccountTokenFilterPolicy</TargetObject> <!--Detect: UAC Tampering | Credit @ion-storm -->
+			<TargetObject name="Windows UAC tampering" condition="end with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\EnableLUA</TargetObject> <!--Detect: UAC Tampering | Credit @ion-storm -->
+			<TargetObject name="Windows UAC tampering" condition="end with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\LocalAccountTokenFilterPolicy</TargetObject> <!--Detect: UAC Tampering | Credit @ion-storm -->
 			<!--Microsoft Security Center tampering | Credit @ion-storm -->
 			<TargetObject condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\AllAlertsDisabled</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
 			<TargetObject condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\AntiVirusOverride</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
@@ -733,16 +738,16 @@
 			<TargetObject condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\FirewallOverride</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
 			<TargetObject condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\UacDisableNotify</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
 			<TargetObject condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\UpdatesDisableNotify</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
-			<TargetObject condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\HideSCAHealth</TargetObject> <!--Microsoft:Windows:Security Center: Malware sometimes disables [ https://blog.avast.com/2013/08/12/your-documents-are-corrupted-from-image-to-an-information-stealing-trojan/ ] -->
+			<TargetObject name="Microsoft:Windows:Security Center: Malware sometimes disables" condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\HideSCAHealth</TargetObject> <!--Microsoft:Windows:Security Center: Malware sometimes disables [ https://blog.avast.com/2013/08/12/your-documents-are-corrupted-from-image-to-an-information-stealing-trojan/ ] -->
 			<!--Windows application compatibility-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom</TargetObject> <!--Microsoft:Windows: AppCompat [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB</TargetObject> <!--Microsoft:Windows: AppCompat [ https://attack.mitre.org/wiki/Technique/T1138 ] -->
 			<TargetObject condition="contains">VirtualStore</TargetObject> <!--Microsoft:Windows: Registry virtualization [ https://msdn.microsoft.com/en-us/library/windows/desktop/aa965884(v=vs.85).aspx ] -->
 			<!--Windows internals integrity monitoring-->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\</TargetObject> <!--Microsoft:Windows: Malware likes changing IFEO, like adding Debugger to disable antivirus EXE-->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\</TargetObject> <!--Microsoft:Windows: Event log system integrity and ACLs-->
-			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Safeboot\</TargetObject> <!--Microsoft:Windows: Services approved to load in safe mode-->
-			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Winlogon\</TargetObject> <!--Microsoft:Windows: Providers notified by WinLogon-->
+			<TargetObject name="Event log system integrity and ACLs" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\</TargetObject> <!--Microsoft:Windows: Event log system integrity and ACLs-->
+			<TargetObject name="Services approved to load in safe mode" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Safeboot\</TargetObject> <!--Microsoft:Windows: Services approved to load in safe mode-->
+			<TargetObject name="Providers notified by WinLogon" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Winlogon\</TargetObject> <!--Microsoft:Windows: Providers notified by WinLogon-->
 			<TargetObject condition="end with">\FriendlyName</TargetObject> <!--Microsoft:Windows: New devices connected and remembered-->
 			<TargetObject condition="contains">VirtualStore</TargetObject> <!--Microsoft:Windows: Registry virtualization [ https://msdn.microsoft.com/en-us/library/windows/desktop/aa965884(v=vs.85).aspx ] -->
 			<TargetObject condition="contains">\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Publishers\</TargetObject> 
@@ -758,16 +763,16 @@
 			<TargetObject condition="contains">\InProcServer32</TargetObject> 
 			<TargetObject condition="contains">\SOFTWARE\MICROSOFT\WINDOWS NT\CURRENTVERSION\WINLOGON\</TargetObject> 
 			<TargetObject condition="is">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\InProgress\(Default)</TargetObject>
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Tracing\RASAPI32</TargetObject> <!--Microsoft:Windows: Malware sometimes disables tracing to obfuscate tracks-->
+			<TargetObject name="Microsoft:Windows: Malware sometimes disables tracing to obfuscate tracks" condition="begin with">HKLM\SOFTWARE\Microsoft\Tracing\RASAPI32</TargetObject> <!--Microsoft:Windows: Malware sometimes disables tracing to obfuscate tracks-->
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls</TargetObject>
 			<TargetObject condition="begin with">HKLM\Software\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls</TargetObject>
 			<TargetObject condition="begin with">HKLM\System\CurrentControlSet\Control\Session Manager\AppCertDlls</TargetObject>
 			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows NT\currentversion\image file execution options</TargetObject>
-			<TargetObject condition="contains">\CurrentControlSet\Control\SecurityProviders\WDigest</TargetObject>
+			<TargetObject name="WDigest reg location. Value should not be = 1" condition="contains">\CurrentControlSet\Control\SecurityProviders\WDigest</TargetObject>
 			<TargetObject condition="contains">\CurrentControlSet\Control\WMI\Autologger\</TargetObject>
-			<TargetObject condition="contains">\RunOnce\</TargetObject>
-			<TargetObject condition="contains">\Explorer\Run</TargetObject>
-			<TargetObject condition="contains">\CurrentVersion\Run</TargetObject>
+			<TargetObject name="Attempts to ID reg persistance location usage" condition="contains">\RunOnce\</TargetObject>
+			<TargetObject name="technique_id=T1060,technique_name=Registry Run Keys / Start Folder" condition="contains">\Explorer\Run</TargetObject>
+			<TargetObject name="technique_id=T1060,technique_name=Registry Run Keys / Start Folder" condition="contains">\CurrentVersion\Run</TargetObject>
 			<TargetObject condition="contains">\SOFTWARE\Wow6432Node\Google\Update\ClientState\</TargetObject>
 			<TargetObject condition="contains">\StartupItems</TargetObject>
 			<TargetObject condition="contains">CurrentControlSet\Control\Lsa\Security Packages</TargetObject>
@@ -778,11 +783,11 @@
 			<TargetObject condition="contains">\ShellEx\</TargetObject>
 			<TargetObject condition="begin with">HKLM\Software\Classes\Directory\Shellex\</TargetObject>
 			<TargetObject condition="begin with">HKCR\CLSID</TargetObject>
-			<TargetObject condition="contains">\Microsoft\Office\Outlook\Addins</TargetObject> <!--Microsoft:Office: Outlook add-ins-->
-			<TargetObject condition="contains">\Software\Microsoft\VSTO\Security\Inclusion</TargetObject> <!-- Uncommon place to load add-ins, especially in HKCU-->
-			<TargetObject condition="contains">\Software\Microsoft\VSTO\SolutionMetadata</TargetObject><!--Uncommon place to declare add-in metadata, especially in HKCU-->
+			<TargetObject name="Microsoft:Office: Outlook add-ins" condition="contains">\Microsoft\Office\Outlook\Addins</TargetObject> <!--Microsoft:Office: Outlook add-ins-->
+			<TargetObject name="Uncommon place to load add-ins, especially in HKCU" condition="contains">\Software\Microsoft\VSTO\Security\Inclusion</TargetObject> <!-- Uncommon place to load add-ins, especially in HKCU-->
+			<TargetObject name="Uncommon place to declare add-in metadata, especially in HKCU" condition="contains">\Software\Microsoft\VSTO\SolutionMetadata</TargetObject><!--Uncommon place to declare add-in metadata, especially in HKCU-->
 			<TargetObject name="technique_id=T1060,technique_name=Registry Run Keys / Start Folder" condition="contains">\CurrentVersion\Run</TargetObject><!--Microsoft:Windows: Run keys, incld RunOnce, RunOnceEx, RunServices, RunServicesOnce [Also covers terminal server] -->
-			<TargetObject condition="contains">\Group Policy\Scripts</TargetObject> <!--Microsoft:Windows: Group policy scripts-->
+			<TargetObject name="Group policy scripts" condition="contains">\Group Policy\Scripts</TargetObject> <!--Microsoft:Windows: Group policy scripts-->
 			<TargetObject name="technique_id=T1037,technique_name=Logon Scripts" condition="contains">\Windows\System\Scripts</TargetObject> <!--Microsoft:Windows: Logon, Loggoff, Shutdown-->
 			<TargetObject name="technique_id=T1060,technique_name=Registry Run Keys / Start Folder" condition="contains">\Policies\Explorer\Run</TargetObject><!--Microsoft:Windows -->
 			<TargetObject condition="end with">\ServiceDll</TargetObject> <!--Microsoft:Windows: Points to a service's DLL [ https://blog.cylance.com/windows-registry-persistence-part-1-introduction-attack-phases-and-windows-services ] -->
@@ -791,12 +796,12 @@
 			<TargetObject name="technique_id=T1004,technique_name=Winlogon Helper DLL" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify</TargetObject><!--Microsoft:Windows: Autorun location [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
 			<TargetObject name="technique_id=T1004,technique_name=Winlogon Helper DLL" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit</TargetObject> <!--Microsoft:Windows: Autorun location [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
 			<TargetObject name="technique_id=T1004,technique_name=Winlogon Helper DLL" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell</TargetObject>
-			<TargetObject condition="begin with">HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Drivers32</TargetObject> <!--Microsoft:Windows: Legacy driver loading | Credit @ion-storm -->
+			<TargetObject name="Microsoft:Windows: Legacy driver loading" condition="begin with">HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Drivers32</TargetObject> <!--Microsoft:Windows: Legacy driver loading | Credit @ion-storm -->
 			<TargetObject name="technique_id=T1060,technique_name=Registry Run Keys / Start Folder" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\BootExecute</TargetObject> <!--Microsoft:Windows: Autorun | Credit @ion-storm | [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
 			<TargetObject name="technique_id=T1042,technique_name=Change Default File Association" condition="contains">\Explorer\FileExts</TargetObject><!--Microsoft:Windows: Changes to file extension mapping-->
-			<TargetObject condition="contains">\shell\install\command</TargetObject> <!--Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command-->
-			<TargetObject condition="contains">\shell\open\command</TargetObject> <!--Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command-->
-			<TargetObject condition="contains">\shell\open\ddeexec</TargetObject> <!--Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command-->
+			<TargetObject name="Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command" condition="contains">\shell\install\command</TargetObject> <!--Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command-->
+			<TargetObject name="Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command" condition="contains">\shell\open\command</TargetObject> <!--Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command-->
+			<TargetObject name="Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command" condition="contains">\shell\open\ddeexec</TargetObject> <!--Microsoft:Windows: Sensitive subkey under file associations and CLSID that map to launch command-->
 			<TargetObject name="technique_id=T1060,technique_name=Registry Run Keys / Start Folder" condition="contains">Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders\Startup</TargetObject>
 			<TargetObject condition="contains">\Classes\AllFilesystemObjects</TargetObject> <!--Microsoft:Windows:Explorer: [ http://www.silentrunners.org/launchpoints.html ] -->
 			<TargetObject condition="contains">\Classes\Directory</TargetObject> <!--Microsoft:Windows:Explorer: [ https://stackoverflow.com/questions/1323663/windows-shell-context-menu-option ] -->
@@ -812,28 +817,28 @@
 			<TargetObject name="technique_id=T1103,technique_name=Appinit DLLs" condition="begin with">HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls</TargetObject><!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/windows/desktop/dn280412(v=vs.85).aspx ] -->
 			<TargetObject name="technique_id=T1047,technique_name=Windows Management Instrumentation" condition="contains">SYSTEM\CurrentControlSet\Control\CrashControl</TargetObject>
 			<!--Networking-->
-			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\NetworkProvider\Order\</TargetObject> <!--Windows: Order of network providers that are checked to connect to destination [ https://www.malwarearchaeology.com/cheat-sheets ] -->
+			<TargetObject name="Order of network providers that are checked to connect to destination " condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\NetworkProvider\Order\</TargetObject> <!--Windows: Order of network providers that are checked to connect to destination [ https://www.malwarearchaeology.com/cheat-sheets ] -->
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles</TargetObject> <!--Windows: | Credit @ion-storm -->
-			<TargetObject name="T1089" condition="end with">\EnableFirewall</TargetObject> <!--Windows: Monitor for firewall disablement, all firewall profiles [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
-			<TargetObject name="T1089" condition="end with">\DoNotAllowExceptions</TargetObject> <!--Windows: Monitor for firewall disablement, all firewall profiles [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
+			<TargetObject name="T1089 Monitor for firewall disablement, all firewall profiles" condition="end with">\EnableFirewall</TargetObject> <!--Windows: Monitor for firewall disablement, all firewall profiles [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
+			<TargetObject name="T1089 Windows: Monitor for firewall disablement, all firewall profiles" condition="end with">\DoNotAllowExceptions</TargetObject> <!--Windows: Monitor for firewall disablement, all firewall profiles [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\AuthorizedApplications\List</TargetObject> <!--Windows Firewall authorized applications for all networks| Credit @ion-storm -->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\AuthorizedApplications\List</TargetObject> <!--Windows Firewall authorized applications for domain networks -->
 			<!--DLLs that get injected into every process at launch-->
-			<TargetObject name="T1103" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Windows: Feature disabled by default [ https://attack.mitre.org/wiki/Technique/T1103 ] -->
-			<TargetObject name="T1103" condition="begin with">HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Windows: Feature disabled by default [ https://attack.mitre.org/wiki/Technique/T1103 ] -->
+			<TargetObject name="T1103 DLLs that get injected into every process at launch-" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Windows: Feature disabled by default [ https://attack.mitre.org/wiki/Technique/T1103 ] -->
+			<TargetObject name="T1103 DLLs that get injected into every process at launch-" condition="begin with">HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls\</TargetObject> <!--Windows: Feature disabled by default [ https://attack.mitre.org/wiki/Technique/T1103 ] -->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\AppCertDlls\</TargetObject> <!--Windows: Credit to @Hexacorn [ http://www.hexacorn.com/blog/2013/01/19/beyond-good-ol-run-key-part-3/ ] [ https://blog.comodo.com/malware/trojware-win32-trojanspy-volisk-a/ ] -->
 			<!--Magic registry keys-->
-			<TargetObject condition="contains">{AB8902B4-09CA-4bb6-B78D-A8F59079A8D5}\</TargetObject> <!--Windows: Thumbnail cache autostart [ http://blog.trendmicro.com/trendlabs-security-intelligence/poweliks-levels-up-with-new-autostart-mechanism/ ] -->
-			<TargetObject name="Alert,Sysinternals Tool Used" condition="end with">\EulaAccepted</TargetObject> <!--Sysinternals tool launched first time. Lots of useful abilities for attackers -->
+			<TargetObject name="cache autostart" condition="contains">{AB8902B4-09CA-4bb6-B78D-A8F59079A8D5}\</TargetObject> <!--Windows: Thumbnail cache autostart [ http://blog.trendmicro.com/trendlabs-security-intelligence/poweliks-levels-up-with-new-autostart-mechanism/ ] -->
+			<TargetObject name="Alert,Sysinternals Tool Used. Watch for SDelete and ProcDump" condition="end with">\EulaAccepted</TargetObject> <!--Sysinternals tool launched first time. Lots of useful abilities for attackers -->
 			<!--Install/Infection artifacts-->
-			<TargetObject condition="end with">\UrlUpdateInfo</TargetObject> <!--Microsoft:ClickOnce: Source URL is stored in this value [ https://subt0x10.blogspot.com/2016/12/mimikatz-delivery-via-clickonce-with.html ] -->
-			<TargetObject condition="end with">\InstallSource</TargetObject> <!--Windows: Source folder for certain program and component installations-->
+			<TargetObject name="Source URL is stored in this value" condition="end with">\UrlUpdateInfo</TargetObject> <!--Microsoft:ClickOnce: Source URL is stored in this value [ https://subt0x10.blogspot.com/2016/12/mimikatz-delivery-via-clickonce-with.html ] -->
+			<TargetObject cname="Source folder for certain program and component installations" ondition="end with">\InstallSource</TargetObject> <!--Windows: Source folder for certain program and component installations-->
 			<!--Antivirus tampering-->
-			<TargetObject name="T1089,Tamper-Defender" condition="end with">\DisableAntiSpyware</TargetObject> <!--Windows:Defender: State modified via registry-->
-			<TargetObject name="T1089,Tamper-Defender" condition="end with">\DisableAntiVirus</TargetObject> <!--Windows:Defender: State modified via registry-->
+			<TargetObject name="T1089,Tamper-Defender Antivirus tampering" condition="end with">\DisableAntiSpyware</TargetObject> <!--Windows:Defender: State modified via registry-->
+			<TargetObject name="T1089,Tamper-Defender Antivirus tampering" condition="end with">\DisableAntiVirus</TargetObject> <!--Windows:Defender: State modified via registry-->
 			<!--Windows UAC tampering-->
-			<TargetObject name="T1088" condition="end with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\EnableLUA</TargetObject> <!--Detect: UAC Tampering | Credit @ion-storm -->
-			<TargetObject name="T1088" condition="end with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\LocalAccountTokenFilterPolicy</TargetObject> <!--Detect: UAC Tampering | Credit @ion-storm -->
+			<TargetObject name="T1088 Windows UAC tampering" condition="end with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\EnableLUA</TargetObject> <!--Detect: UAC Tampering | Credit @ion-storm -->
+			<TargetObject name="T1088 Windows UAC tampering" condition="end with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\LocalAccountTokenFilterPolicy</TargetObject> <!--Detect: UAC Tampering | Credit @ion-storm -->
 			<!--Microsoft Security Center tampering | Credit @ion-storm -->
 			<TargetObject name="T1089,Tamper-SecCenter" condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\AllAlertsDisabled</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
 			<TargetObject name="T1089,Tamper-SecCenter" condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\AntiVirusOverride</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
@@ -847,10 +852,10 @@
 			<!--Windows application compatibility-->
 			<TargetObject name="T1138,AppCompatShim" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom</TargetObject> <!--Windows: AppCompat [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
 			<TargetObject name="T1138,AppCompatShim" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB</TargetObject> <!--Windows: AppCompat [ https://attack.mitre.org/wiki/Technique/T1138 ] -->
-			<TargetObject condition="contains">VirtualStore</TargetObject> <!--Windows: Registry virtualization, something's wrong if it's in use [ https://msdn.microsoft.com/en-us/library/windows/desktop/aa965884(v=vs.85).aspx ] -->
+			<TargetObject name="Registry virtualization, something's wrong if it's in use" condition="contains">VirtualStore</TargetObject> <!--Windows: Registry virtualization, something's wrong if it's in use [ https://msdn.microsoft.com/en-us/library/windows/desktop/aa965884(v=vs.85).aspx ] -->
 			<!--Windows internals integrity monitoring-->
 			<TargetObject name="T1183,IFEO" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\</TargetObject> <!--Windows: Malware likes changing IFEO, like adding Debugger to disable antivirus EXE-->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\</TargetObject> <!--Windows: Event log system integrity and ACLs-->
+			<TargetObject name="Event log system integrity and ACLs" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\</TargetObject> <!--Windows: Event log system integrity and ACLs-->
 			<TargetObject name="Tamper-Safemode" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Safeboot\</TargetObject> <!--Windows: Services approved to load in safe mode. Almost nothing should ever modify this.-->
 			<TargetObject name="Tamper-Winlogon" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Winlogon\</TargetObject> <!--Windows: Providers notified by WinLogon-->
 			<TargetObject name="Context,DeviceConntectedOrUpdated" condition="end with">\FriendlyName</TargetObject> <!--Windows: New devices connected and remembered-->
@@ -963,7 +968,7 @@
 			ADS's are used by browsers and email clients to mark files as originating from the Internet or other foreign sources.
 			[ https://textslashplain.com/2016/04/04/downloads-and-the-mark-of-the-web/ ] -->
 		<!--NOTE: Other filesystem minifilters can make it appear to Sysmon that some files are being written twice. This is not a Sysmon issue, per Mark Russinovich.-->
-<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, Hash-->
+		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, Hash-->
 		<FileCreateStreamHash onmatch="exclude">
 			<Image condition="image">SWELF.exe</Image>
 		</FileCreateStreamHash>
@@ -985,6 +990,8 @@
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
 		
 		<PipeEvent onmatch="exclude">
+			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
+			<Image condition="is">C:\Program Files\Fortinet\FortiClient\FCVbltScan.exe</Image>
 			<Image condition="is">C:\Program Files\Mozilla Firefox\firefox.exe</Image> 
 			<Image condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Image> 
 			<Image condition="is">C:\Program Files (x86)\OpenDNS Updater\OpenDNSUpdater.exe</Image> 
@@ -997,7 +1004,6 @@
 			<Image condition="is">c:\windows\system32\logonui.exe</Image>
 			<Image condition="is">c:\program files (x86)\google\update\googleupdate.exe</Image>
 			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image>
-			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
 			<Image condition="is">C:\Program Files\Mozilla Firefox\firefox.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\VMware\VMware Player\vmplayer.exe</Image>
 			<Image condition="contains">SWELF.exe</Image>
@@ -1021,6 +1027,7 @@
 			<PipeName condition="contains">Anonymous Pipe</PipeName>
 			<PipeName condition="begin with">\Vivisimo Velocity</PipeName>
 		</PipeEvent>
+	
 	<!--SYSMON EVENT ID 19 & 20 & 21 : WMI EVENT MONITORING [WmiEvent]-->
 		<!--EVENT 19: "WmiEventFilter activity detected"-->
 		<!--EVENT 20: "WmiEventConsumer activity detected"-->
@@ -1032,14 +1039,15 @@
 		<!--DATA: EventType, UtcTime, Operation, User, Name, Type, Destination, Consumer, Filter-->
 		<WmiEvent onmatch="exclude">
 		</WmiEvent>
-	<!--SYSMON EVENT ID 255 : ERROR-->
+
+
+		<DnsQuery onmatch="exclude">
+		
+		<!--SYSMON EVENT ID 255 : ERROR-->
 		<!--"This event is generated when an error occurred within Sysmon. They can happen if the system is under heavy load
 			and certain tasked could not be performed or a bug exists in the Sysmon service. You can report any bugs on the
 			Sysinternals forum or over Twitter (@markrussinovich)."-->
 		<!--Cannot be filtered.-->
-
-		<DnsQuery onmatch="exclude">
-			<!--Network noise-->
 			<QueryName condition="end with">.arpa.</QueryName> <!--Design decision to not log reverse DNS lookups. You will need to decide.-->
 			<QueryName condition="end with">.arpa</QueryName> <!--Design decision to not log reverse DNS lookups. You will need to decide.-->
 			<QueryName condition="end with">.msftncsi.com</QueryName> <!--Microsoft proxy detection | Microsoft default exclusion-->
@@ -1241,7 +1249,10 @@
 			<QueryName condition="is">status.thawte.com</QueryName>
 			<Image condition="is">C:\Program Files (x86)\OpenDNS Updater\OpenDNSUpdater.exe</Image>
 			<Image condition="is">c:\windows\sysmon.exe</Image>
-			<QueryName condition="is">ocsp.int-x3.letsencrypt.org</QueryName>
+			<QueryName condition="end with">.googlevideo.com</QueryName>
+			<QueryName condition="end with">.googleusercontent.com</QueryName>
+			<QueryName condition="end with">.googleapis.com</QueryName>
 		</DnsQuery>
     </EventFiltering>
-</Sysmon>
+
+	</Sysmon>
