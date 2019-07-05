@@ -665,6 +665,7 @@
 			<TargetObject name="DNS Query location was changed" condition="begin with">HKLM\SYSTEM\CurrentControlSet\services\DNS\Parameters\</TargetObject> <!--Microsoft:Windows:DNS: ServerLevelPluginDll Issue https://medium.com/@esnesenon/feature-not-bug-dnsadmin-to-dc-compromise-in-one-line-a0f779b8dc83 -->
 			<TargetObject name="Reg AutoRun Key" condition="contains">Policies\Explorer\Run</TargetObject>
 			<TargetObject name="Possible adding a rogue named pipe" condition="end with">NullSessionPipes</TargetObject>
+			<TargetObject name="Reg Key used in DLL Hijack, if disabled possible DLL hijack." condition="end with">\CurrentControlSet\Control\Session Manager\SafeDLLSearchMode</TargetObject>
 			<TargetObject name="Reg AutoRun Key" condition="contains">\Software\Microsoft\Internet Explorer\Main</TargetObject> 
 			<TargetObject name="Alternate runs keys" condition="contains">\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap</TargetObject> <!--Microsoft:Windows: Alternate runs keys | Credit @ion-storm-->
 			<TargetObject condition="contains">Group Policy\Scripts</TargetObject> <!--Microsoft:Windows: Group policy scripts-->
