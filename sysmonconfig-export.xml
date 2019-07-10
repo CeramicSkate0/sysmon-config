@@ -544,17 +544,17 @@
 			<CallTrace name="Seen doing process minidump with rundll32, taskmanager, and custom bins" condition="contains">dbghelp.dll</CallTrace>
 			<SourceImage name="Process acess from RecycleBin, SUSPICIOUS action" condition="begin with">C:\$Recycle.Bin</SourceImage>
 			<TargetImage name="Possible LSASS Process access, SUSPICIOUS action" condition="is">C:\WINDOWS\system32\lsass.exe</TargetImage>
-			<TargetImage name="Possible brower inject, often done to dump passwords from browser" condition="is">chrome.exe</TargetImage>
-			<TargetImage name="Possible brower inject, often done to dump passwords from browser" condition="is">firefox.exe</TargetImage>
-			<GrantedAccess name="Possible Mimikatz like process access,PROCESS_SUSPEND_RESUME" condition="is">0x800</GrantedAccess>
-			<GrantedAccess name="Possible Mimikatz like process access" condition="is">0x010</GrantedAccess>
-			<GrantedAccess name="Often seen when running shellcode. Calltrace often has UNKNOWN dll in it, if true." condition="is">0x1FFFFF</GrantedAccess>
-			<GrantedAccess name="Possible Mimikatz like process access" condition="is">0x1010</GrantedAccess>
-			<GrantedAccess name="Possible Mimikatz like process access" condition="is">0x0400</GrantedAccess>
-			<GrantedAccess name="Possible Mimikatz like process access" condition="is">0x1410</GrantedAccess>
-			<GrantedAccess name="Possible Mimikatz like process access" condition="is">0x0010</GrantedAccess>
-			<GrantedAccess name="technique_id=T1003,technique_name=Credential Dumping">0x0810</GrantedAccess> <!-- PROCESS_SUSPEND_RESUME + PROCESS_VM_READ - possible memory dump to extract sensitive information -->
-			<GrantedAccess name="technique_id=T1055,technique_name=Process Injection">0x0820</GrantedAccess> <!-- PROCESS_SUSPEND_RESUME + PROCESS_VM_WRITE - possible memory injection -->
+			<TargetImage name="Possible browser inject, often done to dump passwords from browser" condition="is">chrome.exe</TargetImage>
+			<TargetImage name="Possible browser inject, often done to dump passwords from browser" condition="is">firefox.exe</TargetImage>
+			<GrantedAccess name="Possible suspicious process access,PROCESS_SUSPEND_RESUME (GrantedAccess)" condition="is">0x800</GrantedAccess>
+			<GrantedAccess name="Possible suspicious process access (GrantedAccess)" condition="is">0x010</GrantedAccess>
+			<GrantedAccess name="Often seen when running shellcode. Call trace often has UNKNOWN dll in it, if true (GrantedAccess)" condition="is">0x1FFFFF</GrantedAccess>
+			<GrantedAccess name="Possible suspicious process access (GrantedAccess)" condition="is">0x1010</GrantedAccess>
+			<GrantedAccess name="Possible suspicious process access (GrantedAccess)" condition="is">0x0400</GrantedAccess>
+			<GrantedAccess name="Possible suspicious process access (GrantedAccess)" condition="is">0x1410</GrantedAccess>
+			<GrantedAccess name="Possible suspicious process access (GrantedAccess)" condition="is">0x0010</GrantedAccess>
+			<GrantedAccess name="technique_id=T1003,technique_name=Credential Dumping (GrantedAccess)">0x0810</GrantedAccess> <!-- PROCESS_SUSPEND_RESUME + PROCESS_VM_READ - possible memory dump to extract sensitive information -->
+			<GrantedAccess name="technique_id=T1055,technique_name=Process Injection (GrantedAccess)">0x0820</GrantedAccess> <!-- PROCESS_SUSPEND_RESUME + PROCESS_VM_WRITE - possible memory injection -->
 		</ProcessAccess>
 		</RuleGroup>
 		
