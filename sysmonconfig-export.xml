@@ -87,8 +87,6 @@
 			<Image condition="is">C:\Windows\System32\audiodg.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image>
 			<Image condition="is">C:\Windows\System32\SearchProtocolHost.exe</Image>
-			<Image condition="contains">C:\Windows\System32\SearchProtocolHost.exe</Image>
-			<Image condition="contains">C:\Windows\System32\SearchFilterHost.exe</Image>
 			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
 			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
 			<Image condition="is">C:\Program Files\Oracle\VirtualBox\VBoxHeadless.exe</Image>
@@ -96,10 +94,10 @@
 			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
 			<Image condition="is">C:\Program Files\Oracle\VirtualBox\VBoxNetDHCP.exe</Image>
 			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
-			<Image condition="contains">C:\Program Files (x86)\NVIDIA Corporation\Update Core\</Image>
+			<Image condition="begin with">C:\Program Files (x86)\NVIDIA Corporation\Update Core\</Image>
 			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
-			<Image condition="contains">C:\Program Files\Fortinet\FortiClient\</Image>
+			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
 			<Image condition="is">C:\Program Files (x86)\SWELF\SWELF.exe</Image>
 			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Fortinet\FortiClient\update_task.exe</Image>
@@ -216,7 +214,7 @@
 			<CommandLine condition="is">C:\WINDOWS\System32\svchost.exe -k netsvcs -p -s NetSetupSvc</CommandLine>
 			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k LocalService -p -s tzautoupdate</CommandLine>
 			<CommandLine condition="begin with">C:\WINDOWS\system32\cmd.exe /c wmic logicaldisk where "drivetype=2 AND NOT deviceid like "a:"" get deviceid, volumename, description, FileSystem, Size, VolumeSerialNumber</CommandLine> 
-			<CommandLine condition="contains">ngen.exe</CommandLine> <!--Microsoft:DotNet-->
+			<CommandLine condition="end with">\ngen.exe</CommandLine> <!--Microsoft:DotNet-->
 			<ParentCommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs</ParentCommandLine> <!--Microsoft:Windows: Network services: Spawns Consent.exe-->
 			<ParentCommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted</ParentCommandLine> <!--Microsoft:Windows-->
 			<ParentCommandLine condition="contains">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\ngentask.exe</ParentCommandLine>
@@ -311,16 +309,16 @@
 		
 		<RuleGroup name="FileCreateTime Exclude" groupRelation="or">
 		<FileCreateTime onmatch="exclude">
-			<Image condition="image">C:\Program Files (x86)\Notepad++\notepad++.exe</Image>
-			<Image condition="image">OneDrive.exe</Image> <!--OneDrive constantly changes file times-->
-			<Image condition="image">C:\Windows\system32\backgroundTaskHost.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image>
+			<Image condition="end with">\OneDrive.exe</Image> <!--OneDrive constantly changes file times-->
+			<Image condition="is">C:\Windows\system32\backgroundTaskHost.exe</Image>
 			<Image condition="contains">setup</Image> <!--Ignore setups-->
 			<Image condition="contains">install</Image> <!--Ignore setups-->
 			<Image condition="contains">\Update\</Image> <!--Ignore setups-->
-			<Image condition="end with">redist.exe</Image> <!--Ignore setups-->
+			<Image condition="end with">\redist.exe</Image> <!--Ignore setups-->
 			<Image condition="is">TrustedInstaller.exe</Image> <!--Ignore setups-->
-			<Image condition="contains">notepad++.exe</Image> <!--Ignore setups-->
-			<Image condition="contains">SWELF.exe</Image> <!--Ignore setups-->
+			<Image condition="end with">\notepad++.exe</Image> <!--Ignore setups-->
+			<Image condition="end with">\SWELF.exe</Image> <!--Ignore setups-->
 			<Image condition="begin with">C:\Windows\winsxs\amd64_microsoft-windows</Image> <!-- Windows: Windows update-->
 			<Image condition="is">C:\Windows\system32\igfxCUIService.exe</Image>
 			<TargetFilename condition="begin with">C:\$WINDOWS.~BT\Sources\</TargetFilename> <!-- Windows: Feature updates containing lots of .exe and .sys-->
@@ -343,9 +341,9 @@
 		<RuleGroup name="NetworkConnect exclude" groupRelation="or">
 		<NetworkConnect onmatch="exclude">
 			<!--<Image condition="contains">C:\Windows\System32\svchost.exe</Image>-->
-			<Image condition="end with">g2ax_comm_expert.exe</Image> <!--GoToMeeting-->
-			<Image condition="contains">g2mcomm.exe</Image> <!--GoToMeeting-->
-			<Image condition="contains">SWELF.exe</Image>
+			<Image condition="end with">\g2ax_comm_expert.exe</Image> <!--GoToMeeting-->
+			<Image condition="end with">\g2mcomm.exe</Image> <!--GoToMeeting-->
+			<Image condition="end with">\SWELF.exe</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
 			<!--<Image condition="end with">firefox.exe</Image>--><!--Browser-->
 			<!--<Image condition="end with">chrome.exe</Image>--><!--Browser-->
@@ -353,7 +351,7 @@
 			<!--<Image condition="end with">MicrosoftEdge.exe</Image>--><!--Browser-->
 			<Image condition="is">C:\Program Files (x86)\ossec-agent\ossec-agent.exe</Image>			
 			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image>
-			<Image condition="contains">C:\Program Files\Fortinet\FortiClient\</Image>
+			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
 			<Image condition="begin with">C:\Program Files (x86)\OpenDNS Updater\</Image>
 			<Image condition="end with">AppData\Local\Microsoft\Teams\current\Teams.exe</Image> <!--Microsoft: Teams-->
 			<DestinationHostname condition="end with">microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
@@ -379,7 +377,7 @@
 			<Image condition="contains">C:\Windows\System32\conhost.exe</Image>
 			<Image condition="is">C:\Windows\System32\dllhost.exe</Image>
 			<Image condition="is">C:\Windows\System32\wbem\WmiPrvSE.exe</Image>
-			<Image condition="contains">SWELF.exe</Image>
+			<Image condition="end with">\SWELF.exe</Image>
 		</ProcessTerminate>
 		</RuleGroup>
 	<!--SYSMON EVENT ID 6 : DRIVER LOADED INTO KERNEL [DriverLoad]-->
@@ -509,9 +507,9 @@
 			<StartModule condition="is">C:\Windows\system32\kernel32.dll</StartModule><!--This does to createremote thread for injection as well as other things-->
 			<TargetImage condition="end with">Google\Chrome\Application\chrome.exe</TargetImage>
 			<SourceImage condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</SourceImage>
-			<SourceImage condition="contains">C:\Program Files (x86)\Fortinet\FortiClient\</SourceImage>
-			<SourceImage condition="contains">C:\Program Files (x86)\</SourceImage>
-			<SourceImage condition="contains">C:\Program Files\</SourceImage>
+			<SourceImage condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</SourceImage>
+			<SourceImage condition="begin with">C:\Program Files (x86)\</SourceImage>
+			<SourceImage condition="begin with">C:\Program Files\</SourceImage>
 		</CreateRemoteThread>
 		</RuleGroup>
 	<!--SYSMON EVENT ID 9 : RAW DISK ACCESS [RawAccessRead]-->
@@ -525,9 +523,9 @@
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, Device-->
 		<RuleGroup name="RawAccessRead exclude" groupRelation="or">
 		<RawAccessRead onmatch="exclude">
-			<Image condition="is">C:\Program Files (x86)\</Image> 
-			<Image condition="is">C:\Program Files \</Image> 
-			<Image condition="is">C:\Windows\</Image>
+			<Image condition="begin with">C:\Program Files (x86)\</Image> 
+			<Image condition="begin with">C:\Program Files \</Image> 
+			<Image condition="begin with">C:\Windows\</Image>
 			<Image condition="is">system</Image> 
 			<Image condition="is">C:\Windows\System32\svchost.exe</Image> 
 		</RawAccessRead>
@@ -542,11 +540,11 @@
 		<ProcessAccess onmatch="include">	
 			<CallTrace name="Call of DLL used for injection and powershell with out powershell.exe" condition="contains">System.Management.Automation.ni</CallTrace>
 			<CallTrace name="Call of DLL used for injection and powershell with out powershell.exe" condition="contains">UNKNOWN</CallTrace>
-			<CallTrace name="Seen doing process minidump with rundll32, taskmanager, and custom bins" condition="contains">dbghelp.dll</CallTrace>
+			<CallTrace name="Seen doing process minidump with rundll32, taskmanager, and custom bins" condition="contains">\dbghelp.dll</CallTrace>
 			<SourceImage name="Process acess from RecycleBin, SUSPICIOUS action" condition="begin with">C:\$Recycle.Bin</SourceImage>
 			<TargetImage name="Possible LSASS Process access, SUSPICIOUS action" condition="is">C:\WINDOWS\system32\lsass.exe</TargetImage>
-			<TargetImage name="Possible browser inject, often done to dump passwords from browser" condition="is">chrome.exe</TargetImage>
-			<TargetImage name="Possible browser inject, often done to dump passwords from browser" condition="is">firefox.exe</TargetImage>
+			<TargetImage name="Possible browser inject, often done to dump passwords from browser" condition="end with">\chrome.exe</TargetImage>
+			<TargetImage name="Possible browser inject, often done to dump passwords from browser" condition="end with">\firefox.exe</TargetImage>
 			<GrantedAccess name="Possible suspicious process access,PROCESS_SUSPEND_RESUME (GrantedAccess)" condition="is">0x800</GrantedAccess>
 			<GrantedAccess name="Possible suspicious process access (GrantedAccess)" condition="is">0x010</GrantedAccess>
 			<GrantedAccess name="Often seen when running shellcode. Call trace often has UNKNOWN dll in it, if true (GrantedAccess)" condition="is">0x1FFFFF</GrantedAccess>
@@ -561,7 +559,6 @@
 		
 		<RuleGroup name="ProcessAccess exclude" groupRelation="or">
 		<ProcessAccess onmatch="exclude">
-			<SourceImage condition="end with">swelf.exe</SourceImage>
 			<SourceImage condition="is">C:\Program Files (x86)\VMware\VMWare Player\vmware-authd.exe</SourceImage>
 			<SourceImage condition="is">C:\Program Files\Microsoft Security Client\MsMpEng.exe</SourceImage>
 			<SourceImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</SourceImage>
