@@ -574,7 +574,7 @@
 			<SourceImage condition="begin with">C:\programdata\microsoft\windows defender\platform\</SourceImage>
 			<SourceImage condition="end with">\GoogleUpdate.exe</SourceImage>
 			<SourceImage condition="end with">\LTSVC.exe</SourceImage>
-			<SourceImage condition="end with">\swelf.exe</SourceImage>
+			<SourceImage condition="end with">\SWELF.exe</SourceImage>
 			<SourceImage condition="end with">\taskmgr.exe</SourceImage>
 			<SourceImage condition="end with">\VBoxService.exe</SourceImage> <!-- Virtual Box -->
 			<SourceImage condition="end with">\vmtoolsd.exe</SourceImage> <!-- VMWare -->
@@ -659,6 +659,24 @@
 		<!--DATA: EventType, UtcTime, ProcessGuid, ProcessId, Image, TargetObject, Details (can't filter on), NewName (can't filter on)-->
 		<RuleGroup name="RegistryEvent include" groupRelation="or">
 		<RegistryEvent onmatch="include">
+			<TargetObject condition="contains" name="Persistence via SilentProcessExit hijack">CurrentVersion\SilentProcessExit</TargetObject>
+			<TargetObject condition="contains" name="Persistence - Outlook COM Addins">\Outlook\Addins</TargetObject>
+		    <TargetObject condition="contains" name="Persistence - Excel COM Addins">\Excel\Addins</TargetObject>
+		    <TargetObject condition="contains" name="Persistence - Excel Addins">Excel\Options\OPEN</TargetObject>
+		    <TargetObject condition="contains" name="Persistence - Word COM Addins">\Word\Addins</TargetObject>
+		    <TargetObject condition="contains" name="Persistence - Access COM Addins">\Access\Addins\</TargetObject>
+		    <TargetObject condition="contains" name="Persistence - Powerpoint COM Addins">\Powerpoint\Addins\</TargetObject>
+		    <TargetObject condition="contains" name="Persistence - VBE Addins">Software\Microsoft\VBA\VBE\6.0\Addins</TargetObject>
+		    <TargetObject condition="contains" name="Persistence - Office Test RegKey">Software\Microsoft\Office test\Special\Perf</TargetObject><!-- http://www.hexacorn.com/blog/2014/04/16/beyond-good-ol-run-key-part-10/ -->
+		    <TargetObject condition="end with" name="Persistence - Macro Auto Loading enabled on outlook">Outlook\LoadMacroProviderOnBoot</TargetObject>
+			<TargetObject condition="end with" name="Defense Evasion - PowerShell ExecPolicy Changed">Microsoft.PowerShell\ExecutionPolicy</TargetObject>
+		    <TargetObject condition="end with" name="Defense Evasion - PowerShell Audit Settings Changed">EnableModuleLogging</TargetObject>
+		    <TargetObject condition="end with" name="Defense Evasion - PowerShell Audit Settings Changed">EnableScriptBlockLogging</TargetObject>
+		    <TargetObject condition="contains" name="Defense Evasion - PowerShell Audit Settings Changed">PowerShell\Transcription</TargetObject>
+		    <TargetObject condition="end with" name="Defense Evasion - access to the VBA project object model in the Macro Settings changed">AccessVBOM</TargetObject><!--https://www.stigviewer.com/stig/microsoft_powerpoint_2007/2014-04-03/finding/V-17522 -->
+		    <TargetObject condition="contains" name="Defense Evasion - Changes to ProtectedView Security Setting">Security\ProtectedView</TargetObject>
+		    <TargetObject condition="contains" name="Defense Evasion - Office Trusted Locations changed">Security\Trusted Locations</TargetObject> <!-- can be abused to execute unrestricted vba from specific desired locations -->
+		    <TargetObject condition="end with" name="Defense Evasion - Lsa Protection changed">SYSTEM\CurrentControlSet\Control\Lsa\RunAsPPL</TargetObject>
 			<Image name="Something from RecycleBin touched the registry, SUSPICIOUS" condition="begin with">C:\$Recycle.Bin</Image>
 			<Image name="Suspicious,ImageBeginWithBackslash" condition="begin with">\</Image> <!--Devices and VSC shouldn't be executing changes | Credit: @SBousseaden @ionstorm @neu5ron @PerchedSystems [ https://twitter.com/SwiftOnSecurity/status/1133167323991486464 ] -->			
 			<TargetObject name="technique_id=T1060,technique_name=Registry Run Keys / Start Folder" condition="contains">CurrentVersion\Run</TargetObject> <!--Microsoft:Windows: Wildcard for Run keys, including RunOnce, RunOnceEx, RunServices, RunServicesOnce [Also covers terminal server] -->
