@@ -152,6 +152,7 @@
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k appmodel</CommandLine> <!--Microsoft:Windows 10-->
 			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k appmodel -p -s tiledatamodelsvc</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k camera -s FrameServer</CommandLine>
+			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k netsvcs -p -s wuauserv</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k dcomlaunch -s LSM</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k dcomlaunch -s PlugPlay</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k defragsvc</CommandLine> <!--Microsoft:Windows defragmentation-->
@@ -294,16 +295,38 @@
 
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, PreviousCreationUtcTime-->
 		<RuleGroup name="FileCreateTime Include" groupRelation="or">
-		<FileCreateTime onmatch="include">		    
+		<FileCreateTime onmatch="include">		 		
 			<Image name="FileCreateTime(TimeStomped) changed from file in Windows Temp" condition="begin with">C:\Windows\Temp</Image>
 			<Image name="FileCreateTime(TimeStomped) changed from file in ProgramData" condition="begin with">C:\Program Data</Image>
 			<Image name="FileCreateTime(TimeStomped) changed from file in RecycleBin" condition="begin with">C:\$Recycle.Bin</Image>
 			<Image name="FileCreateTime(TimeStomped) changed from file in ProgramData" condition="begin with">C:\Program Files</Image>
 			<Image name="FileCreateTime(TimeStomped) changed from file in Users Folder" condition="begin with">C:\Users</Image> <!--Look for timestomping in user area-->
 			<TargetFilename name="FileCreateTime(TimeStomped) changed a file located in RecycleBin" condition="begin with">C:\$Recycle.Bin</TargetFilename>
+			<TargetFilename condition="contains" name="persistence - office templates trusted location">AppData\Roaming\Microsoft\Templates</TargetFilename>
+			<TargetFilename name="KeeFarce.exe default injected DLL name-" condition="end with">BootStrapDLL.dll</TargetFilename><!-- KeeFarce.exe default injected DLL name-->
+			<TargetFilename condition="end with" name="persistence - backdoored default docm template">Templates\Normal.dotm</TargetFilename>
+			<TargetFilename condition="end with" name="persistence - backdoored outlook template">NormalEmail.dotm</TargetFilename>
+			<TargetFilename condition="end with" name="persistence - backdoored excel default macro template">XLSTART\PERSONAL.XLSB</TargetFilename>
+			<TargetFilename condition="contains" name="persistence - Word Library Add-Ins">Roaming\Microsoft\Word\Startup\</TargetFilename>
+			<TargetFilename condition="contains" name="persistence - Excel VBA Add-Ins">Roaming\Microsoft\Excel\XLSTART\</TargetFilename>
+			<TargetFilename condition="contains" name="persistence - Powerpoint and Excel VBA Add-Ins Trusted Location">Roaming\Microsoft\AddIns</TargetFilename>
 			<TargetFilename name="FileCreateTime(TimeStomped) changed a file located in Appdata" condition="contains">\AppData\</TargetFilename>
 			<TargetFilename name="FileCreateTime(TimeStomped) changed a file located in Users folder" condition="begin with">C:\Users\</TargetFilename>
 			<TargetFilename name="FileCreateTime(TimeStomped) changed a file located in Windows folder" condition="begin with">C:\Windows\</TargetFilename>
+			<TargetFilename name="Memory dump file extension" condition="end with">.dmp</TargetFilename>	
+			<TargetFilename name="possible wmi persistence" condition="end with">.mof</TargetFilename> <!-- wmi persistence -->
+			<TargetFilename name="XML Script file extension" condition="end with">.xsl</TargetFilename> <!-- XML Script -->
+			<TargetFilename name="Schedule task creation" condition="begin with">C:\Windows\Tasks\</TargetFilename>
+			<TargetFilename name="Schedule task creation" condition="begin with">c:\windows\system32\tasks\</TargetFilename>
+			<TargetFilename nmae="Web server dir file added" condition="contains">Exchange Server\ClientAccess\Owa\</TargetFilename> <!-- webshell stuff on exchange CAS -->
+			<TargetFilename nmae="Web server dir file added" condition="contains">\inetpub\wwwroot\</TargetFilename> <!-- webshell stuff -->			
+			<TargetFilename condition="begin with">C:\Windows\AppPatch\Custom</TargetFilename>
+			<TargetFilename condition="begin with">c:\windows\AppPatch64\Custom</TargetFilename>			
+			<TargetFilename name="Persistence - Outlook VBA Backdoor" condition="end with" >VBAProject.OTM</TargetFilename> <!-- office less famous extensions -->
+			<TargetFilename name="UAC Bypass via rogue manifest" condition="end with">wscript.exe</TargetFilename><!-- UAC Bypass via rogue manifest -->
+			<TargetFilename name="Possible  persist or hijack exec flow via appcompat shim database" condition="end with">.sdb</TargetFilename> <!-- persist or hijack exec flow via appcompat shim database -->
+			<TargetFilename name="UAC Bypass via custom manifest targeting vulnerable trusted programs" condition="end with">.manifest</TargetFilename> <!-- UAC Bypass via custom manifest targeting vulnerable trusted programs -->
+			<TargetFilename name="by default bloodhound drops this file to disk if not disabled by cmdline " condition="end with" name="Discovery - BloodHound Detected">bloodhound.bin</TargetFilename> <!-- by default bloodhound drops this file to disk if not disabled by cmdline -->
 		</FileCreateTime>
 		</RuleGroup>
 		
