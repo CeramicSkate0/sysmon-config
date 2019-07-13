@@ -318,15 +318,15 @@
 			<TargetFilename name="XML Script file extension" condition="end with">.xsl</TargetFilename> <!-- XML Script -->
 			<TargetFilename name="Schedule task creation" condition="begin with">C:\Windows\Tasks\</TargetFilename>
 			<TargetFilename name="Schedule task creation" condition="begin with">c:\windows\system32\tasks\</TargetFilename>
-			<TargetFilename nmae="Web server dir file added" condition="contains">Exchange Server\ClientAccess\Owa\</TargetFilename> <!-- webshell stuff on exchange CAS -->
-			<TargetFilename nmae="Web server dir file added" condition="contains">\inetpub\wwwroot\</TargetFilename> <!-- webshell stuff -->			
+			<TargetFilename name="Web server dir file added" condition="contains">Exchange Server\ClientAccess\Owa\</TargetFilename> <!-- webshell stuff on exchange CAS -->
+			<TargetFilename name="Web server dir file added" condition="contains">\inetpub\wwwroot\</TargetFilename> <!-- webshell stuff -->			
 			<TargetFilename condition="begin with">C:\Windows\AppPatch\Custom</TargetFilename>
 			<TargetFilename condition="begin with">c:\windows\AppPatch64\Custom</TargetFilename>			
 			<TargetFilename name="Persistence - Outlook VBA Backdoor" condition="end with" >VBAProject.OTM</TargetFilename> <!-- office less famous extensions -->
 			<TargetFilename name="UAC Bypass via rogue manifest" condition="end with">wscript.exe</TargetFilename><!-- UAC Bypass via rogue manifest -->
 			<TargetFilename name="Possible  persist or hijack exec flow via appcompat shim database" condition="end with">.sdb</TargetFilename> <!-- persist or hijack exec flow via appcompat shim database -->
 			<TargetFilename name="UAC Bypass via custom manifest targeting vulnerable trusted programs" condition="end with">.manifest</TargetFilename> <!-- UAC Bypass via custom manifest targeting vulnerable trusted programs -->
-			<TargetFilename name="by default bloodhound drops this file to disk if not disabled by cmdline " condition="end with" name="Discovery - BloodHound Detected">bloodhound.bin</TargetFilename> <!-- by default bloodhound drops this file to disk if not disabled by cmdline -->
+			<TargetFilename name="by default bloodhound drops this file to disk if not disabled by cmdline " condition="end with">bloodhound.bin</TargetFilename> <!-- by default bloodhound drops this file to disk if not disabled by cmdline -->
 		</FileCreateTime>
 		</RuleGroup>
 		
