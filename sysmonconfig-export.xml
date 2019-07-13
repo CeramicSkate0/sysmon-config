@@ -344,6 +344,9 @@
 			<Image condition="end with">\g2ax_comm_expert.exe</Image> <!--GoToMeeting-->
 			<Image condition="end with">\g2mcomm.exe</Image> <!--GoToMeeting-->
 			<Image condition="end with">\SWELF.exe</Image>
+			<Image condition="end with">\chrome.exe</Image>
+			<Image condition="end with">\firefox.exe</Image>
+			<Image condition="end with">\iexplorer.exe</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
 			<!--<Image condition="end with">firefox.exe</Image>--><!--Browser-->
 			<!--<Image condition="end with">chrome.exe</Image>--><!--Browser-->
@@ -444,6 +447,7 @@
 			<Image condition="is">C:\Windows\System32\mmc.exe</Image>
 			<Image condition="is">C:\Windows\sysmon64.exe</Image>
 			<Image condition="is">C:\Windows\sysmon.exe</Image>
+			<Image condition="end with">\SWELF.exe</Image>
 			<Image condition="is">C:\Windows\System32\svchost.exe</Image>
 			<Image condition="is">C:\Windows\System32\inetsrv\w3wp.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe</Image>
@@ -576,6 +580,7 @@
 			<SourceImage condition="end with">\LTSVC.exe</SourceImage>
 			<SourceImage condition="end with">\SWELF.exe</SourceImage>
 			<SourceImage condition="end with">\taskmgr.exe</SourceImage>
+			<SourceImage condition="begin with">C:\Program Files\Fortinet\FortiClient\</SourceImage>
 			<SourceImage condition="end with">\VBoxService.exe</SourceImage> <!-- Virtual Box -->
 			<SourceImage condition="end with">\vmtoolsd.exe</SourceImage> <!-- VMWare -->
 			<SourceImage condition="end with">\Citrix\System32\wfshell.exe</SourceImage> <!--Citrix process in C:\Program Files (x86)\Citrix\System32\wfshell.exe -->
