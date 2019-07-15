@@ -445,7 +445,7 @@
 			<Image name="Attempts to ID Microsoft DLL loaded that is often used in Malware to add functionality to do things like encrypt and encrypt data, files, and other things in memory and on disk." condition="contains">System.Security.Cryptography.X509Certificates</Image>
 			<Image name="MitreRef=T1128,Technique=Netsh Helper Beacon DLL,Tactic=Persistence, also it manages windows firewall." condition="contains">netsh.exe</Image>
 			<ImageLoaded name="Alert=Ramnit Banker Malware!" condition="contains">rmnsoft.dll</ImageLoaded>
-			<ImageLoaded name="" condition="contains">C:\Windows\assembly\NativeImages</ImageLoaded>
+			<ImageLoaded name=".Net Assembly used" condition="contains">C:\Windows\assembly\NativeImages</ImageLoaded>
 			<ImageLoaded name="Mitre: https://attack.mitre.org/wiki/Technique/T1098" condition="contains">samlib.dll</ImageLoaded>
 			<ImageLoaded name="Mitre: https://attack.mitre.org/wiki/Technique/T1098" condition="contains">WinSCard.dll</ImageLoaded>
 			<ImageLoaded name="" condition="is">C:\windows\system32\fxsst.dll</ImageLoaded>
