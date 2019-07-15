@@ -302,14 +302,14 @@
 			<Image name="FileCreateTime(TimeStomped) changed from file in ProgramData" condition="begin with">C:\Program Files</Image>
 			<Image name="FileCreateTime(TimeStomped) changed from file in Users Folder" condition="begin with">C:\Users</Image> <!--Look for timestomping in user area-->
 			<TargetFilename name="FileCreateTime(TimeStomped) changed a file located in RecycleBin" condition="begin with">C:\$Recycle.Bin</TargetFilename>
-			<TargetFilename condition="contains" name="persistence - office templates trusted location">AppData\Roaming\Microsoft\Templates</TargetFilename>
+			<TargetFilename name="persistence - office templates trusted location" condition="contains" >AppData\Roaming\Microsoft\Templates</TargetFilename>
 			<TargetFilename name="KeeFarce.exe default injected DLL name-" condition="end with">BootStrapDLL.dll</TargetFilename><!-- KeeFarce.exe default injected DLL name-->
-			<TargetFilename condition="end with" name="persistence - backdoored default docm template">Templates\Normal.dotm</TargetFilename>
-			<TargetFilename condition="end with" name="persistence - backdoored outlook template">NormalEmail.dotm</TargetFilename>
-			<TargetFilename condition="end with" name="persistence - backdoored excel default macro template">XLSTART\PERSONAL.XLSB</TargetFilename>
-			<TargetFilename condition="contains" name="persistence - Word Library Add-Ins">Roaming\Microsoft\Word\Startup\</TargetFilename>
-			<TargetFilename condition="contains" name="persistence - Excel VBA Add-Ins">Roaming\Microsoft\Excel\XLSTART\</TargetFilename>
-			<TargetFilename condition="contains" name="persistence - Powerpoint and Excel VBA Add-Ins Trusted Location">Roaming\Microsoft\AddIns</TargetFilename>
+			<TargetFilename name="persistence - backdoored default docm template" condition="end with" >Templates\Normal.dotm</TargetFilename>
+			<TargetFilename name="persistence - backdoored outlook template" condition="end with" >NormalEmail.dotm</TargetFilename>
+			<TargetFilename name="persistence - backdoored excel default macro template" condition="end with" >XLSTART\PERSONAL.XLSB</TargetFilename>
+			<TargetFilename name="persistence - Word Library Add-Ins" condition="contains" >Roaming\Microsoft\Word\Startup\</TargetFilename>
+			<TargetFilename name="persistence - Excel VBA Add-Ins" condition="contains" >Roaming\Microsoft\Excel\XLSTART\</TargetFilename>
+			<TargetFilename name="persistence - Powerpoint and Excel VBA Add-Ins Trusted Location" condition="contains" >Roaming\Microsoft\AddIns</TargetFilename>
 			<TargetFilename name="FileCreateTime(TimeStomped) changed a file located in Appdata" condition="contains">\AppData\</TargetFilename>
 			<TargetFilename name="FileCreateTime(TimeStomped) changed a file located in Users folder" condition="begin with">C:\Users\</TargetFilename>
 			<TargetFilename name="FileCreateTime(TimeStomped) changed a file located in Windows folder" condition="begin with">C:\Windows\</TargetFilename>
@@ -565,7 +565,7 @@
 			<CallTrace name="Call of DLL used for injection and powershell with out powershell.exe" condition="contains">System.Management.Automation.ni</CallTrace>
 			<CallTrace name="Call of DLL used for injection and powershell with out powershell.exe" condition="contains">UNKNOWN</CallTrace>
 			<CallTrace name="Seen doing process minidump with rundll32, taskmanager, and custom bins" condition="contains">\dbghelp.dll</CallTrace>
-			<SourceImage name="Process acess from RecycleBin, SUSPICIOUS action" condition="begin with">C:\$Recycle.Bin</SourceImage>
+			<SourceImage name="Process access from RecycleBin, SUSPICIOUS action" condition="begin with">C:\$Recycle.Bin</SourceImage>
 			<TargetImage name="Possible LSASS Process access, SUSPICIOUS action" condition="is">C:\WINDOWS\system32\lsass.exe</TargetImage>
 			<TargetImage name="Possible browser inject, often done to dump passwords from browser" condition="end with">\chrome.exe</TargetImage>
 			<TargetImage name="Possible browser inject, often done to dump passwords from browser" condition="end with">\firefox.exe</TargetImage>
@@ -684,26 +684,26 @@
 		<!--DATA: EventType, UtcTime, ProcessGuid, ProcessId, Image, TargetObject, Details (can't filter on), NewName (can't filter on)-->
 		<RuleGroup name="RegistryEvent include" groupRelation="or">
 		<RegistryEvent onmatch="include">
-			<TargetObject condition="contains" name="Persistence via SilentProcessExit hijack">CurrentVersion\SilentProcessExit</TargetObject>
-			<TargetObject condition="contains" name="Persistence - Outlook COM Addins">\Outlook\Addins</TargetObject>
-		    <TargetObject condition="contains" name="Persistence - Excel COM Addins">\Excel\Addins</TargetObject>
-		    <TargetObject condition="contains" name="Persistence - Excel Addins">Excel\Options\OPEN</TargetObject>
-		    <TargetObject condition="contains" name="Persistence - Word COM Addins">\Word\Addins</TargetObject>
-		    <TargetObject condition="contains" name="Persistence - Access COM Addins">\Access\Addins\</TargetObject>
-		    <TargetObject condition="contains" name="Persistence - Powerpoint COM Addins">\Powerpoint\Addins\</TargetObject>
-		    <TargetObject condition="contains" name="Persistence - VBE Addins">Software\Microsoft\VBA\VBE\6.0\Addins</TargetObject>
-		    <TargetObject condition="contains" name="Persistence - Office Test RegKey">Software\Microsoft\Office test\Special\Perf</TargetObject><!-- http://www.hexacorn.com/blog/2014/04/16/beyond-good-ol-run-key-part-10/ -->
-		    <TargetObject condition="end with" name="Persistence - Macro Auto Loading enabled on outlook">Outlook\LoadMacroProviderOnBoot</TargetObject>
-			<TargetObject condition="end with" name="Defense Evasion - PowerShell ExecPolicy Changed">Microsoft.PowerShell\ExecutionPolicy</TargetObject>
-		    <TargetObject condition="end with" name="Defense Evasion - PowerShell Audit Settings Changed">EnableModuleLogging</TargetObject>
-		    <TargetObject condition="end with" name="Defense Evasion - PowerShell Audit Settings Changed">EnableScriptBlockLogging</TargetObject>
-		    <TargetObject condition="contains" name="Defense Evasion - PowerShell Audit Settings Changed">PowerShell\Transcription</TargetObject>
-		    <TargetObject condition="end with" name="Defense Evasion - access to the VBA project object model in the Macro Settings changed">AccessVBOM</TargetObject><!--https://www.stigviewer.com/stig/microsoft_powerpoint_2007/2014-04-03/finding/V-17522 -->
-		    <TargetObject condition="contains" name="Defense Evasion - Changes to ProtectedView Security Setting">Security\ProtectedView</TargetObject>
-		    <TargetObject condition="contains" name="Defense Evasion - Office Trusted Locations changed">Security\Trusted Locations</TargetObject> <!-- can be abused to execute unrestricted vba from specific desired locations -->
-		    <TargetObject condition="end with" name="Defense Evasion - Lsa Protection changed">SYSTEM\CurrentControlSet\Control\Lsa\RunAsPPL</TargetObject>
 			<Image name="Something from RecycleBin touched the registry, SUSPICIOUS" condition="begin with">C:\$Recycle.Bin</Image>
-			<Image name="Suspicious,ImageBeginWithBackslash" condition="begin with">\</Image> <!--Devices and VSC shouldn't be executing changes | Credit: @SBousseaden @ionstorm @neu5ron @PerchedSystems [ https://twitter.com/SwiftOnSecurity/status/1133167323991486464 ] -->			
+			<Image name="Suspicious,ImageBeginWithBackslash" condition="begin with">\</Image> <!--Devices and VSC shouldn't be executing changes | Credit: @SBousseaden @ionstorm @neu5ron @PerchedSystems [ https://twitter.com/SwiftOnSecurity/status/1133167323991486464 ] -->
+			<TargetObject name="Persistence via SilentProcessExit hijack" condition="contains">CurrentVersion\SilentProcessExit</TargetObject>
+			<TargetObject name="Persistence - Outlook COM Addins" condition="contains">\Outlook\Addins</TargetObject>
+		    <TargetObject name="Persistence - Excel COM Addins" condition="contains">\Excel\Addins</TargetObject>
+		    <TargetObject name="Persistence - Excel Addins" condition="contains">Excel\Options\OPEN</TargetObject>
+		    <TargetObject name="Persistence - Word COM Addins" condition="contains">\Word\Addins</TargetObject>
+		    <TargetObject name="Persistence - Access COM Addins" condition="contains">\Access\Addins\</TargetObject>
+		    <TargetObject name="Persistence - Powerpoint COM Addins" condition="contains">\Powerpoint\Addins\</TargetObject>
+		    <TargetObject name="Persistence - VBE Addins" condition="contains">Software\Microsoft\VBA\VBE\6.0\Addins</TargetObject>
+		    <TargetObject name="Persistence - Office Test RegKey" condition="contains">Software\Microsoft\Office test\Special\Perf</TargetObject><!-- http://www.hexacorn.com/blog/2014/04/16/beyond-good-ol-run-key-part-10/ -->
+		    <TargetObject name="Persistence - Macro Auto Loading enabled on outlook" condition="end with">Outlook\LoadMacroProviderOnBoot</TargetObject>
+			<TargetObject name="Defense Evasion - PowerShell ExecPolicy Changed" condition="end with">Microsoft.PowerShell\ExecutionPolicy</TargetObject>
+		    <TargetObject name="Defense Evasion - PowerShell Audit Settings Changed" condition="end with">EnableModuleLogging</TargetObject>
+		    <TargetObject name="Defense Evasion - PowerShell Audit Settings Changed" condition="end with">EnableScriptBlockLogging</TargetObject>
+		    <TargetObject name="Defense Evasion - PowerShell Audit Settings Changed" condition="contains">PowerShell\Transcription</TargetObject>
+		    <TargetObject name="Defense Evasion - access to the VBA project object model in the Macro Settings changed" condition="end with">AccessVBOM</TargetObject><!--https://www.stigviewer.com/stig/microsoft_powerpoint_2007/2014-04-03/finding/V-17522 -->
+		    <TargetObject name="Defense Evasion - Changes to ProtectedView Security Setting" condition="contains">Security\ProtectedView</TargetObject>
+		    <TargetObject name="Defense Evasion - Office Trusted Locations changed" condition="contains">Security\Trusted Locations</TargetObject> <!-- can be abused to execute unrestricted vba from specific desired locations -->
+		    <TargetObject name="Defense Evasion - Lsa Protection changed" condition="end with">SYSTEM\CurrentControlSet\Control\Lsa\RunAsPPL</TargetObject>			
 			<TargetObject name="technique_id=T1060,technique_name=Registry Run Keys / Start Folder" condition="contains">CurrentVersion\Run</TargetObject> <!--Microsoft:Windows: Wildcard for Run keys, including RunOnce, RunOnceEx, RunServices, RunServicesOnce [Also covers terminal server] -->
 			<TargetObject name="DNS Query location was changed" condition="begin with">HKLM\SYSTEM\CurrentControlSet\services\DNS\Parameters\</TargetObject> <!--Microsoft:Windows:DNS: ServerLevelPluginDll Issue https://medium.com/@esnesenon/feature-not-bug-dnsadmin-to-dc-compromise-in-one-line-a0f779b8dc83 -->
 			<TargetObject name="Reg AutoRun Key" condition="contains">Policies\Explorer\Run</TargetObject>
@@ -711,20 +711,20 @@
 			<TargetObject name="Reg Key used in DLL Hijack, if disabled possible DLL hijack." condition="end with">\CurrentControlSet\Control\Session Manager\SafeDLLSearchMode</TargetObject>
 			<TargetObject name="Reg AutoRun Key" condition="contains">\Software\Microsoft\Internet Explorer\Main</TargetObject> 
 			<TargetObject name="Alternate runs keys" condition="contains">\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap</TargetObject> <!--Microsoft:Windows: Alternate runs keys | Credit @ion-storm-->
-			<TargetObject condition="contains">Group Policy\Scripts</TargetObject> <!--Microsoft:Windows: Group policy scripts-->
-			<TargetObject condition="contains">Windows\System\Scripts</TargetObject> <!--Microsoft:Windows: Wildcard for Logon, Loggoff, Shutdown-->
-			<TargetObject condition="contains">CurrentVersion\Windows\Load</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/jj874148.aspx ] -->
+			<TargetObject name="Reg key for Group policy scripts" condition="contains">Group Policy\Scripts</TargetObject> <!--Microsoft:Windows: Group policy scripts-->
+			<TargetObject name=" Reg Key for Wildcard for Logon, Loggoff, Shutdown scripts" condition="contains">Windows\System\Scripts</TargetObject> <!--Microsoft:Windows: Wildcard for Logon, Loggoff, Shutdown-->
+			<TargetObject name="Reg Key for Microsoft:Windows: Autorun location" condition="contains">CurrentVersion\Windows\Load</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/jj874148.aspx ] -->
 			<TargetObject name="technique_id=T1060,technique_name=Registry Run Keys / Start Folder" condition="contains">CurrentVersion\Windows\Run</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/jj874148.aspx ] -->
-			<TargetObject condition="contains">CurrentVersion\Winlogon\Shell</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/ms838576(v=winembedded.5).aspx ] -->
-			<TargetObject condition="contains">CurrentVersion\Winlogon\System</TargetObject> <!--Microsoft:Windows [ https://www.exterminate-it.com/malpedia/regvals/zlob-dns-changer/118 ] -->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify</TargetObject> <!--Microsoft:Windows: Autorun location [ https://attack.mitre.org/wiki/Technique/T1004 ] [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
-			<TargetObject condition="begin with">HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell</TargetObject> <!--Microsoft:Windows: [ https://technet.microsoft.com/en-us/library/ee851671.aspx ] -->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit</TargetObject> <!--Microsoft:Windows: Autorun location [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Drivers32</TargetObject> <!--Microsoft:Windows: Legacy driver loading | Credit @ion-storm -->
-			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\BootExecute</TargetObject>
-			<TargetObject condition="contains">\SYSTEM\CurrentControlSet\Services\NTDS</TargetObject>			<!--Microsoft:Windows: Autorun | Credit @ion-storm | [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AeDebug</TargetObject> <!--Microsoft:Windows: Automatic program crash debug program [ https://www.symantec.com/security_response/writeup.jsp?docid=2007-050712-5453-99&tabid=2 ] -->
-			<TargetObject condition="contains">UserInitMprLogonScript</TargetObject> <!--Microsoft:Windows: Legacy logon script environment variable [ http://www.hexacorn.com/blog/2014/11/14/beyond-good-ol-run-key-part-18/ ] -->
+			<TargetObject name="Reg Key for Microsoft:Windows: Autorun location" condition="contains">CurrentVersion\Winlogon\Shell</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/ms838576(v=winembedded.5).aspx ] -->
+			<TargetObject name="Reg Key for Microsoft:Windows: Autorun location" condition="contains">CurrentVersion\Winlogon\System</TargetObject> <!--Microsoft:Windows [ https://www.exterminate-it.com/malpedia/regvals/zlob-dns-changer/118 ] -->
+			<TargetObject name="Reg Key for Microsoft:Windows: Autorun location" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify</TargetObject> <!--Microsoft:Windows: Autorun location [ https://attack.mitre.org/wiki/Technique/T1004 ] [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
+			<TargetObject name="Reg Key for Microsoft:Windows: Autorun location" condition="begin with">HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell</TargetObject> <!--Microsoft:Windows: [ https://technet.microsoft.com/en-us/library/ee851671.aspx ] -->
+			<TargetObject name="Reg Key for Microsoft:Windows: Autorun location" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit</TargetObject> <!--Microsoft:Windows: Autorun location [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
+			<TargetObject name="Reg Keys for Legacy driver loading" condition="begin with">HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Drivers32</TargetObject> <!--Microsoft:Windows: Legacy driver loading | Credit @ion-storm -->
+			<TargetObject name="Reg Key for Microsoft:Windows: Autorun location" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\BootExecute</TargetObject>
+			<TargetObject name="Reg key for persistance Microsoft:Windows: Autorun" condition="contains">\SYSTEM\CurrentControlSet\Services\NTDS</TargetObject><!--Microsoft:Windows: Autorun | Credit @ion-storm | [ https://www.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order ] -->
+			<TargetObject name="Microsoft:Windows: Automatic program crash debug program" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AeDebug</TargetObject> <!--Microsoft:Windows: Automatic program crash debug program [ https://www.symantec.com/security_response/writeup.jsp?docid=2007-050712-5453-99&tabid=2 ] -->
+			<TargetObject name="Reg Key for Legacy logon script environment variable" condition="contains">UserInitMprLogonScript</TargetObject> <!--Microsoft:Windows: Legacy logon script environment variable [ http://www.hexacorn.com/blog/2014/11/14/beyond-good-ol-run-key-part-18/ ] -->
 			<!--Services-->
 			<TargetObject name="Points to a service's DLL" condition="end with">\ServiceDll</TargetObject> <!--Microsoft:Windows: Points to a service's DLL [ https://blog.cylance.com/windows-registry-persistence-part-1-introduction-attack-phases-and-windows-services ] -->
 			<TargetObject name="Manifest pointing to service's DLL " condition="end with">\ServiceManifest</TargetObject> <!--Microsoft:Windows: Manifest pointing to service's DLL [ https://www.geoffchappell.com/studies/windows/win32/services/svchost/index.htm ] -->
@@ -765,7 +765,7 @@
 			<TargetObject name="System and user proxy server add or change" condition="end with">\ProxyServer</TargetObject> <!--Microsoft:Windows: System and user proxy server-->
 			<!--Credential providers-->
 			<TargetObject name="Credential Providers and Credential Provider Filters" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\Credential Provider</TargetObject> <!--Wildcard, includes Credential Providers and Credential Provider Filters-->
-			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1131 ] [ https://attack.mitre.org/wiki/Technique/T1101 ] -->
+			<TargetObject name="Reg key used to detect https://attack.mitre.org/wiki/Technique/T1131 and https://attack.mitre.org/wiki/Technique/T1101" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa\</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1131 ] [ https://attack.mitre.org/wiki/Technique/T1101 ] -->
 			<TargetObject name="Changes to WDigest-UseLogonCredential for password scraping" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SecurityProviders</TargetObject> <!--Microsoft:Windows: Changes to WDigest-UseLogonCredential for password scraping [ https://www.trustedsec.com/april-2015/dumping-wdigest-creds-with-meterpreter-mimikatzkiwi-in-windows-8-1/ ] -->
 			<TargetObject name="Netsh helper DLL" condition="begin with">HKLM\SOFTWARE\Microsoft\Netsh</TargetObject> <!--Microsoft:Windows: Netsh helper DLL [ https://attack.mitre.org/wiki/Technique/T1128 ] -->
 			<!--Networking-->
@@ -784,9 +784,9 @@
 			<TargetObject name="Microsoft:Office: Persistence method [ http://www.hexacorn.com/blog/2014/04/16/beyond-good-ol-run-key-part-10/ ]" condition="contains">Office Test\</TargetObject> <!-- Microsoft:Office: Persistence method [ http://www.hexacorn.com/blog/2014/04/16/beyond-good-ol-run-key-part-10/ ] | Credit @Hexacorn -->
 			<TargetObject name="Microsoft:Office: Monitor when Enable editing or Enable macros is used" condition="contains">Security\Trusted Documents\TrustRecords</TargetObject> <!--Microsoft:Office: Monitor when "Enable editing" or "Enable macros" is used | Credit @OutflankNL | [ https://outflank.nl/blog/2018/01/16/hunting-for-evil-detect-macros-being-executed/ ] -->
 			<!--IE-->
-			<TargetObject condition="contains">Internet Explorer\Toolbar\</TargetObject> <!--Microsoft:InternetExplorer: Machine and user [ Example: https://www.exterminate-it.com/malpedia/remove-mywebsearch ] -->
-			<TargetObject condition="contains">Internet Explorer\Extensions\</TargetObject> <!--Microsoft:InternetExplorer: Machine and user [ Example: https://www.exterminate-it.com/malpedia/remove-mywebsearch ] -->
-			<TargetObject condition="contains">Browser Helper Objects\</TargetObject> <!--Microsoft:InternetExplorer: Machine and user [ https://msdn.microsoft.com/en-us/library/bb250436(v=vs.85).aspx ] -->
+			<TargetObject condition="contains">\Internet Explorer\Toolbar\</TargetObject> <!--Microsoft:InternetExplorer: Machine and user [ Example: https://www.exterminate-it.com/malpedia/remove-mywebsearch ] -->
+			<TargetObject condition="contains">\Internet Explorer\Extensions\</TargetObject> <!--Microsoft:InternetExplorer: Machine and user [ Example: https://www.exterminate-it.com/malpedia/remove-mywebsearch ] -->
+			<TargetObject condition="contains">\Browser Helper Objects\</TargetObject> <!--Microsoft:InternetExplorer: Machine and user [ https://msdn.microsoft.com/en-us/library/bb250436(v=vs.85).aspx ] -->
 			<TargetObject condition="end with">\DisableSecuritySettingsCheck</TargetObject>
 			<TargetObject name="-Microsoft:InternetExplorer: Malware sometimes assures scripting is on in Internet Zone " condition="end with">\3\1206</TargetObject> <!--Microsoft:InternetExplorer: Malware sometimes assures scripting is on in Internet Zone [ https://support.microsoft.com/en-us/help/182569/internet-explorer-security-zones-registry-entries-for-advanced-users ] -->
 			<TargetObject name="Microsoft:InternetExplorer: Malware sometimes disables Protected Mode in Internet Zone" condition="end with">\3\2500</TargetObject> <!--Microsoft:InternetExplorer: Malware sometimes disables Protected Mode in Internet Zone [ https://blog.avast.com/2013/08/12/your-documents-are-corrupted-from-image-to-an-information-stealing-trojan/ ] -->
@@ -800,21 +800,21 @@
 			<TargetObject name="Windows UAC tampering" condition="end with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\EnableLUA</TargetObject> <!--Detect: UAC Tampering | Credit @ion-storm -->
 			<TargetObject name="Windows UAC tampering" condition="end with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\LocalAccountTokenFilterPolicy</TargetObject> <!--Detect: UAC Tampering | Credit @ion-storm -->
 			<!--Microsoft Security Center tampering | Credit @ion-storm -->
-			<TargetObject condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\AllAlertsDisabled</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
-			<TargetObject condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\AntiVirusOverride</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
-			<TargetObject condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\AntiVirusDisableNotify</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
-			<TargetObject condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\DisableMonitoring</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
-			<TargetObject condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\FirewallDisableNotify</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
-			<TargetObject condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\FirewallOverride</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
-			<TargetObject condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\UacDisableNotify</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
-			<TargetObject condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\UpdatesDisableNotify</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
+			<TargetObject name="Reg key for detection of https://attack.mitre.org/wiki/Technique/T1089" condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\AllAlertsDisabled</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
+			<TargetObject name="Reg key for detection of https://attack.mitre.org/wiki/Technique/T1089 " condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\AntiVirusOverride</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
+			<TargetObject name="Reg key for detection of https://attack.mitre.org/wiki/Technique/T1089 " condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\AntiVirusDisableNotify</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
+			<TargetObject name="Reg key for detection of https://attack.mitre.org/wiki/Technique/T1089 " condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\DisableMonitoring</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
+			<TargetObject name="Reg key for detection of https://attack.mitre.org/wiki/Technique/T1089 " condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\FirewallDisableNotify</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
+			<TargetObject name="Reg key for detection of https://attack.mitre.org/wiki/Technique/T1089 " condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\FirewallOverride</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
+			<TargetObject name="Reg key for detection of https://attack.mitre.org/wiki/Technique/T1089 " condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\UacDisableNotify</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
+			<TargetObject name="Reg key for detection of https://attack.mitre.org/wiki/Technique/T1089 " condition="end with">HKLM\SOFTWARE\Microsoft\Security Center\UpdatesDisableNotify</TargetObject> <!-- [ https://attack.mitre.org/wiki/Technique/T1089 ] -->
 			<TargetObject name="Microsoft:Windows:Security Center: Malware sometimes disables" condition="end with">SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\HideSCAHealth</TargetObject> <!--Microsoft:Windows:Security Center: Malware sometimes disables [ https://blog.avast.com/2013/08/12/your-documents-are-corrupted-from-image-to-an-information-stealing-trojan/ ] -->
 			<!--Windows application compatibility-->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom</TargetObject> <!--Microsoft:Windows: AppCompat [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB</TargetObject> <!--Microsoft:Windows: AppCompat [ https://attack.mitre.org/wiki/Technique/T1138 ] -->
-			<TargetObject condition="contains">VirtualStore</TargetObject> <!--Microsoft:Windows: Registry virtualization [ https://msdn.microsoft.com/en-us/library/windows/desktop/aa965884(v=vs.85).aspx ] -->
+			<TargetObject name="Microsoft:Windows: AppCompat used for SHIM database persistence" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom</TargetObject> <!--Microsoft:Windows: AppCompat [ https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html ] -->
+			<TargetObject name="Microsoft:Windows: AppCompat used for SHIM database persistence" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB</TargetObject> <!--Microsoft:Windows: AppCompat [ https://attack.mitre.org/wiki/Technique/T1138 ] -->
+			<TargetObject name="Reg key for Microsoft:Windows: Registry virtualization" condition="contains">VirtualStore</TargetObject> <!--Microsoft:Windows: Registry virtualization [ https://msdn.microsoft.com/en-us/library/windows/desktop/aa965884(v=vs.85).aspx ] -->
 			<!--Windows internals integrity monitoring-->
-			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\</TargetObject> <!--Microsoft:Windows: Malware likes changing IFEO, like adding Debugger to disable antivirus EXE-->
+			<TargetObject name="Malware likes changing IFEO, like adding Debugger to disable antivirus EXE" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\</TargetObject> <!--Microsoft:Windows: Malware likes changing IFEO, like adding Debugger to disable antivirus EXE-->
 			<TargetObject name="Event log system integrity and ACLs" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\</TargetObject> <!--Microsoft:Windows: Event log system integrity and ACLs-->
 			<TargetObject name="Services approved to load in safe mode" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Safeboot\</TargetObject> <!--Microsoft:Windows: Services approved to load in safe mode-->
 			<TargetObject name="Providers notified by WinLogon" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Winlogon\</TargetObject> <!--Microsoft:Windows: Providers notified by WinLogon-->
@@ -937,7 +937,6 @@
 			<TargetObject name="InvDB-Ver" condition="end with">\ProductVersion</TargetObject> <!-- [ https://binaryforay.blogspot.com/2017/10/amcache-still-rules-everything-around.html ] -->
 			<TargetObject name="InvDB-CompileTimeClaim" condition="end with">\LinkDate</TargetObject> <!-- Compile time of EXE, may not be reliable [ https://en.wikipedia.org/wiki/Link_time ] -->
 			<TargetObject name="InvDB" condition="contains">Compatibility Assistant\Store\</TargetObject>
-<!--Suspicious sources-->
 		</RegistryEvent>
 		</RuleGroup>
 		
