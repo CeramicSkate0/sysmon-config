@@ -82,6 +82,7 @@
 			<Image condition="end with">AppData\Roaming\Resilio Sync\Resilio Sync.exe</Image> <!--Resilio Sync-->
 			<Image condition="is">C:\Windows\ImmersiveControlPanel\SystemSettings.exe</Image>
 			<Image condition="is">C:\Windows\Sysmon.exe</Image>
+			<Image condition="is">c:\windows\system32\conhost.exe</Image><!-- Child process of conhost not very good tell, parent of conhost is better for detection. But this is usful if you want to track who is using console per process-->
 			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
 			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
 			<Image condition="is">C:\Windows\System32\audiodg.exe</Image>
@@ -131,8 +132,6 @@
 			<Image condition="is">C:\Program Files (x86)\Common Files\microsoft shared\ink\TabTip32.exe</Image> <!--Microsoft:Windows: Touch Keyboard and Handwriting Panel Helper-->
 			<Image condition="is">C:\Windows\System32\TokenBrokerCookies.exe</Image> <!--Microsoft:Windows: SSO sign-in assistant for MicrosoftOnline.com-->
 			<IntegrityLevel condition="is">AppContainer</IntegrityLevel> <!--Microsoft:Windows: Don't care about sandboxed processes-->
-			<!--SECTION: Microsoft:Windows:svchost-->
-			<!--COMMENT: These generally not exclude sub-processes, which may be important. Do not exclude RemoteRegistry or Schedule.-->
 			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k wsappx -p -s AppXSvc</CommandLine>
 			<CommandLine condition="is">C:\WINDOWS\system32\rundll32.exe /d sdengin2.dll,ExecuteScheduledBackup</CommandLine>
 			<CommandLine condition="begin with">C:\Windows\system32\DllHost.exe /Processid</CommandLine>
@@ -274,16 +273,15 @@
 			<!--SECTION: Cisco-->
 			<ParentImage condition="end with">C:\Program Files (x86)\Cisco\Cisco AnyConnect Secure Mobility Client\vpnagent.exe</ParentImage> <!--Cisco: Calls netsh to change settings on connect-->
 			<!--SECTION: Drivers-->
-			<!--COMMENT: Attackers sometimes hide themselves in the folders of drivers, be careful to only exclude what is clogging events-->
 			<CommandLine condition="begin with">"C:\Program Files\DellTPad\ApMsgFwd.exe" -s{</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\igfxsrvc.exe -Embedding</CommandLine>
-			<ParentImage condition="end with">C:\Program Files\DellTPad\HidMonitorSvc.exe</ParentImage>
 			<ParentImage condition="end with">C:\Program Files\Realtek\Audio\HDA\RtkAudioService64.exe</ParentImage> <!--Realtek:Driver: routine actions-->
 			<!--SECTION: Dropbox-->
 			<Image condition="end with">C:\Program Files (x86)\Dropbox\Update\DropboxUpdate.exe</Image> <!--Dropbox:Updater: Lots of command-line arguments-->
 			<ParentImage condition="end with">C:\Program Files (x86)\Dropbox\Update\DropboxUpdate.exe</ParentImage>
 			<!--SECTION: Dell-->
 			<ParentImage condition="is">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</ParentImage> <!--Dell:CommandUpdate: Detection process-->
+			<ParentImage condition="end with">C:\Program Files\DellTPad\HidMonitorSvc.exe</ParentImage>
 			<Image condition="is">C:\Program Files\Dell\SupportAssist\pcdrcui.exe</Image> <!--Dell:SupportAssist: routine actions-->
 			<Image condition="is">C:\Program Files\Dell\SupportAssist\koala.exe</Image> <!--Dell:SupportAssist: routine actions-->
 			<CurrentDirectory condition="is">C:\Program Files (x86)\ossec-agent\</CurrentDirectory>
@@ -430,7 +428,7 @@
 			<ImageLoaded name="DLL loaded from suspicious location (C:\Users\)" condition="begin with">C:\Users</ImageLoaded>
 			<Image name="Powershell DLL loaded, Possible Powershell use without Powershell.exe" condition="contains">system.management.automation</Image> 
 			<Image name="Attempts to ID by name the DLL that deals with Certificate and Cryptographic Messaging functions" condition="contains">Crypt</Image> 
-			<Image name="Javascript Lib" condition="contains">jscript</Image> 
+			<Image name="Javascript Lib was loaded into process" condition="contains">jscript</Image> 
 			<Image name="Visual basic Lib" condition="contains">vbscript</Image> 
 			<Image name="Attempts to ID Microsoft DLL that contains a set of services that allowed applications written in JScript, VBScript, and Microsoft development tools to build Windows-native XML-based applications." condition="contains">msxm</Image>
 			<Image name="Attempts to ID Microsoft DLL that contains a library which contains core OLE functions" condition="contains">ole32</Image>
@@ -563,7 +561,7 @@
 		<RuleGroup name="ProcessAccess include" groupRelation="or">
 		<ProcessAccess onmatch="include">	
 			<CallTrace name="Call of DLL used for injection and powershell with out powershell.exe" condition="contains">System.Management.Automation.ni</CallTrace>
-			<CallTrace name="Call of DLL used for injection and powershell with out powershell.exe" condition="contains">UNKNOWN</CallTrace>
+			<!--<CallTrace name="Call of DLL used for injection and powershell with out powershell.exe" condition="contains">UNKNOWN</CallTrace>-->
 			<CallTrace name="Seen doing process minidump with rundll32, taskmanager, and custom bins" condition="contains">\dbghelp.dll</CallTrace>
 			<SourceImage name="Process access from RecycleBin, SUSPICIOUS action" condition="begin with">C:\$Recycle.Bin</SourceImage>
 			<TargetImage name="Possible LSASS Process access, SUSPICIOUS action" condition="is">C:\WINDOWS\system32\lsass.exe</TargetImage>
@@ -712,7 +710,7 @@
 			<TargetObject name="Reg AutoRun Key" condition="contains">\Software\Microsoft\Internet Explorer\Main</TargetObject> 
 			<TargetObject name="Alternate runs keys" condition="contains">\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap</TargetObject> <!--Microsoft:Windows: Alternate runs keys | Credit @ion-storm-->
 			<TargetObject name="Reg key for Group policy scripts" condition="contains">Group Policy\Scripts</TargetObject> <!--Microsoft:Windows: Group policy scripts-->
-			<TargetObject name=" Reg Key for Wildcard for Logon, Loggoff, Shutdown scripts" condition="contains">Windows\System\Scripts</TargetObject> <!--Microsoft:Windows: Wildcard for Logon, Loggoff, Shutdown-->
+			<TargetObject name="Reg Key for Wildcard for Logon, Loggoff, Shutdown scripts" condition="contains">Windows\System\Scripts</TargetObject> <!--Microsoft:Windows: Wildcard for Logon, Loggoff, Shutdown-->
 			<TargetObject name="Reg Key for Microsoft:Windows: Autorun location" condition="contains">CurrentVersion\Windows\Load</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/jj874148.aspx ] -->
 			<TargetObject name="technique_id=T1060,technique_name=Registry Run Keys / Start Folder" condition="contains">CurrentVersion\Windows\Run</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/jj874148.aspx ] -->
 			<TargetObject name="Reg Key for Microsoft:Windows: Autorun location" condition="contains">CurrentVersion\Winlogon\Shell</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/ms838576(v=winembedded.5).aspx ] -->
@@ -727,7 +725,7 @@
 			<TargetObject name="Reg Key for Legacy logon script environment variable" condition="contains">UserInitMprLogonScript</TargetObject> <!--Microsoft:Windows: Legacy logon script environment variable [ http://www.hexacorn.com/blog/2014/11/14/beyond-good-ol-run-key-part-18/ ] -->
 			<!--Services-->
 			<TargetObject name="Points to a service's DLL" condition="end with">\ServiceDll</TargetObject> <!--Microsoft:Windows: Points to a service's DLL [ https://blog.cylance.com/windows-registry-persistence-part-1-introduction-attack-phases-and-windows-services ] -->
-			<TargetObject name="Manifest pointing to service's DLL " condition="end with">\ServiceManifest</TargetObject> <!--Microsoft:Windows: Manifest pointing to service's DLL [ https://www.geoffchappell.com/studies/windows/win32/services/svchost/index.htm ] -->
+			<TargetObject name="Manifest pointing to service's DLL" condition="end with">\ServiceManifest</TargetObject> <!--Microsoft:Windows: Manifest pointing to service's DLL [ https://www.geoffchappell.com/studies/windows/win32/services/svchost/index.htm ] -->
 			<TargetObject name="Points to a service's EXE" condition="end with">\ImagePath</TargetObject> <!--Microsoft:Windows: Points to a service's EXE [ https://attack.mitre.org/wiki/Technique/T1050 ] -->
 			<TargetObject name="Services start mode changes (Disabled, Automatically, Manual)" condition="end with">\Start</TargetObject> <!--Microsoft:Windows: Services start mode changes (Disabled, Automatically, Manual)-->
 			<!--CLSID launch commands and Default File Association changes-->
@@ -741,7 +739,7 @@
 			<TargetObject name="COM Object Hijacking" condition="end with">\InprocServer32\(Default)</TargetObject> <!--Microsoft:Windows:COM Object Hijacking [ https://blog.gdatasoftware.com/2014/10/23941-com-object-hijacking-the-discreet-way-of-persistence ] | Credit @ion-storm -->
 			<!--Windows shell visual modifications-->
 			<TargetObject name="Some types of malware try to hide their hidden system files from the users" condition="end with">\Hidden</TargetObject> <!--Microsoft:Windows:Explorer: Some types of malware try to hide their hidden system files from the user, good signal event -->
-			<TargetObject name=" Some types of malware try to hide their hidden system files from the users" condition="end with">\ShowSuperHidden</TargetObject> <!--Microsoft:Windows:Explorer: Some types of malware try to hide their hidden system files from the user, good signal event [ Example: https://www.symantec.com/security_response/writeup.jsp?docid=2007-061811-4341-99&tabid=2 ] -->
+			<TargetObject name="Some types of malware try to hide their hidden system files from the users" condition="end with">\ShowSuperHidden</TargetObject> <!--Microsoft:Windows:Explorer: Some types of malware try to hide their hidden system files from the user, good signal event [ Example: https://www.symantec.com/security_response/writeup.jsp?docid=2007-061811-4341-99&tabid=2 ] -->
 			<TargetObject name="Microsoft:Windows:Explorer: Some malware hides file extensions to make diagnosis/disinfection more daunting to novice users" condition="end with">\HideFileExt</TargetObject> <!--Microsoft:Windows:Explorer: Some malware hides file extensions to make diagnosis/disinfection more daunting to novice users -->
 			<!--Windows shell hijack and modifications-->
 			<TargetObject name="Windows shell hijack and modifications location" condition="contains">Classes\*\</TargetObject> <!--Microsoft:Windows:Explorer: [ http://www.silentrunners.org/launchpoints.html ] -->
