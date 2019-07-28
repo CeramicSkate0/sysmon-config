@@ -1293,6 +1293,7 @@
 		<!--COMMENT:	Remove low-information noise. Often these hide a procress recreating an empty key and do not hide the values created subsequently.-->
 			<!--SECTION: Microsoft binaries-->
 			<Image condition="end with">\SWELF.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\Microsoft Office\Root\VFS\ProgramFilesCommonX86\Microsoft Shared\OFFICE16\SDXHelper.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\PrivateAssemblies\ScriptedSandbox64.exe</Image> <!--Microsoft:Windows: Changes association registry keys-->
 			<Image condition="contains">C:\Program Files\Fortinet\FortiClient\</Image>
 			<Image condition="end with">Office\root\integration\integrator.exe</Image> <!--Microsoft:Office: C2R client-->
