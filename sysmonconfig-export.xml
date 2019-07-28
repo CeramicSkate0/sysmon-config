@@ -587,7 +587,8 @@
 		
 		<RuleGroup name="ImageLoad exclude" groupRelation="or">
 		<ImageLoad onmatch="exclude">
-		<ImageLoaded condition="begin with">C:\Program Files\Microsoft Office\root\Office</ImageLoaded> <!-- wwlib.dll side loading FP -->
+			  <Image condition="is">C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</Image>
+			  <ImageLoaded condition="begin with">C:\Program Files\Microsoft Office\root\Office</ImageLoaded> <!-- wwlib.dll side loading FP -->
 			  <Image>C:\Windows\System32\WinSAT.exe</Image>
 			  <Image>C:\Windows\System32\wermgr.exe</Image> <!-- FP for schtask COM -->
 			  <Image>C:\Windows\System32\sdiagnhost.exe</Image><!-- FPs for wmiutil -->
@@ -607,9 +608,7 @@
 			  <Image>C:\Windows\System32\systeminfo.exe</Image>
 			  <Image>C:\Windows\System32\LockAppHost.exe</Image>
 			  <Image>C:\Program Files\Google\Update\GoogleUpdate.exe</Image>
-			  <Hashes condition="end with">AA02A4789AEBC104EA53E559F824A5B4</Hashes> <!-- IMPHASH of OneDriveStandaloneUpdater.exe -->
 			  <Image condition="end with">powershell_ise.exe</Image>
-			  <Hashes condition="end with">727B32239F3556C6C9E82ADE6087C4AC</Hashes><!-- Microsoft OneDrive Shell Extension -->
 			  <Image>C:\Windows\System32\wbem\WmiPrvSE.exe</Image>
 			  <Image>C:\Windows\System32\SrTasks.exe</Image>
 			  <Image condition="end with">DismHost.exe</Image>
@@ -646,29 +645,29 @@
 			  <Image>C:\Program Files\Synaptics\SynTP\SynTPEnh.exe</Image>
 			  <Image>C:\Windows\System32\wlanext.exe</Image>
 			  <Image condition="begin with">C:\Program Files\Microsoft SQL Server\</Image>
-			  <Image>C:\Windows\System32\ibtsiva.exe</Image>
-			  <Image>C:\Windows\System32\lsass.exe</Image>
-			  <Image>C:\Windows\System32\dwm.exe</Image>
-			  <Image>C:\Windows\System32\MicTray64.exe</Image>
-			  <Image>C:\Program Files\Intel\WiFi\bin\EvtEng.exe</Image>
-			  <Image>C:\Program Files\Intel\WiFi\bin\iWrap.exe</Image>
-			  <Image>C:\Program Files\Microsoft SQL Server\90\Shared\sqlwriter.exe</Image>
+			  <Image condition="is">C:\Windows\System32\ibtsiva.exe</Image>
+			  <Image condition="is">C:\Windows\System32\lsass.exe</Image>
+			  <Image condition="is">C:\Windows\System32\dwm.exe</Image>
+			  <Image condition="is">C:\Windows\System32\MicTray64.exe</Image>
+			  <Image condition="is">C:\Program Files\Intel\WiFi\bin\EvtEng.exe</Image>
+			  <Image condition="is">C:\Program Files\Intel\WiFi\bin\iWrap.exe</Image>
+			  <Image condition="is">C:\Program Files\Microsoft SQL Server\90\Shared\sqlwriter.exe</Image>
 			  <Image condition="begin with">C:\Program Files\WindowsApps\</Image>
-			  <Image>C:\Windows\System32\SystemSettingsBroker.exe</Image>
-			  <Image>C:\Windows\System32\smartscreen.exe</Image>
-			  <Image>C:\Windows\System32\services.exe</Image>
-			  <Image>C:\Windows\System32\CompatTelRunner.exe</Image>
+			  <Image condition="is">C:\Windows\System32\SystemSettingsBroker.exe</Image>
+			  <Image condition="is">C:\Windows\System32\smartscreen.exe</Image>
+			  <Image condition="is">C:\Windows\System32\services.exe</Image>
+			  <Image condition="is">C:\Windows\System32\CompatTelRunner.exe</Image>
 			  <Image condition="begin with">C:\Program Files\Microsoft Forefront Identity Manager\</Image>
-			  <Image>C:\Windows\System32\sihost.exe</Image>
-			  <Image>C:\Program Files\Common Files\microsoft shared\ClickToRun\OfficeClickToRun.exe</Image>
-			  <Image>C:\Windows\System32\SettingSyncHost.exe</Image>
-			  <Image>c:\windows\system32\schtasks.exe</Image>
-			  <Image>c:\windows\syswow64\schtasks.exe</Image>
-			  <Image>c:\windows\system32\svchost.exe</Image>
-			  <Image>c:\windows\syswow64\svchost.exe</Image>
-			  <Image>C:\Program Files (x86)\Kontiki\KHost.exe</Image>
-			  <Image>C:\Windows\System32\tasklist.exe</Image>
-			  <Image>C:\Program Files (x86)\Google\Update\GoogleUpdate.exe</Image>
+			  <Image condition="is">C:\Windows\System32\sihost.exe</Image>
+			  <Image condition="is">C:\Program Files\Common Files\microsoft shared\ClickToRun\OfficeClickToRun.exe</Image>
+			  <Image condition="is">C:\Windows\System32\SettingSyncHost.exe</Image>
+			  <Image condition="is">c:\windows\system32\schtasks.exe</Image>
+			  <Image condition="is">c:\windows\syswow64\schtasks.exe</Image>
+			  <Image condition="is">c:\windows\system32\svchost.exe</Image>
+			  <Image condition="is">c:\windows\syswow64\svchost.exe</Image>
+			  <Image condition="is">C:\Program Files (x86)\Kontiki\KHost.exe</Image>
+			  <Image condition="is">C:\Windows\System32\tasklist.exe</Image>
+			  <Image condition="is">C:\Program Files (x86)\Google\Update\GoogleUpdate.exe</Image>
 			  <Image condition="end with">procexp64.exe</Image>
 			  <Image condition="end with">procmon.exe</Image>
 			  <Image condition="end with">procexp.exe</Image>
@@ -739,6 +738,8 @@
 			<Signature condition="contains">SteelSeries</Signature> <!--Exclude signed MSI libraries-->
 			<Signature condition="contains">Fortinet</Signature> <!--Exclude signed MSI libraries-->
 			<SignatureStatus condition="is">Valid</SignatureStatus>
+			<Hashes condition="end with">AA02A4789AEBC104EA53E559F824A5B4</Hashes> <!-- IMPHASH of OneDriveStandaloneUpdater.exe -->
+			<Hashes condition="end with">727B32239F3556C6C9E82ADE6087C4AC</Hashes><!-- Microsoft OneDrive Shell Extension -->
 		</ImageLoad>
 		</RuleGroup>
 		<!--SYSMON EVENT ID 8 : REMOTE THREAD CREATED [CreateRemoteThread]-->
@@ -1302,7 +1303,6 @@
 			<Image condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</Image> <!--Microsoft:Windows:Defender-->
 			<Image condition="is">C:\Windows\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy\SearchUI.exe</Image> <!--Microsoft:Cortana-->
 			<Image condition="is">C:\Program Files (x86)\EMET 5.5\EMET_Service.exe</Image> <!--Microsoft:EMET: Routinely refreshes EMET configuration keys from Group Policy-->
-			<!--Misc-->
 			<TargetObject condition="end with">Toolbar\WebBrowser</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">Toolbar\WebBrowser\ITBar7Height</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">Toolbar\WebBrowser\ITBar7Layout</TargetObject> <!--Microsoft:IE: Extraneous activity-->
