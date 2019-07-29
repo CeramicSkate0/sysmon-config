@@ -81,6 +81,7 @@
 			<Image condition="is">C:\Program Files (x86)\Microsoft Office\root\VFS\ProgramFilesCommonX86\Microsoft Shared\OFFICE16\SDXHelper.exe</Image>
 			<Image condition="end with">AppData\Roaming\Resilio Sync\Resilio Sync.exe</Image> <!--Resilio Sync-->
 			<Image condition="is">C:\Windows\ImmersiveControlPanel\SystemSettings.exe</Image>
+			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\Platform\4.18.1907.4-0\MpCmdRun.exe</Image>
 			<Image condition="is">C:\Windows\Sysmon.exe</Image>
 			<Image condition="is">c:\windows\system32\conhost.exe</Image><!-- Child process of conhost not very good tell, parent of conhost is better for detection. But this is usful if you want to track who is using console per process-->
 			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
@@ -420,10 +421,12 @@
 		<RuleGroup name="ProcessTerminate exclude" groupRelation="or">
 		<ProcessTerminate onmatch="exclude">
 			<Image condition="is">C:\Windows\System32\SearchProtocolHost.exe</Image>
+			<Image condition="is">C:\Windows\System32\smartscreen.exe</Image>
 			<Image condition="begin with">C:\Program Files (x86)\</Image>
 			<Image condition="begin with">C:\Program Files\</Image>
 			<Image condition="contains">C:\Windows\System32\conhost.exe</Image>
 			<Image condition="is">C:\Windows\System32\dllhost.exe</Image>
+			<Image condition="is">C:\Windows\System32\svchost.exe</Image>
 			<Image condition="is">C:\Windows\System32\wbem\WmiPrvSE.exe</Image>
 			<Image condition="end with">\SWELF.exe</Image>
 		</ProcessTerminate>
@@ -787,7 +790,8 @@
 			<Image condition="begin with">C:\Program Files (x86)\</Image> 
 			<Image condition="begin with">C:\Program Files \</Image> 
 			<Image condition="begin with">C:\Windows\</Image>
-			<Image condition="is">system</Image> 
+			<Image condition="is">system</Image>
+			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\Platform\4.18.1907.4-0\MsMpEng.exe</Image>
 			<Image condition="is">C:\Windows\System32\svchost.exe</Image> 
 		</RawAccessRead>
 		</RuleGroup>
@@ -971,6 +975,7 @@
 		<RuleGroup name="FileCreate exclude" groupRelation="or">
 		<FileCreate onmatch="exclude">
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image>
+			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\platform\4.18.1907.4-0\MsMpEng.exe</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
 			<Image condition="end with">SearchUI.exe</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
@@ -1556,6 +1561,7 @@
 			<QueryName condition="end with">.doubleverify.com</QueryName> <!--Ads: Google-->
 			<QueryName condition="end with">.emxdgt.com</QueryName> <!--Ads: EMX-->
 			<QueryName condition="end with">.exelator.com</QueryName> <!--Ads:Nielson Marketing Cloud-->
+			<QueryName condition="end with">.google.com</QueryName> <!--Ads:Nielson Marketing Cloud-->
 			<QueryName condition="end with">.google-analytics.com</QueryName> <!--Ads:Google | Microsoft default exclusion-->
 			<QueryName condition="end with">.googleadservices.com</QueryName> <!--Google-->
 			<QueryName condition="end with">.googlesyndication.com</QueryName> <!--Ads:Google, sometimes called during malicious ads, but not directly responsible | Microsoft default exclusion [ https://www.hackread.com/wp-content/uploads/2018/06/Bitdefender-Whitepaper-Zacinlo.pdf ]-->
