@@ -78,6 +78,8 @@
 		<RuleGroup name="ProcessCreate Exclude" groupRelation="or">
 		<ProcessCreate onmatch="exclude">
 			<!--SECTION: Microsoft Windows-->
+			<Image condition="is">c:\windows\system32\mmc.exe</Image>
+			<Image condition="is">C:\Windows\System32\WerFault.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Microsoft Office\root\VFS\ProgramFilesCommonX86\Microsoft Shared\OFFICE16\SDXHelper.exe</Image>
 			<Image condition="end with">AppData\Roaming\Resilio Sync\Resilio Sync.exe</Image> <!--Resilio Sync-->
 			<Image condition="is">C:\Windows\ImmersiveControlPanel\SystemSettings.exe</Image>
@@ -428,6 +430,8 @@
 			<Image condition="is">C:\Windows\System32\dllhost.exe</Image>
 			<Image condition="is">C:\Windows\System32\svchost.exe</Image>
 			<Image condition="is">C:\Windows\System32\wbem\WmiPrvSE.exe</Image>
+			<Image condition="end with">C:\Windows\SysWOW64\wbem\WMIC.exe</Image>
+			<Image condition="end with">C:\WINDOWS\system32\cmd.exe</Image>
 			<Image condition="end with">\SWELF.exe</Image>
 		</ProcessTerminate>
 		</RuleGroup>
@@ -579,6 +583,18 @@
 			<ImageLoaded name="" condition="is">C:\windows\system32\fxsst.dll</ImageLoaded>
 			<ImageLoaded name="Powershell Lib loaded" condition="contains">powershell</ImageLoaded> 
 			<ImageLoaded name="" condition="contains">C:\Windows\System32\wbem\oci.dll</ImageLoaded>
+			<ImageLoaded condition="end with" name="PrivEsc - DLL Hijack - UACME 32">osksupport.dll</ImageLoaded>
+			<ImageLoaded condition="end with" name="PrivEsc - DLL Hijack - UACME 30">wow64log.dll</ImageLoaded>
+			<ImageLoaded condition="end with" name="PrivEsc - DLL Hijack - UACME 23">DismCore.dll</ImageLoaded>
+			<ImageLoaded condition="end with" name="PrivEsc - DLL Hijack - UACME 22">comctl32.dll</ImageLoaded>
+			<ImageLoaded condition="contains" name="PrivEsc - DLL Hijack - UACME 54">AppData\Local\Microsoft\WindowsApps\srrstr.dll</ImageLoaded>
+		    <ImageLoaded condition="begin with" name="PrivEsc - UACBypass Mocking Trusted WinFolders">C:\Windows \</ImageLoaded>
+			<ImageLoaded condition="begin with" name="PrivEsc - UACBypass Mocking Trusted WinFolders">C:\ Windows</ImageLoaded>
+			<ImageLoaded condition="end with" name="PrivEsc - UACBypass - DiskCleanup">logprovider.dll</ImageLoaded>
+			<ImageLoaded condition="end with" name="PrivEsc - Possible UACBypass - mcx2prov DLL">CRYPTBASE.dll</ImageLoaded><!-- UACBypass via mcx2prov executable and rogue CRYPTBASE.dll-->
+			<ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading or UACBypass">Duser.dll</ImageLoaded>
+			<ImageLoaded condition="end with" name="PrivEsc - UACBypass - UACME 39">pe386.dll</ImageLoaded>
+			<ImageLoaded condition="end with" name="PrivEsc - UACBypass - DLL hijack Cliconfig">NTWDBLIB.dll</ImageLoaded>
 			<ImageLoaded name="MitreRef=T1128,Technique=Netsh Helper Beacon DLL,Tactic=Persistence,Alert=Cobalt Strike Netsh Helper Beacon" condition="contains">NetshHelperBeacon</ImageLoaded>
 			<SignatureStatus name="DLL loaded with Invalid signature. Suspicous." condition="is">Unavailable</SignatureStatus>
 			<SignatureStatus name="DLL loaded with Invalid signature. Suspicous." condition="is">Invalid</SignatureStatus>			
@@ -590,6 +606,16 @@
 		
 		<RuleGroup name="ImageLoad exclude" groupRelation="or">
 		<ImageLoad onmatch="exclude">
+			  <ImageLoaded>C:\Windows\System32\duser.dll</ImageLoaded>
+			  <ImageLoaded>C:\Windows\Syswow64\duser.dll</ImageLoaded>
+			  <ImageLoaded>C:\Windows\System32\osksupport.dll</ImageLoaded>
+			  <ImageLoaded>C:\Windows\Syswow64\osksupport.dll</ImageLoaded>
+			  <ImageLoaded>C:\Windows\System32\DismCore.dll</ImageLoaded>
+			  <ImageLoaded>C:\Windows\Syswow64\DismCore.dll</ImageLoaded>
+			  <ImageLoaded>C:\Windows\Syswow64\comctl32.dll</ImageLoaded>
+			  <ImageLoaded>C:\Windows\System32\comctl32.dll</ImageLoaded>
+			  <ImageLoaded>C:\Windows\System32\Dism\LogProvider.dll</ImageLoaded>
+			  <ImageLoaded>c:\windows\SysWOW64\dism\LogProvider.dll</ImageLoaded>
 			  <Image condition="is">C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</Image>
 			  <ImageLoaded condition="begin with">C:\Program Files\Microsoft Office\root\Office</ImageLoaded> <!-- wwlib.dll side loading FP -->
 			  <Image>C:\Windows\System32\WinSAT.exe</Image>
@@ -1038,6 +1064,19 @@
 		<!--DATA: EventType, UtcTime, ProcessGuid, ProcessId, Image, TargetObject, Details (can't filter on), NewName (can't filter on)-->
 		<RuleGroup name="RegistryEvent include" groupRelation="or">
 		<RegistryEvent onmatch="include">
+			<TargetObject condition="contains" name="PrivEsc - UACBypass - mscfile">mscfile\shell\open\command\(Default)</TargetObject>
+			<TargetObject condition="contains" name="PrivEsc - UACBypass - SDCLT">exefile\shell\runas\command\IsolatedCommand</TargetObject>
+			<TargetObject condition="contains" name="PrivEsc - UACBypass UACME-34">\environment\windir</TargetObject>
+			<TargetObject condition="contains" name="PrivEsc - UACBypass Perfmon">\Volatile Environment\SYSTEMROOT</TargetObject>
+			<TargetObject condition="contains" name="PrivEsc - UACBypass UACME-45">\exefile\shell\open\command\(Default)</TargetObject>
+			<TargetObject condition="contains" name="PrivEsc - UACBypass UACME-53">\Folder\shell\open\command\(Default)</TargetObject>
+			<TargetObject condition="contains" name="PrivEsc - UACBypass UACME-33">\ms-settings\shell\open\command</TargetObject>
+			<TargetObject condition="contains" name="PrivEsc - UACBypass">Software\Microsoft\Windows\CurrentVersion\App Paths\control.exe</TargetObject>	 
+			<TargetObject condition="begin with" name="Defense Evasion - UAC Config Changed">SOFTWARE\Microsoft\Security Center\UacDisableNotify</TargetObject>
+			<TargetObject condition="begin with" name="Defense Evasion - UACBypass">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\EnableLUA</TargetObject>
+			<TargetObject condition="contains" name="PrivEsc - UACBypass mscfile reg_hijack">\mscfile\shell\open\command</TargetObject>
+			<TargetObject condition="contains" name="PrivEsc - UACBypass UACME-56">AppX82a6gwre4fdg3bt635tn5ctqjf8msdd2\shell\open\command</TargetObject>
+			<TargetObject condition="contains" name="PrivEsc - UACBypass - AppPathControl">Software\Microsoft\Windows\CurrentVersion\App Paths\control.exe\(Default)</TargetObject>
 			<Image name="Something from RecycleBin touched the registry, SUSPICIOUS" condition="begin with">C:\$Recycle.Bin</Image>
 			<Image name="Suspicious,ImageBeginWithBackslash" condition="begin with">\</Image> <!--Devices and VSC shouldn't be executing changes | Credit: @SBousseaden @ionstorm @neu5ron @PerchedSystems [ https://twitter.com/SwiftOnSecurity/status/1133167323991486464 ] -->
 			<TargetObject name="Persistence via SilentProcessExit hijack" condition="contains">CurrentVersion\SilentProcessExit</TargetObject>
@@ -1460,6 +1499,7 @@
 			and certain tasked could not be performed or a bug exists in the Sysmon service. You can report any bugs on the
 			Sysinternals forum or over Twitter (@markrussinovich)."-->
 		<!--Cannot be filtered.-->
+		<QueryName condition="is">cdn.onenote.net</QueryName>
 			<QueryName condition="end with">.arpa.</QueryName> <!--Design decision to not log reverse DNS lookups. You will need to decide.-->
 			<QueryName condition="end with">.arpa</QueryName> <!--Design decision to not log reverse DNS lookups. You will need to decide.-->
 			<QueryName condition="end with">.msftncsi.com</QueryName> <!--Microsoft proxy detection | Microsoft default exclusion-->
