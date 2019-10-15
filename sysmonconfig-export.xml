@@ -396,6 +396,7 @@
 			<Image condition="is">D:\Program Files (x86)\Symantec\LiveUpdate Administrator\pgsql\bin\postgres.exe</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
 			<Image condition="is">C:\Program Files (x86)\ossec-agent\ossec-agent.exe</Image>			
+			<Image condition="begin with">C:\ProgramData\Microsoft\Windows Defender\Platform\</Image>
 			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
 			<Image condition="begin with">C:\Program Files (x86)\OpenDNS Updater\</Image>
