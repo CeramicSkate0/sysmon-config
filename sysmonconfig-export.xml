@@ -1104,7 +1104,7 @@
 			<TargetObject name="Possible adding a rogue named pipe" condition="end with">NullSessionPipes</TargetObject>
 			<TargetObject name="Reg Key used in DLL Hijack, if disabled possible DLL hijack." condition="end with">\CurrentControlSet\Control\Session Manager\SafeDLLSearchMode</TargetObject>
 			<TargetObject name="Reg AutoRun Key" condition="contains">\Software\Microsoft\Internet Explorer\Main</TargetObject> 
-			<TargetObject name="Alternate runs keys" condition="contains">\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap</TargetObject> <!--Microsoft:Windows: Alternate runs keys | Credit @ion-storm-->
+			<!--<TargetObject name="Alternate runs keys" condition="contains">\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap</TargetObject>--> <!--Microsoft:Windows: Alternate runs keys | Credit @ion-storm-->
 			<TargetObject name="Reg key for Group policy scripts" condition="contains">Group Policy\Scripts</TargetObject> <!--Microsoft:Windows: Group policy scripts-->
 			<TargetObject name="Reg Key for Wildcard for Logon, Loggoff, Shutdown scripts" condition="contains">Windows\System\Scripts</TargetObject> <!--Microsoft:Windows: Wildcard for Logon, Loggoff, Shutdown-->
 			<TargetObject name="Reg Key for Microsoft:Windows: Autorun location" condition="contains">CurrentVersion\Windows\Load</TargetObject> <!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/jj874148.aspx ] -->
