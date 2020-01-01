@@ -85,7 +85,7 @@
 			<Image condition="is">C:\Windows\ImmersiveControlPanel\SystemSettings.exe</Image>
 			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\Platform\4.18.1907.4-0\MpCmdRun.exe</Image>
 			<Image condition="is">C:\Windows\Sysmon.exe</Image>
-			<Image condition="is">c:\windows\system32\conhost.exe</Image><!-- Child process of conhost not very good tell, parent of conhost is better for detection. But this is usful if you want to track who is using console per process-->
+			<Image condition="is">c:\windows\system32\conhost.exe</Image><!-- Child process of conhost not very good tell, parent of conhost is better for detection. But this is useful if you want to track who is using console per process-->
 			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
 			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
 			<Image condition="is">C:\Windows\System32\audiodg.exe</Image>
@@ -290,7 +290,7 @@
 			<CurrentDirectory condition="is">C:\Program Files (x86)\ossec-agent\</CurrentDirectory>
 			<ParentCommandLine condition="end with">"-outc=C:\ProgramData\Dell\CommandUpdate\inventory.xml" "-logc=C:\ProgramData\Dell\CommandUpdate\scanerrs.xml" "-lang=en" "-enc=UTF-16" </ParentCommandLine>
 		</ProcessCreate>
-</RuleGroup>
+		</RuleGroup>
 	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM [FileCreateTime]-->
 		<!--COMMENT:	[ https://attack.mitre.org/wiki/Technique/T1099 ] -->
 
@@ -373,6 +373,7 @@
 			<Image condition="end with">\iexplore.exe</Image><!--Browser-->
 			<Image condition="end with">MicrosoftEdge.exe</Image><!--Browser-->
 			<Image condition="is">C:\Windows\System32\dns.exe</Image><!-- noisy for dns -->
+			<Image condition="is">C:\Windows\System32\smartscreen.exe</Image><!-- noisy -->
 			<Image condition="is">C:\Windows\System32\svchost.exe</Image><!-- noisy for dns and ldap -->
 			<Image condition="is">C:\Windows\System32\lsass.exe</Image><!-- noisy for ldap -->
 			<Image condition="is">C:\Windows\System32\dfsrs.exe</Image><!-- noisy for ldap -->
@@ -878,7 +879,8 @@
 		
 		<RuleGroup name="ProcessAccess exclude" groupRelation="or">
 		<ProcessAccess onmatch="exclude">
-		<SourceImage condition="end with">\Bin\FMS.exe</SourceImage> <!-- Exchange Process -->
+		  <SourceImage condition="start with">C:\ProgramData\Microsoft\Windows Defender\platform\</SourceImage>
+		  <SourceImage condition="end with">\Bin\FMS.exe</SourceImage> <!-- Exchange Process -->
 		  <SourceImage condition="end with">:\Windows\System32\smss.exe</SourceImage>
 		  <SourceImage condition="end with">\Google\Update\GoogleUpdate.exe</SourceImage>
 		  <SourceImage condition="is">C:\Program Files\Trend Micro\AMSP\coreServiceShell.exe</SourceImage>
@@ -1541,7 +1543,10 @@
 			<QueryName condition="is">portal.azure.com</QueryName> <!--Microsoft: AzureAD/InTune-->
 			<!--3rd-party applications-->
 			<QueryName condition="end with">.twimg.com</QueryName> 
-			<QueryName condition="end with">.twitter.com</QueryName> 
+			<QueryName condition="end with">.fortinet.com</QueryName> 
+			<QueryName condition="end with">.twitter.com</QueryName>
+			<QueryName condition="end with">.umbrella.com</QueryName>
+			<QueryName condition="end with">.opendns.com</QueryName>
 			<QueryName condition="is">twitter.com</QueryName> 
 			<QueryName condition="end with">.mozaws.net</QueryName> <!--Mozilla-->
 			<QueryName condition="end with">.mozilla.com</QueryName> <!--Mozilla-->
