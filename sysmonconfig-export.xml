@@ -1508,6 +1508,7 @@
 			<QueryName condition="end with">.msftncsi.com</QueryName> <!--Microsoft proxy detection | Microsoft default exclusion-->
 			<QueryName condition="is">..localmachine</QueryName>
 			<!--Microsoft-->
+			<QueryName condition="end with">.msftconnecttest.com</QueryName>
 			<QueryName condition="end with">.microsoft.com</QueryName>
 			<QueryName condition="end with">-pushp.svc.ms</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
 			<QueryName condition="end with">.b-msedge.net</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
