@@ -56,7 +56,7 @@
   - The "image" filter is usable on any field. Same as "is" but can either match entire string, or only the text after last "\". Credit: @mattifestation
 -->
 
-<Sysmon schemaversion="4.22">
+<Sysmon schemaversion="4.23">
 	<!--SYSMON META CONFIG-->
 	<HashAlgorithms>sha256,IMPHASH</HashAlgorithms> <!-- Both MD5 and SHA256 are the industry-standard algorithms for identifying files -->
 	<CheckRevocation/> <!-- Check loaded drivers, log if their code-signing certificate has been revoked, in case malware stole one to sign a kernel driver -->
@@ -879,7 +879,7 @@
 		
 		<RuleGroup name="ProcessAccess exclude" groupRelation="or">
 		<ProcessAccess onmatch="exclude">
-		  <SourceImage condition="start with">C:\ProgramData\Microsoft\Windows Defender\platform\</SourceImage>
+		  <SourceImage condition="begin with">C:\ProgramData\Microsoft\Windows Defender\platform\</SourceImage>
 		  <SourceImage condition="end with">\Bin\FMS.exe</SourceImage> <!-- Exchange Process -->
 		  <SourceImage condition="end with">:\Windows\System32\smss.exe</SourceImage>
 		  <SourceImage condition="end with">\Google\Update\GoogleUpdate.exe</SourceImage>
