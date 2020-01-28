@@ -1076,6 +1076,7 @@
 		<!--DATA: EventType, UtcTime, ProcessGuid, ProcessId, Image, TargetObject, Details (can't filter on), NewName (can't filter on)-->
 		<RuleGroup name="RegistryEvent include" groupRelation="or">
 		<RegistryEvent onmatch="include">
+			<TargetObject condition="contains" name="PrivEsc - UACBypass - mmc or control panel objects">\DelegateExecute</TargetObject>
 			<TargetObject condition="contains" name="PrivEsc - UACBypass - mscfile">mscfile\shell\open\command\(Default)</TargetObject>
 			<TargetObject condition="contains" name="PrivEsc - UACBypass - SDCLT">exefile\shell\runas\command\IsolatedCommand</TargetObject>
 			<TargetObject condition="contains" name="PrivEsc - UACBypass UACME-34">\environment\windir</TargetObject>
