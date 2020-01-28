@@ -556,6 +556,10 @@
 			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">Ushata.dll</ImageLoaded>
 			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">libvlc.dll</ImageLoaded>
 			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">AhnI2.dll</ImageLoaded>
+			  <ImageLoaded condition="end with" name="Debuging DLL Loaded">dbgcore.dll</ImageLoaded>
+			  <ImageLoaded condition="contains" name="Possible MSBUILD Payload">Microsoft.Build.Tasks</ImageLoaded>
+			  <ImageLoaded condition="contains" name="Possible MSBUILD Payload">Microsoft.Build.Framework</ImageLoaded>
+			  <ImageLoaded condition="contains" name="Possible MSBUILD Payload">Microsoft.Build.Utilities</ImageLoaded>
 			  <ImageLoaded condition="end with" name="Evasion - Possible DLL Side Loading via jjs.exe">jli.dll</ImageLoaded>
 			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">sspisrv.dll</ImageLoaded>
 			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">ftllib.dll</ImageLoaded>
@@ -834,6 +838,7 @@
 			<CallTrace name="Call of DLL used for injection and powershell with out powershell.exe" condition="contains">System.Management.Automation.ni</CallTrace>
 			<!--<CallTrace name="Call of DLL used for injection and powershell with out powershell.exe" condition="contains">UNKNOWN</CallTrace>-->
 			<CallTrace name="Seen doing process minidump with rundll32, taskmanager, and custom bins" condition="contains">\dbghelp.dll</CallTrace>
+			<CallTrace name="Seen doing process minidump with rundll32, taskmanager, and custom bins" condition="contains">minidump</CallTrace>
 			<SourceImage name="Process access from RecycleBin, SUSPICIOUS action" condition="begin with">C:\$Recycle.Bin</SourceImage>
 			<TargetImage name="Possible LSASS Process access, SUSPICIOUS action" condition="is">C:\WINDOWS\system32\lsass.exe</TargetImage>
 			<TargetImage name="Possible browser inject, often done to dump passwords from browser" condition="end with">\chrome.exe</TargetImage>
