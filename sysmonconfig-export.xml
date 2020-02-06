@@ -476,27 +476,12 @@
 		<RuleGroup name="ImageLoad include" groupRelation="or">
 		<ImageLoad onmatch="include">
 			<Image name="MitreRef=T1128,Technique=Netsh Helper Beacon DLL,Tactic=Persistence, also it manages windows firewall." condition="contains">netsh.exe</Image>
+            <ImageLoaded name="technique_id=T1047,technique_name=Windows Management Instrumentation" condition="end with">wmiutils.dll</ImageLoaded>
 			<ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">\\</ImageLoaded><!-- loaded from network file share -->
 			<ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">admin$</ImageLoaded><!-- loaded from network file share -->
 			<ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">c$</ImageLoaded><!-- loaded from network file share -->
 			<ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">\appdata\</ImageLoaded>
 			<ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">\temp\</ImageLoaded>
-			<ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">c:\programdata\</ImageLoaded>
-			<ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">C:\Windows\Media\</ImageLoaded>
-			<ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">C:\Windows\addins\</ImageLoaded>
-			<ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">C:\Windows\system32\config\systemprofile\</ImageLoaded>
-			<ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">C:\Windows\Debug\</ImageLoaded> 
-			<ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">C:\Windows\Temp</ImageLoaded>
-		    <ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">C:\PerfLogs\</ImageLoaded>
-			<ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">C:\Windows\Help\</ImageLoaded>
-			<ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">C:\Intel\Logs\</ImageLoaded>
-			<ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">C:\Temp</ImageLoaded>
-			<ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">C:\Windows\repair\</ImageLoaded>
-			<ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">C:\Windows\security\</ImageLoaded>
-			<ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">C:\Windows\Fonts\</ImageLoaded>
-			<ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">file:</ImageLoaded>
-			<ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">$Recycle.bin\</ImageLoaded>
-			<ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">\Windows\IME\</ImageLoaded>	
 		    <ImageLoaded condition="end with" name="Defense Evasion - Unusual Module Extension">.png</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - Unusual Module Extension">.jpg</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - Unusual Module Extension">.dat</ImageLoaded>
@@ -641,6 +626,17 @@
 			<Rule groupRelation="or">
 			<ImageLoaded name="technique_id=T1117,technique_name=Regsvr32" condition="end with">scrobj.dll</ImageLoaded>
 			</Rule>
+			<Rule groupRelation="and">
+			<ImageLoaded name="technique_id=T1003,technique_name=Credential Dumping mimikatz_inmem" condition="is">C:\Windows\System32\samlib.dll</ImageLoaded> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003-->
+			<ImageLoaded name="technique_id=T1003,technique_name=Credential Dumping mimikatz_inmem" condition="is">C:\Windows\System32\WinSCard.dll</ImageLoaded> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003-->
+			<ImageLoaded name="technique_id=T1003,technique_name=Credential Dumping mimikatz_inmem" condition="is">C:\Windows\System32\cryptdll.dll</ImageLoaded> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003-->
+			<ImageLoaded name="technique_id=T1003,technique_name=Credential Dumping mimikatz_inmem" condition="is">C:\Windows\System32\hid.dll</ImageLoaded> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003-->
+			<ImageLoaded name="technique_id=T1003,technique_name=Credential Dumping mimikatz_inmem" condition="is">C:\Windows\System32\vaultcli.dll</ImageLoaded> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003-->
+			<ImageLoaded name="technique_id=T1003,technique_name=Credential Dumping mimikatz_inmem" condition="is">C:\Windows\System32\wlanapi.dll</ImageLoaded> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003-->      
+			<ImageLoaded name="technique_id=1137,technique_name=Office Application Startup" condition="end with">.wll</ImageLoaded>
+			<ImageLoaded name="technique_id=T1137,technique_name=Office Application Startup" condition="end with">.xll</ImageLoaded>
+			</Rule>
+			<ImageLoaded name="technique_id=T1073,technique_name=DLL Side-Loading" condition="contains any" >admin$;c$;\\;\appdata\;\temp\</ImageLoaded><!-- loaded from network file share -->   
 		</ImageLoad>
 		</RuleGroup>
 		
@@ -1153,6 +1149,22 @@
 		<!--DATA: EventType, UtcTime, ProcessGuid, ProcessId, Image, TargetObject, Details (can't filter on), NewName (can't filter on)-->
 		<RuleGroup name="RegistryEvent include" groupRelation="or">
 		<RegistryEvent onmatch="include">
+			<!--Credential providers-->
+			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\Credential Provider</TargetObject> <!--Wildcard, includes Credental Providers and Credential Provider Filters-->
+			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa</TargetObject>
+			<TargetObject name="technique_id=T1003,technique_name=Credential Dumping" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SecurityProviders</TargetObject><!--Microsoft:Windows: Changes to WDigest-UseLogonCredential for password scraping [ https://www.trustedsec.com/april-2015/dumping-wdigest-creds-with-meterpreter-mimikatzkiwi-in-windows-8-1/ ] -->
+			<TargetObject name="technique_id=T1003,technique_name=Credential Dumping" condition="contains">\Control\SecurityProviders\WDigest</TargetObject>
+			<TargetObject name="technique_id=T1103,technique_name=Appinit DLLs" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls</TargetObject><!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/windows/desktop/dd744762(v=vs.85).aspx ] -->
+			<TargetObject name="technique_id=T1103,technique_name=Appinit DLLs" condition="begin with">HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls</TargetObject><!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/windows/desktop/dn280412(v=vs.85).aspx ] -->
+			<TargetObject name="technique_id=T1076,technique_name=Remote Desktop Protocol" condition="is">HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services</TargetObject>
+			<!-- Win32_OSRecoveryConfiguration class C2 maps to a change in values within the following key: -->
+			<TargetObject name="technique_id=T1047,technique_name=Windows Management Instrumentation" condition="contains">SYSTEM\CurrentControlSet\Control\CrashControl</TargetObject>
+			<!--Windows UAC tampering-->
+			<TargetObject name="technique_id=T1088,technique_name=Bypass User Account Control" condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\EnableLUA</TargetObject> <!--Detect: UAC Tampering | Credit @ion-storm -->
+			<TargetObject name="technique_id=T1088,technique_name=Bypass User Account Control" condition="begin with">HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\LocalAccountTokenFilterPolicy</TargetObject> <!--Detect: UAC Tampering | Credit @ion-storm -->
+			<TargetObject name="technique_id=T1088,technique_name=Bypass User Account Control" condition="begin with">HKLM\SOFTWARE\Microsoft\Security Center\UacDisableNotify</TargetObject>
+			<TargetObject name="technique_id=T1088,technique_name=Bypass User Account Control" condition="begin with">HKLM\SOFTWARE\Microsoft\Security Center\UpdatesDisableNotify</TargetObject>
+            <TargetObject name="technique_id=T1122,technique_name=Component Object Model Hijacking" condition="contains">Software\Classes\CLSID</TargetObject><!--Appears in HKLM and HKCU-->
 			<TargetObject condition="contains" name="PrivEsc - UACBypass - mscfile">mscfile\shell\open\command\(Default)</TargetObject>
 			<TargetObject condition="contains" name="PrivEsc - UACBypass - SDCLT">exefile\shell\runas\command\IsolatedCommand</TargetObject>
 			<TargetObject condition="contains" name="PrivEsc - UACBypass UACME-34">\environment\windir</TargetObject>
@@ -1212,10 +1224,6 @@
 			<TargetObject name="Manifest pointing to service's DLL" condition="end with">\ServiceManifest</TargetObject> <!--Microsoft:Windows: Manifest pointing to service's DLL [ https://www.geoffchappell.com/studies/windows/win32/services/svchost/index.htm ] -->
 			<TargetObject name="Points to a service's EXE" condition="end with">\ImagePath</TargetObject> <!--Microsoft:Windows: Points to a service's EXE [ https://attack.mitre.org/wiki/Technique/T1050 ] -->
 			<TargetObject name="Services start mode changes (Disabled, Automatically, Manual)" condition="end with">\Start</TargetObject> <!--Microsoft:Windows: Services start mode changes (Disabled, Automatically, Manual)-->
-			<!--CLSID launch commands and Default File Association changes-->
-			<TargetObject name="Sensitive sub-key under file associations and CLSID that map to launch command" condition="contains">shell\open\command\</TargetObject> <!--Microsoft:Windows: Sensitive sub-key under file associations and CLSID that map to launch command-->
-			<TargetObject name="Sensitive sub-key under file associations and CLSID that map to launch command" condition="contains">shell\open\ddeexec\</TargetObject> <!--Microsoft:Windows: Sensitive sub-key under file associations and CLSID that map to launch command-->
-			<TargetObject name="Sensitive sub-key under file associations and CLSID that map to launch command" condition="contains">shell\install\command\</TargetObject> <!--Microsoft:Windows: Sensitive sub-key under file associations and CLSID that map to launch command-->
 			<TargetObject name="Changes to file extension mapping" condition="contains">Explorer\FileExts\</TargetObject> <!--Microsoft:Windows: Changes to file extension mapping-->
 			<TargetObject name="Tooltip handler" condition="contains">{86C86720-42A0-1069-A2E8-08002B30309D}</TargetObject> <!--Microsoft:Windows: Tooltip handler-->
 			<TargetObject name="Windows Executable handler, to ensure any changes not generally monitored, for less-common shell command types like runas" condition="contains">exefile</TargetObject> <!--Microsoft:Windows Executable handler, to ensure any changes not generally monitored, for less-common shell command types like "runas"-->
@@ -1818,5 +1826,4 @@
 		</DnsQuery>
 		</RuleGroup>
     </EventFiltering>
-
 	</Sysmon>
