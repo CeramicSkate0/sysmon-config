@@ -945,7 +945,6 @@
 			<Rule groupRelation="or">
 			<GrantedAccess name="technique_id=T1003,technique_name=Credential Dumping">0x0810</GrantedAccess>
 			</Rule>
-
 			<!-- Detect process hollowing-->
 			<Rule groupRelation="or">
             <GrantedAccess name="technique_id=T1093,technique_name=Process Hollowing">0x0800</GrantedAccess>
@@ -1524,19 +1523,40 @@
 			<TargetObject condition="begin with">HKCR\iTunes.</TargetObject> <!--Apple: iTunes update noise-->
 		</RegistryEvent>
 		</RuleGroup>
-	<!--SYSMON EVENT ID 15 : ALTERNATE DATA STREAM CREATED [FileCreateStreamHash]-->
+	
+		<!--SYSMON EVENT ID 15 : ALTERNATE DATA STREAM CREATED [FileCreateStreamHash]-->
 		<!--EVENT 15: "File stream created"-->
 		<!--COMMENT:	Any files created with an NTFS Alternate Data Stream which match these rules will be hashed and logged.
-			[ https://blogs.technet.microsoft.com/askcore/2013/03/24/alternate-data-streams-in-ntfs/ ]
-			ADS's are used by browsers and email clients to mark files as originating from the Internet or other foreign sources.
-			[ https://textslashplain.com/2016/04/04/downloads-and-the-mark-of-the-web/ ] -->
+		[ https://blogs.technet.microsoft.com/askcore/2013/03/24/alternate-data-streams-in-ntfs/ ]
+		ADS's are used by browsers and email clients to mark files as originating from the Internet or other foreign sources.
+		[ https://textslashplain.com/2016/04/04/downloads-and-the-mark-of-the-web/ ] -->
 		<!--NOTE: Other filesystem minifilters can make it appear to Sysmon that some files are being written twice. This is not a Sysmon issue, per Mark Russinovich.-->
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, Hash-->
-
+		<RuleGroup name="ALTERNATE DATA STREAM include" groupRelation="or">
+        <FileCreateStreamHash onmatch="include">
+		<TargetFilename condition="contains">Temp\7z</TargetFilename> <!--7zip extractions-->
+		<TargetFilename condition="end with">.bat</TargetFilename> <!--Batch scripting-->
+		<TargetFilename condition="end with">.cmd</TargetFilename> <!--Batch scripting | Credit @ion-storm -->
+		<TargetFilename condition="end with">Temp\debug.bin</TargetFilename> <!--Bin files https://github.com/GhostPack/SafetyKatz creates debug.bin in a temp folder-->
+		<TargetFilename condition="contains">Downloads</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE-->
+		<TargetFilename condition="end with">.exe</TargetFilename>
+		<TargetFilename condition="end with">.hta</TargetFilename> <!--Mitre T1170--><!--Scripting-->
+		<TargetFilename condition="end with">.lnk</TargetFilename> <!--Shortcut file | Credit @ion-storm -->
+		<TargetFilename condition="contains">Content.Outlook</TargetFilename> <!--Microsoft:Outlook: Attachments--> <!--PRIVACY WARNING-->
+		<TargetFilename name="technique_id=T1086,technique_name=PowerShell" condition="end with">.ps1</TargetFilename> <!--Powershell-->
+		<TargetFilename name="technique_id=T1086,technique_name=PowerShell" condition="end with">.ps2</TargetFilename> <!--Powershell-->
+		<TargetFilename condition="end with">.reg</TargetFilename> <!--Registry File-->
+		<TargetFilename condition="end with">.vb</TargetFilename> <!--VisualBasicScripting files-->
+		<TargetFilename condition="end with">.vbe</TargetFilename> <!--VisualBasicScripting files-->
+		<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting files-->	
+		</FileCreateStreamHash>
+		</RuleGroup>	
+		
 		<!--ADDITIONAL REFERENCE: [ https://blog.cobaltstrike.com/2015/10/07/named-pipe-pivoting/ ] -->
-
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
+		<!--SYSMON EVENT ID 17 & 18 : PipeEvent MONITORING [PipeEvent]-->
 		<RuleGroup name="PipeEvent exclude" groupRelation="or">
+		
 		<PipeEvent onmatch="exclude">
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
 			<Image condition="is">C:\Program Files\Fortinet\FortiClient\FCVbltScan.exe</Image>
@@ -1593,14 +1613,13 @@
 			<Image condition="is">Program Files (x86)\Microsoft SQL Server\110\DTS\binn\dtexec.exe</Image>
 		</PipeEvent>
 		</RuleGroup>
-	<!--SYSMON EVENT ID 19 & 20 & 21 : WMI EVENT MONITORING [WmiEvent]-->
+	    
+		<!--SYSMON EVENT ID 19 & 20 & 21 : WMI EVENT MONITORING [WmiEvent]-->
 		<!--EVENT 19: "WmiEventFilter activity detected"-->
 		<!--EVENT 20: "WmiEventConsumer activity detected"-->
 		<!--EVENT 21: "WmiEventConsumerToFilter activity detected"-->
-
 		<!--ADDITIONAL REFERENCE: [ https://www.darkoperator.com/blog/2017/10/15/sysinternals-sysmon-610-tracking-of-permanent-wmi-events ] -->
 		<!--ADDITIONAL REFERENCE: [ https://rawsec.lu/blog/posts/2017/Sep/19/sysmon-v610-vs-wmi-persistence/ ] -->
-
 		<!--DATA: EventType, UtcTime, Operation, User, Name, Type, Destination, Consumer, Filter-->
 		<WmiEvent onmatch="exclude">
 		</WmiEvent>
