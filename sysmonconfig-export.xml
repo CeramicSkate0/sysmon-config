@@ -98,7 +98,6 @@
 			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
 			<Image condition="is">C:\Program Files\Oracle\VirtualBox\VBoxNetDHCP.exe</Image>
 			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
-			<Image condition="begin with">C:\program files\symantec</Image>
 			<Image condition="begin with">C:\Program Files (x86)\NVIDIA Corporation\Update Core\</Image>
 			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
@@ -367,7 +366,6 @@
 		<NetworkConnect onmatch="exclude">
 			<!--<Image condition="contains">C:\Windows\System32\svchost.exe</Image>-->
 			<Image condition="end with">\g2ax_comm_expert.exe</Image> <!--GoToMeeting-->
-			<Image condition="begin with">C:\program files\symantec</Image>
 			<Image condition="end with">\g2mcomm.exe</Image> <!--GoToMeeting-->
 			<Image condition="end with">\SWELF.exe</Image>
 			<Image condition="end with">\chrome.exe</Image><!--Browser-->
@@ -452,6 +450,21 @@
 			<Signature condition="contains">windows</Signature> <!--Exclude signed Microsoft drivers-->
 			<Signature condition="begin with">Intel </Signature> <!--Exclude signed Intel drivers-->
 			<Signature condition="begin with">Fortinet Technologies (Canada) Inc.</Signature> <!--Exclude signed Intel drivers-->
+			<!--Exclude signed Microsoft drivers-->
+			<Rule groupRelation="and">
+			<Signature condition="contains">Microsoft</Signature>
+			<SignatureStatus condition="is">Valid</SignatureStatus>
+			</Rule>
+			<!--Exclude signed Inter drivers-->
+			<Rule groupRelation="and">
+			<Signature condition="begin with">Intel </Signature>
+			<SignatureStatus condition="is">Valid</SignatureStatus>
+			</Rule>
+			<!--Exclude signed VMware drivers-->
+			<Rule groupRelation="and">
+			<Signature condition="begin with">VMware</Signature>
+			<SignatureStatus condition="is">Valid</SignatureStatus>
+		</Rule>
 		</DriverLoad>
 		</RuleGroup>
 	<!--SYSMON EVENT ID 7 : DLL (IMAGE) LOADED BY PROCESS [ImageLoad]-->
@@ -609,6 +622,25 @@
 			<Signature name="Non Micrsoft DLL found" condition="is not">Microsoft Windows</Signature>
 			<Signed name="DLL loaded with Invalid Hash Signature. Suspicous." condition="is">Invalid hash</Signed>
 			<Signed name="Unsigned DLL loaded" condition="is">false</Signed>
+			<Rule groupRelation="and">
+			<ImageLoaded name="technique_id=T1170,technique_name=MSHTA with AMSI Bypass" condition="end with">jscript9.dll</ImageLoaded>
+			<Image condition="end with">mshta.exe</Image>
+			</Rule>
+			<!--Capture components used by malicious macros and scripts.-->
+			<Rule groupRelation="or">
+			<ImageLoaded name="technique_id=T1064,technique_name=Windows Scripting Host Component" condition="end with">wshom.ocx</ImageLoaded>
+			<ImageLoaded condition="end with">scrrun.dll</ImageLoaded>
+			<ImageLoaded condition="end with">vbscript.dll</ImageLoaded>
+			</Rule>
+			<!--Check for loading of the PowerShell engine-->
+			<Rule groupRelation="or">
+			<ImageLoaded name="technique_id=T1086,technique_name=PowerShell Engine" condition="end with">System.Management.Automation.ni.dll</ImageLoaded>
+			<ImageLoaded condition="end with">System.Management.Automation.dll</ImageLoaded>
+			</Rule>
+			<!--Detect the Squiblydoo technique-->
+			<Rule groupRelation="or">
+			<ImageLoaded name="technique_id=T1117,technique_name=Regsvr32" condition="end with">scrobj.dll</ImageLoaded>
+			</Rule>
 		</ImageLoad>
 		</RuleGroup>
 		
@@ -824,7 +856,6 @@
 			<Image condition="begin with">C:\Program Files (x86)\</Image> 
 			<Image condition="begin with">C:\Program Files \</Image> 
 			<Image condition="begin with">C:\Windows\</Image>
-			<Image condition="begin with">C:\Program Files\Symantec</Image>
 			<Image condition="is">system</Image>
 			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\Platform\4.18.1907.4-0\MsMpEng.exe</Image>
 			<Image condition="is">C:\Windows\System32\svchost.exe</Image> 
@@ -882,6 +913,53 @@
 			<SourceImage condition="begin with">C:\$Recycle.bin\</SourceImage>
 			<SourceImage condition="contains">\Windows\IME\</SourceImage>
 			<SourceImage condition="contains">AppData\Local\Programs\Opera</SourceImage>
+			<Rule groupRelation="and">
+			<TargetImage name="technique_id=T1003,technique_name=Credential Dumping" condition="is">C:\Windows\system32\lsass.exe</TargetImage>
+			<GrantedAccess>0x1FFFFF</GrantedAccess>
+			</Rule>
+			<Rule groupRelation="and">
+			<TargetImage name="technique_id=T1003,technique_name=Credential Dumping" condition="is">C:\Windows\system32\lsass.exe</TargetImage>
+			<GrantedAccess>0x1F1FFF</GrantedAccess>
+			</Rule>
+			<Rule groupRelation="and">
+			<TargetImage name="technique_id=T1003,technique_name=Credential Dumping" condition="is">C:\Windows\system32\lsass.exe</TargetImage>
+			<GrantedAccess>0x1010</GrantedAccess>
+			</Rule>
+			<Rule groupRelation="and">
+			<TargetImage name="technique_id=T1003,technique_name=Credential Dumping" condition="is">C:\Windows\system32\lsass.exe</TargetImage>
+			<GrantedAccess>0x143A</GrantedAccess>
+			</Rule>
+			<!--Dumping credentials from services or setting up a keylogger-->
+			<Rule groupRelation="and">
+			<TargetImage name="technique_id=T1003,technique_name=Credential Dumping" condition="is">C:\Windows\system32\csrss.exe</TargetImage> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003--><!-- depending on what you're running on your host, this might be noisy-->
+			<GrantedAccess>0x1F1FFF</GrantedAccess>
+			</Rule>
+			<Rule groupRelation="and">
+			<TargetImage name="technique_id=T1003,technique_name=Credential Dumping" condition="is">C:\Windows\system32\wininit.exe</TargetImage> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003--><!-- depending on what you're running on your host, this might be noisy-->
+			<GrantedAccess>0x1F1FFF</GrantedAccess>
+			</Rule>
+			<Rule groupRelation="and">
+			<TargetImage name="technique_id=T1003,technique_name=Credential Dumping" condition="is">C:\Windows\system32\winlogon.exe</TargetImage> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003--><!-- depending on what you're running on your host, this might be noisy-->
+			<GrantedAccess>0x1F1FFF</GrantedAccess>
+			</Rule>
+			<Rule groupRelation="and">
+			<TargetImage name="technique_id=T1003,technique_name=Credential Dumping" condition="is">C:\Windows\system32\services.exe</TargetImage> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003--><!-- depending on what you're running on your host, this might be noisy-->
+			<GrantedAccess>0x1F1FFF</GrantedAccess>
+			</Rule>
+			<Rule groupRelation="or">
+			<GrantedAccess name="technique_id=T1003,technique_name=Credential Dumping">0x0810</GrantedAccess>
+			</Rule>
+
+			<!-- Detect process hollowing-->
+			<Rule groupRelation="or">
+            <GrantedAccess name="technique_id=T1093,technique_name=Process Hollowing">0x0800</GrantedAccess>
+            <GrantedAccess name="technique_id=T1093,technique_name=Process Hollowing">0x800</GrantedAccess>
+			</Rule>
+			<!-- Detect process process injection-->
+			<Rule groupRelation="or">
+            <GrantedAccess name="technique_id=T1055,technique_name=Process Injection">0x0820</GrantedAccess>
+            <GrantedAccess name="technique_id=T1055,technique_name=Process Injection">0x820</GrantedAccess>
+			</Rule>
 		</ProcessAccess>
 		</RuleGroup>
 		
@@ -1011,7 +1089,6 @@
 	<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime-->
 		<RuleGroup name="FileCreate exclude" groupRelation="or">
 		<FileCreate onmatch="exclude">
-		<Image condition="begin with">C:\program files\symantec</Image>
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image>
 			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\platform\4.18.1907.4-0\MsMpEng.exe</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
@@ -1076,7 +1153,6 @@
 		<!--DATA: EventType, UtcTime, ProcessGuid, ProcessId, Image, TargetObject, Details (can't filter on), NewName (can't filter on)-->
 		<RuleGroup name="RegistryEvent include" groupRelation="or">
 		<RegistryEvent onmatch="include">
-			<TargetObject condition="contains" name="PrivEsc - UACBypass - mmc or control panel objects">\DelegateExecute</TargetObject>
 			<TargetObject condition="contains" name="PrivEsc - UACBypass - mscfile">mscfile\shell\open\command\(Default)</TargetObject>
 			<TargetObject condition="contains" name="PrivEsc - UACBypass - SDCLT">exefile\shell\runas\command\IsolatedCommand</TargetObject>
 			<TargetObject condition="contains" name="PrivEsc - UACBypass UACME-34">\environment\windir</TargetObject>
@@ -1220,6 +1296,7 @@
 			<TargetObject name="Microsoft:Windows: AppCompat used for SHIM database persistence" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB</TargetObject> <!--Microsoft:Windows: AppCompat [ https://attack.mitre.org/wiki/Technique/T1138 ] -->
 			<TargetObject name="Reg key for Microsoft:Windows: Registry virtualization" condition="contains">VirtualStore</TargetObject> <!--Microsoft:Windows: Registry virtualization [ https://msdn.microsoft.com/en-us/library/windows/desktop/aa965884(v=vs.85).aspx ] -->
 			<!--Windows internals integrity monitoring-->
+			<TargetObject name="Malware likes changing IFEO, like adding Debugger to disable antivirus EXE" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\</TargetObject> <!--Microsoft:Windows: Malware likes changing IFEO, like adding Debugger to disable antivirus EXE-->
 			<TargetObject name="Event log system integrity and ACLs" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\</TargetObject> <!--Microsoft:Windows: Event log system integrity and ACLs-->
 			<TargetObject name="Services approved to load in safe mode" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Safeboot\</TargetObject> <!--Microsoft:Windows: Services approved to load in safe mode-->
 			<TargetObject name="Providers notified by WinLogon" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Winlogon\</TargetObject> <!--Microsoft:Windows: Providers notified by WinLogon-->
@@ -1329,7 +1406,7 @@
 			<TargetObject name="T1138,AppCompatShim" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB</TargetObject> <!--Windows: AppCompat [ https://attack.mitre.org/wiki/Technique/T1138 ] -->
 			<TargetObject name="Registry virtualization, something's wrong if it's in use" condition="contains">VirtualStore</TargetObject> <!--Windows: Registry virtualization, something's wrong if it's in use [ https://msdn.microsoft.com/en-us/library/windows/desktop/aa965884(v=vs.85).aspx ] -->
 			<!--Windows internals integrity monitoring-->
-			<TargetObject name="T1183,IFEO Possible STicky Keys Backdoor" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\</TargetObject> <!--Windows: Malware likes changing IFEO, like adding Debugger to disable antivirus EXE-->
+			<TargetObject name="T1183,IFEO" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\</TargetObject> <!--Windows: Malware likes changing IFEO, like adding Debugger to disable antivirus EXE-->
 			<TargetObject name="Event log system integrity and ACLs" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\</TargetObject> <!--Windows: Event log system integrity and ACLs-->
 			<TargetObject name="Tamper-Safemode" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Safeboot\</TargetObject> <!--Windows: Services approved to load in safe mode. Almost nothing should ever modify this.-->
 			<TargetObject name="Tamper-Winlogon" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Winlogon\</TargetObject> <!--Windows: Providers notified by WinLogon-->
@@ -1350,7 +1427,6 @@
 		<!--COMMENT:	Remove low-information noise. Often these hide a procress recreating an empty key and do not hide the values created subsequently.-->
 			<!--SECTION: Microsoft binaries-->
 			<Image condition="end with">\SWELF.exe</Image>
-			<Image condition="begin with">C:\program files\symantec</Image>
 			<Image condition="is">C:\Program Files (x86)\Microsoft Office\Root\VFS\ProgramFilesCommonX86\Microsoft Shared\OFFICE16\SDXHelper.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\PrivateAssemblies\ScriptedSandbox64.exe</Image> <!--Microsoft:Windows: Changes association registry keys-->
 			<Image condition="contains">C:\Program Files\Fortinet\FortiClient\</Image>
@@ -1454,7 +1530,6 @@
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
 		<RuleGroup name="PipeEvent exclude" groupRelation="or">
 		<PipeEvent onmatch="exclude">
-			<Image condition="begin with">C:\program files\symantec</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
 			<Image condition="is">C:\Program Files\Fortinet\FortiClient\FCVbltScan.exe</Image>
 			<Image condition="is">C:\Program Files\Mozilla Firefox\firefox.exe</Image> 
@@ -1491,6 +1566,23 @@
 			<Image condition="is">Program Files\Qlik\Sense\Engine\Engine.exe</Image>
 			<PipeName condition="contains">Anonymous Pipe</PipeName>
 			<PipeName condition="begin with">\Vivisimo Velocity</PipeName>
+			<PipeName condition="is">\ntapvsrq</PipeName>
+			<PipeName condition="is">\srvsvc</PipeName>
+			<PipeName condition="is">\wkssvc</PipeName>
+			<PipeName condition="is">\lsass</PipeName>
+  			<PipeName condition="is">\winreg</PipeName>
+		    <PipeName condition="is">\spoolss</PipeName>
+			<PipeName condition="contains">Anonymous Pipe</PipeName>
+			<Image condition="is">c:\windows\system32\inetsrv\w3wp.exe</Image>
+			<!-- MSSQL Named Pipes-->
+			<PipeName condition="is">\SQLLocal\MSSQLSERVER</PipeName>
+			<PipeName condition="is">\SQLLocal\INSTANCE01</PipeName>
+			<PipeName condition="is">\SQLLocal\SQLEXPRESS</PipeName>
+  			<PipeName condition="is">\SQLLocal\COMMVAULT</PipeName>
+			<PipeName condition="is">\SQLLocal\RTCLOCAL</PipeName>
+			<PipeName condition="is">\SQLLocal\RTC</PipeName>
+			<PipeName condition="is">\SQLLocal\TMSM</PipeName>
+			<Image condition="is">Program Files (x86)\Microsoft SQL Server\110\DTS\binn\dtexec.exe</Image>
 		</PipeEvent>
 		</RuleGroup>
 	<!--SYSMON EVENT ID 19 & 20 & 21 : WMI EVENT MONITORING [WmiEvent]-->
