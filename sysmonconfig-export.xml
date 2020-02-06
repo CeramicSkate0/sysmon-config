@@ -67,13 +67,12 @@
 
 	<EventFiltering>
 
-	<!--SYSMON EVENT ID 1 : PROCESS CREATION [ProcessCreate]-->
+		<!--SYSMON EVENT ID 1 : PROCESS CREATION [ProcessCreate]-->
 		<!--COMMENT:	All process launched will be included, except for what matches a rule below. It's best to be as specific as possible, to
 			avoid user-mode executables imitating other process names to avoid logging, or if malware drops files in an existing directory.
 			Ultimately, you must weigh CPU time checking many detailed rules, against the risk of malware exploiting the blindness created.
 			Beware of Masquerading, where attackers imitate the names and paths of legitimate tools. Ideally, you'd use both file path and
 			code signatures to validate, but Sysmon does not support that. Look into Windows Device Guard for whitelisting support. -->
-
 		<!--DATA: UtcTime, ProcessGuid, ProcessID, Image, FileVersion, Description, Product, Company, CommandLine, CurrentDirectory, User, LogonGuid, LogonId, TerminalSessionId, IntegrityLevel, Hashes, ParentProcessGuid, ParentProcessId, ParentImage, ParentCommandLine-->
 		<RuleGroup name="ProcessCreate Exclude" groupRelation="or">
 		<ProcessCreate onmatch="exclude">
@@ -291,9 +290,9 @@
 			<ParentCommandLine condition="end with">"-outc=C:\ProgramData\Dell\CommandUpdate\inventory.xml" "-logc=C:\ProgramData\Dell\CommandUpdate\scanerrs.xml" "-lang=en" "-enc=UTF-16" </ParentCommandLine>
 		</ProcessCreate>
 		</RuleGroup>
-	<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM [FileCreateTime]-->
+		
+		<!--SYSMON EVENT ID 2 : FILE CREATION TIME RETROACTIVELY CHANGED IN THE FILESYSTEM [FileCreateTime]-->
 		<!--COMMENT:	[ https://attack.mitre.org/wiki/Technique/T1099 ] -->
-
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, PreviousCreationUtcTime-->
 		<RuleGroup name="FileCreateTime Include" groupRelation="or">
 		<FileCreateTime onmatch="include">		 		
@@ -350,16 +349,16 @@
 			<TargetFilename condition="end with">.tmp</TargetFilename>
 		</FileCreateTime>
 		</RuleGroup>
-	<!--SYSMON EVENT ID 3 : NETWORK CONNECTION INITIATED [NetworkConnect]-->
+		
+		<!--SYSMON EVENT ID 3 : NETWORK CONNECTION INITIATED [NetworkConnect]-->
 		<!--COMMENT:	By default this configuration takes a very conservative approach to network logging, limited to only extremely high-signal events.-->
 		<!--COMMENT:	[ https://attack.mitre.org/wiki/Command_and_Control ] [ https://attack.mitre.org/wiki/Exfiltration ] [ https://attack.mitre.org/wiki/Lateral_Movement ] -->
 		<!--TECHNICAL:	For the DestinationHostname, Sysmon uses the GetNameInfo API, which will often not have any information, and may just be a CDN. This is NOT reliable for filtering.-->
 		<!--TECHNICAL:	For the DestinationPortName, Sysmon uses the GetNameInfo API for the friendly name of ports you see in logs.-->
 		<!--TECHNICAL:	These exe do not initiate their connections, and thus includes do not work in this section: BITSADMIN NLTEST-->
-		
+	
 		<!-- https://www.first.org/resources/papers/conf2017/APT-Log-Analysis-Tracking-Attack-Tools-by-Audit-Policy-and-Sysmon.pdf -->
 		<!--<NetworkConnect onmatch="include">
-
 		</NetworkConnect>-->	
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, User, Protocol, Initiated, SourceIsIpv6, SourceIp, SourceHostname, SourcePort, SourcePortName, DestinationIsIpV6, DestinationIp, DestinationHostname, DestinationPort, DestinationPortName-->
 		<RuleGroup name="NetworkConnect exclude" groupRelation="or">
@@ -413,14 +412,12 @@
 			<DestinationPort condition="is">137</DestinationPort>
 		</NetworkConnect>
 		</RuleGroup>
-	<!--SYSMON EVENT ID 4 : RESERVED FOR SYSMON STATUS MESSAGES-->
-
+		
+		<!--SYSMON EVENT ID 4 : RESERVED FOR SYSMON STATUS MESSAGES-->
 		<!--DATA: UtcTime, State, Version, SchemaVersion-->
 		<!--Cannot be filtered.-->
-
-	<!--SYSMON EVENT ID 5 : PROCESS ENDED [ProcessTerminate]-->
+		<!--SYSMON EVENT ID 5 : PROCESS ENDED [ProcessTerminate]-->
 		<!--COMMENT:	Useful data in building infection timelines.-->
-
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image-->
 		<RuleGroup name="ProcessTerminate exclude" groupRelation="or">
 		<ProcessTerminate onmatch="exclude">
@@ -437,12 +434,12 @@
 			<Image condition="end with">\SWELF.exe</Image>
 		</ProcessTerminate>
 		</RuleGroup>
-	<!--SYSMON EVENT ID 6 : DRIVER LOADED INTO KERNEL [DriverLoad]-->
+		
+		<!--SYSMON EVENT ID 6 : DRIVER LOADED INTO KERNEL [DriverLoad]-->
 		<!--COMMENT:	Because drivers with bugs can be used to escalate to kernel permissions, be extremely selective
 			about what you exclude from monitoring. Low event volume, little incentive to exclude.
 			[ https://attack.mitre.org/wiki/Technique/T1014 ] -->
 		<!--TECHNICAL:	Sysmon will check the signing certificate revocation status of any driver you don't exclude.-->
-
 		<!--DATA: UtcTime, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
 		<RuleGroup name="DriverLoad exclude" groupRelation="or">
 		<DriverLoad onmatch="exclude">
@@ -467,10 +464,10 @@
 		</Rule>
 		</DriverLoad>
 		</RuleGroup>
-	<!--SYSMON EVENT ID 7 : DLL (IMAGE) LOADED BY PROCESS [ImageLoad]-->
+		
+		<!--SYSMON EVENT ID 7 : DLL (IMAGE) LOADED BY PROCESS [ImageLoad]-->
 		<!--COMMENT:	Can cause high system load, disabled by default.-->
 		<!--COMMENT:	[ https://attack.mitre.org/wiki/Technique/T1073 ] [ https://attack.mitre.org/wiki/Technique/T1038 ] [ https://attack.mitre.org/wiki/Technique/T1034 ] -->
-
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
 		<!--NOTE: There is possibly a huge gap here for LOLbin's. Please add as you find them to the repo-->
 		<RuleGroup name="ImageLoad include" groupRelation="or">
@@ -807,10 +804,10 @@
 			<Hashes condition="end with">727B32239F3556C6C9E82ADE6087C4AC</Hashes><!-- Microsoft OneDrive Shell Extension -->
 		</ImageLoad>
 		</RuleGroup>
+		
 		<!--SYSMON EVENT ID 8 : REMOTE THREAD CREATED [CreateRemoteThread]-->
 		<!--COMMENT:	Monitor for processes injecting code into other processes. Often used by malware to cloak their actions. Also when Firefox loads Flash.
 		[ https://attack.mitre.org/wiki/Technique/T1055 ] -->
-
 		<!--DATA: UtcTime, SourceProcessGuid, SourceProcessId, SourceImage, TargetProcessId, TargetImage, NewThreadId, StartAddress, StartModule, StartFunction-->
 		<RuleGroup name="CreateRemoteThread exclude" groupRelation="or">
 		<CreateRemoteThread onmatch="exclude">
@@ -838,14 +835,14 @@
 			<StartFunction>RtlpQueryProcessDebugInformationRemote</StartFunction><!-- observed as a FP from procexp64.exe -->
 		</CreateRemoteThread>
 		</RuleGroup>
-	<!--SYSMON EVENT ID 9 : RAW DISK ACCESS [RawAccessRead]-->
+		
+		<!--SYSMON EVENT ID 9 : RAW DISK ACCESS [RawAccessRead]-->
 		<!--EVENT 9: "RawAccessRead detected"-->
 		<!--COMMENT:	Can cause high system load, disabled by default.-->
 		<!--COMMENT:	Monitor for raw sector-level access to the disk, often used to bypass access control lists or access locked files.
 			Disabled by default since including even one entry here activates this component. Reward/performance/rule maintenance decision.
 			Encourage you to experiment with this feature yourself. [ https://attack.mitre.org/wiki/Technique/T1067 ] -->
 		<!--COMMENT:	You will likely want to set this to a full capture on domain controllers, where no process should be doing raw reads.-->
-
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, Device-->
 		<RuleGroup name="RawAccessRead exclude" groupRelation="or">
 		<RawAccessRead onmatch="exclude">
@@ -858,7 +855,7 @@
 		</RawAccessRead>
 		</RuleGroup>
 		
-	<!--SYSMON EVENT ID 10 : INTER-PROCESS ACCESS [ProcessAccess]-->
+		<!--SYSMON EVENT ID 10 : INTER-PROCESS ACCESS [ProcessAccess]-->
 		<!--EVENT 10: "Process accessed"-->
 		<!--COMMENT:	Can cause high system load, disabled by default.-->
 		<!--COMMENT:	Monitor for processes accessing other process' memory.-->
@@ -1076,12 +1073,12 @@
 		    <CallTrace condition="contains">sysmain.dll</CallTrace>
 		</ProcessAccess>
 		</RuleGroup>
-	<!--SYSMON EVENT ID 11 : FILE CREATED [FileCreate]-->
-			<!--EVENT 11: "File created"-->
+		
+		<!--SYSMON EVENT ID 11 : FILE CREATED [FileCreate]-->
+		<!--EVENT 11: "File created"-->
 		<!--NOTE:	Other filesystem "minifilters" can make it appear to Sysmon that some files are being written twice. This is not a Sysmon issue, per Mark Russinovich.-->
 		<!--NOTE:	You may not see files detected by antivirus. Other filesystem minifilters, like antivirus, can act before Sysmon receives the alert a file was written.-->
-
-	<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime-->
+		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime-->
 		<RuleGroup name="FileCreate exclude" groupRelation="or">
 		<FileCreate onmatch="exclude">
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image>
@@ -1127,24 +1124,21 @@
 			<TargetFilename condition="contains">\AppData\Roaming\Microsoft\Teams\</TargetFilename>
 		</FileCreate>
 		</RuleGroup>
-	<!--SYSMON EVENT ID 12 & 13 & 14 : REGISTRY MODIFICATION [RegistryEvent]-->
+		
+		<!--SYSMON EVENT ID 12 & 13 & 14 : REGISTRY MODIFICATION [RegistryEvent]-->
 		<!--EVENT 12: "Registry object added or deleted"-->
 		<!--EVENT 13: "Registry value set-->
 		<!--EVENT 14: "Registry objected renamed"-->
-
 		<!--NOTE:	Windows writes hundreds or thousands of registry keys a minute, so just because you're not changing things, doesn't mean these rules aren't being run.-->
 		<!--NOTE:	You do not have to spend a lot of time worrying about performance, CPUs are fast, but it's something to consider. Every rule and condition type has a small cost.-->
 		<!--NOTE:	"contains" works by finding the first letter, then matching the second, etc, so the first letters should be as low-occurrence as possible.-->
 		<!--NOTE:	[ https://attack.mitre.org/wiki/Technique/T1112 ] -->
-
 		<!--TECHNICAL:	You cannot filter on the "Details" attribute, due to performance issues when very large keys are written, and variety of data formats-->
 		<!--TECHNICAL:	Possible prefixes are HKLM, HKCR, and HKU-->
 		<!--CRITICAL:	Schema version 3.30 and higher change HKLM\="\REGISTRY\MACHINE\" and HKU\="\REGISTRY\USER\" and HKCR\="\REGISTRY\MACHINE\SOFTWARE\Classes\" and CurrentControlSet="ControlSet001"-->
 		<!--CRITICAL:	Due to a bug, Sysmon versions BEFORE 7.01 may not properly log with the new prefix style for registry keys that was originally introduced in schema version 3.30-->
 		<!--NOTE:	Because Sysmon runs as a service, it has no filtering ability for, or concept of, HKCU or HKEY_CURRENT_USER. Use "contains" or "end with" to get around this limitation-->
-
 		<!-- ! CRITICAL NOTE !:	It may appear this section is MISSING important entries, but SOME RULES MONITOR MANY KEYS, so look VERY CAREFULLY to see if something is already covered.-->
-
 		<!--DATA: EventType, UtcTime, ProcessGuid, ProcessId, Image, TargetObject, Details (can't filter on), NewName (can't filter on)-->
 		<RuleGroup name="RegistryEvent include" groupRelation="or">
 		<RegistryEvent onmatch="include">
@@ -1534,13 +1528,13 @@
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, Hash-->
 		<RuleGroup name="ALTERNATE DATA STREAM include" groupRelation="or">
         <FileCreateStreamHash onmatch="include">
-		<TargetFilename condition="contains">Temp\7z</TargetFilename> <!--7zip extractions-->
+		<TargetFilename name="File stream created 7zip extractions" condition="contains">Temp\7z</TargetFilename> <!--7zip extractions-->
 		<TargetFilename condition="end with">.bat</TargetFilename> <!--Batch scripting-->
 		<TargetFilename condition="end with">.cmd</TargetFilename> <!--Batch scripting | Credit @ion-storm -->
 		<TargetFilename condition="end with">Temp\debug.bin</TargetFilename> <!--Bin files https://github.com/GhostPack/SafetyKatz creates debug.bin in a temp folder-->
 		<TargetFilename condition="contains">Downloads</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE-->
 		<TargetFilename condition="end with">.exe</TargetFilename>
-		<TargetFilename condition="end with">.hta</TargetFilename> <!--Mitre T1170--><!--Scripting-->
+		<TargetFilename name="File stream created Mitre T1170" condition="end with">.hta</TargetFilename> <!--Mitre T1170--><!--Scripting-->
 		<TargetFilename condition="end with">.lnk</TargetFilename> <!--Shortcut file | Credit @ion-storm -->
 		<TargetFilename condition="contains">Content.Outlook</TargetFilename> <!--Microsoft:Outlook: Attachments--> <!--PRIVACY WARNING-->
 		<TargetFilename name="technique_id=T1086,technique_name=PowerShell" condition="end with">.ps1</TargetFilename> <!--Powershell-->
