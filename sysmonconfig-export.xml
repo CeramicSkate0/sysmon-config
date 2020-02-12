@@ -472,13 +472,13 @@
 		<!--NOTE: There is possibly a huge gap here for LOLbin's. Please add as you find them to the repo-->
 		<RuleGroup name="ImageLoad include" groupRelation="or">
 		<ImageLoad onmatch="include">
-			<Image name="MitreRef=T1128,Technique=Netsh Helper Beacon DLL,Tactic=Persistence, also it manages windows firewall." condition="contains">netsh.exe</Image>
-            <ImageLoaded name="technique_id=T1047,technique_name=Windows Management Instrumentation" condition="end with">wmiutils.dll</ImageLoaded>
-			<ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">\\</ImageLoaded><!-- loaded from network file share -->
-			<ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">admin$</ImageLoaded><!-- loaded from network file share -->
-			<ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">c$</ImageLoaded><!-- loaded from network file share -->
-			<ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">\appdata\</ImageLoaded>
-			<ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">\temp\</ImageLoaded>
+		    <Image name="MitreRef=T1128,Technique=Netsh Helper Beacon DLL,Tactic=Persistence, also it manages windows firewall." condition="contains">netsh.exe</Image>
+		    <ImageLoaded name="technique_id=T1047,technique_name=Windows Management Instrumentation" condition="end with">wmiutils.dll</ImageLoaded>
+		    <ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">\\</ImageLoaded><!-- loaded from network file share -->
+		    <ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">admin$</ImageLoaded><!-- loaded from network file share -->
+		    <ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">c$</ImageLoaded><!-- loaded from network file share -->
+		    <ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">\appdata\</ImageLoaded>
+		    <ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">\temp\</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - Unusual Module Extension">.png</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - Unusual Module Extension">.jpg</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - Unusual Module Extension">.dat</ImageLoaded>
@@ -486,8 +486,8 @@
 		    <ImageLoaded condition="end with" name="Defense Evasion - Unusual Module Extension">.inf</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - Unusual Module Extension">.ini</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - Unusual Module Extension">.log</ImageLoaded>
-			<ImageLoaded condition="end with" name="Persistence - Winword Library Addin Loaded">.wll</ImageLoaded>
-			<ImageLoaded condition="end with" name="Persistence - Excel Library Addin Loaded">.xll</ImageLoaded>
+		    <ImageLoaded condition="end with" name="Persistence - Winword Library Addin Loaded">.wll</ImageLoaded>
+		    <ImageLoaded condition="end with" name="Persistence - Excel Library Addin Loaded">.xll</ImageLoaded>
 		    <ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">\\</ImageLoaded><!-- loaded from network file share -->
 		    <ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">admin$</ImageLoaded><!-- loaded from network file share -->
 		    <ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">c$</ImageLoaded><!-- loaded from network file share -->
@@ -509,20 +509,20 @@
 		    <ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">file:</ImageLoaded>
 		    <ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">$Recycle.bin\</ImageLoaded>
 		    <ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">\Windows\IME\</ImageLoaded>	
-			<ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">wwlib.dll</ImageLoaded> <!-- winword.exe -->
-			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">BIB.dll</ImageLoaded> <!-- Adobe A3DUtility.exe -->
-			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">goopdate.dll</ImageLoaded> <!-- vuln GoogleUpdate.exe version-->
-			  <ImageLoaded condition="end with" name="Edfense Evasion - DLL Side Loading">msfte.dll</ImageLoaded> <!-- searchindexer.exe and searchprotocolhost.exe -->
-			  <ImageLoaded condition="end with" name="Edfense Evasion - DLL Side Loading">Flash Video Extension.dll</ImageLoaded> <!-- Adobe AcroTranscoder.exe -->
-			  <ImageLoaded condition="end with" name="Edfense Evasion - DLL Side Loading">UxTheme.dll</ImageLoaded> <!-- Adobe FlashPlayerApp.exe -->
-			  <ImageLoaded condition="end with" name="Edfense Evasion - DLL Side Loading">WeChatWin.dll</ImageLoaded> <!-- WeChat.exe -->
-			  <ImageLoaded condition="end with" name="Edfense Evasion - DLL Side Loading">coccocpdate.dll</ImageLoaded> <!-- CocCocUpdate.exe -->
-			  <ImageLoaded condition="end with" name="Edfense Evasion - DLL Side Loading">chrome_elf.dll</ImageLoaded> <!-- 360se.exe -->
-			  <ImageLoaded condition="end with" name="Edfense Evasion - DLL Side Loading">dbghelp.dll</ImageLoaded> <!-- 360 SoftManager.exe -->
-			  <ImageLoaded condition="end with" name="Edfense Evasion - DLL Side Loading">FaultRep.dll</ImageLoaded> <!-- FontsSet.exe -->
-			  <ImageLoaded condition="end with" name="Edfense Evasion - DLL Side Loading">McVsoCfg.dll</ImageLoaded>
-			  <ImageLoaded condition="end with" name="Edfense Evasion - DLL Side Loading">product_info.dll</ImageLoaded> <!-- Kasper avpla.exe -->
-			  <ImageLoaded condition="end with" name="Edfense Evasion - DLL Side Loading">wsc.dll</ImageLoaded> <!-- Avast wsc_proxy.exe -->
+		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">wwlib.dll</ImageLoaded> <!-- winword.exe -->
+		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">BIB.dll</ImageLoaded> <!-- Adobe A3DUtility.exe -->
+		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">goopdate.dll</ImageLoaded> <!-- vuln GoogleUpdate.exe version-->
+		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">msfte.dll</ImageLoaded> <!-- searchindexer.exe and searchprotocolhost.exe -->
+		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">Flash Video Extension.dll</ImageLoaded> <!-- Adobe AcroTranscoder.exe -->
+		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">UxTheme.dll</ImageLoaded> <!-- Adobe FlashPlayerApp.exe -->
+		    <ImageLoaded condition="end with" name="Dfense Evasion - DLL Side Loading">WeChatWin.dll</ImageLoaded> <!-- WeChat.exe -->
+		    <ImageLoaded condition="end with" name="Dfense Evasion - DLL Side Loading">coccocpdate.dll</ImageLoaded> <!-- CocCocUpdate.exe -->
+		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">chrome_elf.dll</ImageLoaded> <!-- 360se.exe -->
+		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading, possible minidump of lsass">dbghelp.dll</ImageLoaded> <!-- 360 SoftManager.exe -->
+			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">FaultRep.dll</ImageLoaded> <!-- FontsSet.exe -->
+			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">McVsoCfg.dll</ImageLoaded>
+			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">product_info.dll</ImageLoaded> <!-- Kasper avpla.exe -->
+			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">wsc.dll</ImageLoaded> <!-- Avast wsc_proxy.exe -->
 			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">winspool.drv</ImageLoaded><!-- loaded by avz.exe free AV https://www.welivesecurity.com/2019/07/11/buhtrap-zero-day-espionage-campaigns/ -->
 			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">WptsExtensions.dll</ImageLoaded> <!-- https://remoteawesomethoughts.blogspot.com/2019/05/windows-10-task-schedulerservice.html -->
 			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">NvSmartMax.dll</ImageLoaded> <!--https://quequero.org/2013/09/quick-analysissome-observation-about-a-low-detection-flash_update-exe/ -->
