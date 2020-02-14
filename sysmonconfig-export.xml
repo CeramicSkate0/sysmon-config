@@ -319,7 +319,7 @@
 			<TargetFilename name="Schedule task creation" condition="begin with">C:\Windows\Tasks\</TargetFilename>
 			<TargetFilename name="Schedule task creation" condition="begin with">c:\windows\system32\tasks\</TargetFilename>
 			<TargetFilename name="Web server dir file added" condition="contains">Exchange Server\ClientAccess\Owa\</TargetFilename> <!-- webshell stuff on exchange CAS -->
-			<TargetFilename name="Web server dir file added" condition="contains">\inetpub\wwwroot\</TargetFilename> <!-- webshell stuff -->			
+			<TargetFilename name="Web server dir file added" condition="contains">\inetpub\wwwroot\</TargetFilename><!-- webshell stuff -->			
 			<TargetFilename condition="begin with">C:\Windows\AppPatch\Custom</TargetFilename>
 			<TargetFilename condition="begin with">c:\windows\AppPatch64\Custom</TargetFilename>			
 			<TargetFilename name="Persistence - Outlook VBA Backdoor" condition="end with" >VBAProject.OTM</TargetFilename> <!-- office less famous extensions -->
@@ -443,13 +443,14 @@
 		<!--DATA: UtcTime, ImageLoaded, Hashes, Signed, Signature, SignatureStatus-->
 		<RuleGroup name="DriverLoad exclude" groupRelation="or">
 		<DriverLoad onmatch="exclude">
-			<Signature condition="contains">microsoft</Signature> <!--Exclude signed Microsoft drivers-->
-			<Signature condition="contains">windows</Signature> <!--Exclude signed Microsoft drivers-->
-			<Signature condition="begin with">Intel </Signature> <!--Exclude signed Intel drivers-->
 			<Signature condition="begin with">Fortinet Technologies (Canada) Inc.</Signature> <!--Exclude signed Intel drivers-->
 			<!--Exclude signed Microsoft drivers-->
 			<Rule groupRelation="and">
 			<Signature condition="contains">Microsoft</Signature>
+			<SignatureStatus condition="is">Valid</SignatureStatus>
+			</Rule>
+			<Rule groupRelation="and">
+			<Signature condition="contains">windows</Signature>
 			<SignatureStatus condition="is">Valid</SignatureStatus>
 			</Rule>
 			<!--Exclude signed Inter drivers-->
@@ -640,6 +641,7 @@
 		</ImageLoad>
 		</RuleGroup>
 		
+		<!--SYSMON EVENT ID 7 : DLL (IMAGE) LOADED BY PROCESS [ImageLoad]-->
 		<RuleGroup name="ImageLoad exclude" groupRelation="or">
 		<ImageLoad onmatch="exclude">
 			  <ImageLoaded>C:\Windows\System32\duser.dll</ImageLoaded>
@@ -785,23 +787,62 @@
 			<ImageLoaded condition="begin with">C:\Windows\System32\spool\</ImageLoaded>
 			<ImageLoaded condition="begin with">C:\Program Files\WindowsApps</ImageLoaded>
 			<ImageLoaded condition="is">C:\Program Files\Microsoft SQL Server\100\Shared\dbghelp.dll</ImageLoaded>
-			<Signature condition="contains">microsoft</Signature> <!--Exclude signed Microsoft libraries-->
-			<Signature condition="is">Microsoft Windows</Signature>
-			<Signature condition="is">Microsoft Corporation</Signature>
-			<Signature condition="is">NVIDIA Corporation</Signature>
-			<Signature condition="begin with">Intel</Signature>
-			<Signature condition="contains">Lenovo</Signature> <!--Exclude signed Lenovo libraries-->
-			<Signature condition="contains">Synaptic</Signature> <!--Exclude signed Synaptic libraries-->
-			<Signature condition="contains">Nvidia</Signature> <!--Exclude signed Nvidia libraries-->
-			<Signature condition="contains">Broadcom</Signature> <!--Exclude signed Broadcom libraries-->
-			<Signature condition="contains">AMD</Signature> <!--Exclude signed AMD libraries-->
-			<Signature condition="contains">VMware</Signature> <!--Exclude signed VMware libraries-->
-			<Signature condition="contains">Realtek</Signature> <!--Exclude signed Realtek libraries-->
-			<Signature condition="contains">Micro-Star</Signature> <!--Exclude signed MSI libraries-->
-			<Signature condition="contains">Logitech</Signature> <!--Exclude signed Logitech libraries-->
-			<Signature condition="contains">Asmedia</Signature> <!--Exclude signed Asmedia libraries-->
-			<Signature condition="contains">SteelSeries</Signature> <!--Exclude signed MSI libraries-->
-			<Signature condition="contains">Fortinet</Signature> <!--Exclude signed MSI libraries-->
+			<Rule groupRelation="and">
+			<Signature condition="contains">Microsoft</Signature>
+			<SignatureStatus condition="is">Valid</SignatureStatus>
+			</Rule>
+			<Rule groupRelation="and">
+			<Signature condition="contains">NVIDIA</Signature>
+			<SignatureStatus condition="is">Valid</SignatureStatus>
+			</Rule>
+			<Rule groupRelation="and">
+			<Signature condition="contains">Intel</Signature>
+			<SignatureStatus condition="is">Valid</SignatureStatus>
+			</Rule>
+			<Rule groupRelation="and">
+			<Signature condition="contains">Lenovo</Signature>
+			<SignatureStatus condition="is">Valid</SignatureStatus>
+			</Rule>
+			<Rule groupRelation="and">
+			<Signature condition="contains">Synaptic</Signature>
+			<SignatureStatus condition="is">Valid</SignatureStatus>
+			</Rule>
+			<Rule groupRelation="and">
+			<Signature condition="contains">Broadcom</Signature>
+			<SignatureStatus condition="is">Valid</SignatureStatus>
+			</Rule>
+			<Rule groupRelation="and">
+			<Signature condition="contains">AMD</Signature>
+			<SignatureStatus condition="is">Valid</SignatureStatus>
+			</Rule>
+			<Rule groupRelation="and">
+			<Signature condition="contains">VMware</Signature>
+			<SignatureStatus condition="is">Valid</SignatureStatus>
+			</Rule>
+			<Rule groupRelation="and">
+			<Signature condition="contains">Realtek</Signature>
+			<SignatureStatus condition="is">Valid</SignatureStatus>
+			</Rule>
+			<Rule groupRelation="and">
+			<Signature condition="contains">Micro-Star</Signature>
+			<SignatureStatus condition="is">Valid</SignatureStatus>
+			</Rule>
+			<Rule groupRelation="and">
+			<Signature condition="contains">Logitech</Signature>
+			<SignatureStatus condition="is">Valid</SignatureStatus>
+			</Rule>
+			<Rule groupRelation="and">
+			<Signature condition="contains">Asmedia</Signature>
+			<SignatureStatus condition="is">Valid</SignatureStatus>
+			</Rule>
+			<Rule groupRelation="and">
+			<Signature condition="contains">SteelSeries</Signature>
+			<SignatureStatus condition="is">Valid</SignatureStatus>
+			</Rule>
+			<Rule groupRelation="and">
+			<Signature condition="contains">Fortinet</Signature>
+			<SignatureStatus condition="is">Valid</SignatureStatus>
+			</Rule>
 			<SignatureStatus condition="is">Valid</SignatureStatus>
 			<Hashes condition="end with">AA02A4789AEBC104EA53E559F824A5B4</Hashes> <!-- IMPHASH of OneDriveStandaloneUpdater.exe -->
 			<Hashes condition="end with">727B32239F3556C6C9E82ADE6087C4AC</Hashes><!-- Microsoft OneDrive Shell Extension -->
@@ -827,7 +868,7 @@
 			<SourceImage condition="is">C:\Windows\system32\services.exe</SourceImage>
 			<SourceImage condition="is">C:\Windows\system32\winlogon.exe</SourceImage>
 			<SourceImage condition="is">C:\Windows\system32\audiodg.exe</SourceImage>
-			<StartModule condition="is">C:\Windows\system32\kernel32.dll</StartModule><!--This does to createremote thread for injection as well as other things-->
+			<StartModule condition="is">C:\Windows\system32\kernel32.dll</StartModule><!--This does createremote thread for injection as well as other things-->
 			<TargetImage condition="end with">Google\Chrome\Application\chrome.exe</TargetImage>
 			<SourceImage condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</SourceImage>
 			<SourceImage condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</SourceImage>
@@ -973,10 +1014,10 @@
 		  <TargetImage condition="end with">csc.exe</TargetImage>
 		  <SourceImage condition="end with">:\Windows\system32\sppsvc.exe</SourceImage>
 		  <SourceImage condition="end with">:\Windows\system32\sdiagnhost.exe</SourceImage>
-		  <SourceImage condition="end with">Common Files\Adobe\ARM\1.0\AdobeARMHelper.exe</SourceImage>
-		  <SourceImage condition="end with">Common Files\Adobe\AdobeGCClient\AGSService.exe</SourceImage>
+		  <SourceImage condition="end with">\Common Files\Adobe\ARM\1.0\AdobeARMHelper.exe</SourceImage>
+		  <SourceImage condition="end with">\Common Files\Adobe\AdobeGCClient\AGSService.exe</SourceImage>
 		  <SourceImage condition="begin with">C:\ProgramData\WebEx\webex\</SourceImage>
-		  <SourceImage condition="end with">Dropbox\Update\DropboxUpdate.exe</SourceImage>
+		  <SourceImage condition="end with">\Dropbox\Update\DropboxUpdate.exe</SourceImage>
 		  <SourceImage condition="end with">LTSvc\LTSVC.exe</SourceImage>
 		  <SourceImage condition="end with">\Trusteer\Rapport\bin\RapportMgmtService.exe</SourceImage>
 		  <SourceImage condition="end with">Adobe\AdobeGCClient\AGMService.exe</SourceImage>
@@ -984,13 +1025,13 @@
 		  <SourceImage condition="end with">\Autodesk\Autodesk Desktop App\AdAppMgrSvc.exe</SourceImage>
 		  <SourceImage condition="is">c:\windows\system32\wbem\wmiprvse.exe</SourceImage>
 		  <SourceImage condition="is">C:\Windows\sysWOW64\wbem\wmiprvse.exe</SourceImage>
-		  <SourceImage condition="end with">vmtoolsd.exe</SourceImage>
-		  <SourceImage condition="end with">VBoxService.exe</SourceImage>
-		  <SourceImage condition="end with">LTSVC.exe</SourceImage>
-		  <SourceImage condition="end with">taskmgr.exe</SourceImage>
-		  <SourceImage condition="end with">procexp64.exe</SourceImage>
-		  <SourceImage condition="end with">procmon.exe</SourceImage>
-		  <SourceImage condition="end with">procexp.exe</SourceImage> 
+		  <SourceImage condition="end with">\vmtoolsd.exe</SourceImage>
+		  <SourceImage condition="end with">\VBoxService.exe</SourceImage>
+		  <SourceImage condition="end with">\LTSVC.exe</SourceImage>
+		  <SourceImage condition="end with">\taskmgr.exe</SourceImage>
+		  <SourceImage condition="end with">\procexp64.exe</SourceImage>
+		  <SourceImage condition="end with">\procmon.exe</SourceImage>
+		  <SourceImage condition="end with">\procexp.exe</SourceImage> 
 		  <SourceImage condition="is">C:\Windows\system32\csrss.exe</SourceImage> 
 		  <SourceImage condition="is">C:\Windows\system32\wininit.exe</SourceImage> 
 		  <SourceImage condition="is">C:\Windows\System32\lsm.exe</SourceImage>
@@ -1028,10 +1069,10 @@
 			  <SourceImage condition="end with">\procexp64.exe</SourceImage>
 			  <SourceImage condition="end with">\procmon64.exe</SourceImage>
 			  <SourceImage condition="end with">\software_reporter_tool.exe</SourceImage>
-			  <SourceImage condition="end with">NGenTask.exe</SourceImage>
-			  <SourceImage condition="end with">Autoruns.exe</SourceImage>
-			  <SourceImage condition="end with">Autorunsc.exe</SourceImage>
-			  <SourceImage condition="contains">processhacker</SourceImage>
+			  <SourceImage condition="end with">\NGenTask.exe</SourceImage>
+			  <SourceImage condition="end with">\Autoruns.exe</SourceImage>
+			  <SourceImage condition="end with">\Autorunsc.exe</SourceImage>
+			  <SourceImage condition="contains">\processhacker</SourceImage>
 			<SourceImage condition="is">C:\Users\Host\AppData\Local\Programs\Microsoft VS Code\Code.exe</SourceImage><!--VSCode path for default install-->
 			<SourceImage condition="is">C:\Program Files (x86)\VMware\VMWare Player\vmware-authd.exe</SourceImage>
 			<SourceImage condition="is">C:\Program Files\Microsoft Security Client\MsMpEng.exe</SourceImage>
@@ -1055,7 +1096,7 @@
 			<SourceImage condition="end with">\vmtoolsd.exe</SourceImage> <!-- VMWare -->
 			<SourceImage condition="end with">\Citrix\System32\wfshell.exe</SourceImage> <!--Citrix process in C:\Program Files (x86)\Citrix\System32\wfshell.exe -->
 			<SourceImage condition="is">C:\Windows\System32\lsm.exe</SourceImage> <!-- System process under C:\Windows\System32\lsm.exe -->
-			<SourceImage condition="end with">Microsoft.Identity.AadConnect.Health.AadSync.Host.exe</SourceImage> <!-- Microsoft Azure AD Connect Health Sync Agent -->
+			<SourceImage condition="end with">\Microsoft.Identity.AadConnect.Health.AadSync.Host.exe</SourceImage> <!-- Microsoft Azure AD Connect Health Sync Agent -->
 			<SourceImage condition="begin with">C:\Program Files (x86)\Symantec\Symantec Endpoint Protection</SourceImage> <!-- Symantec -->
 			<GrantedAccess>0x1000</GrantedAccess> <!-- PROCESS_QUERY_LIMITED_INFORMATION Generic call, quite noisy and tells not much-->
 			<GrantedAccess>0x1400</GrantedAccess> <!-- PROCESS_QUERY_LIMITED_INFORMATION + PROCESS_QUERY_INFORMATION Generic call, quite noisy and tells nothing-->
@@ -1534,9 +1575,12 @@
 		<TargetFilename name="File stream created 7zip extractions" condition="contains">Temp\7z</TargetFilename> <!--7zip extractions-->
 		<TargetFilename condition="end with">.bat</TargetFilename> <!--Batch scripting-->
 		<TargetFilename condition="end with">.cmd</TargetFilename> <!--Batch scripting | Credit @ion-storm -->
-		<TargetFilename condition="end with">Temp\debug.bin</TargetFilename> <!--Bin files https://github.com/GhostPack/SafetyKatz creates debug.bin in a temp folder-->
-		<TargetFilename condition="contains">Downloads</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE-->
+		<TargetFilename condition="end with">\Temp\debug.bin</TargetFilename> <!--Bin files https://github.com/GhostPack/SafetyKatz creates debug.bin in a temp folder-->
+		<TargetFilename condition="contains">\Downloads\</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE-->
 		<TargetFilename condition="end with">.exe</TargetFilename>
+		<TargetFilename condition="end with">.dll</TargetFilename>
+		<TargetFilename condition="end with">.ini</TargetFilename>
+		<TargetFilename condition="end with">.bin</TargetFilename>
 		<TargetFilename name="File stream created Mitre T1170" condition="end with">.hta</TargetFilename> <!--Mitre T1170--><!--Scripting-->
 		<TargetFilename condition="end with">.lnk</TargetFilename> <!--Shortcut file | Credit @ion-storm -->
 		<TargetFilename condition="contains">Content.Outlook</TargetFilename> <!--Microsoft:Outlook: Attachments--> <!--PRIVACY WARNING-->
@@ -1552,8 +1596,7 @@
 		<!--ADDITIONAL REFERENCE: [ https://blog.cobaltstrike.com/2015/10/07/named-pipe-pivoting/ ] -->
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
 		<!--SYSMON EVENT ID 17 & 18 : PipeEvent MONITORING [PipeEvent]-->
-		<RuleGroup name="PipeEvent exclude" groupRelation="or">
-		
+		<RuleGroup name="PipeEvent exclude" groupRelation="or">		
 		<PipeEvent onmatch="exclude">
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
 			<Image condition="is">C:\Program Files\Fortinet\FortiClient\FCVbltScan.exe</Image>
@@ -1571,24 +1614,24 @@
 			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image>
 			<Image condition="is">C:\Program Files\Mozilla Firefox\firefox.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\VMware\VMware Player\vmplayer.exe</Image>
-			<Image condition="contains">SWELF.exe</Image>
-			<Image condition="end with">Program Files\SplunkUniversalForwarder\bin\splunkd.exe</Image>
-			<Image condition="end with">Program Files\SplunkUniversalForwarder\bin\splunk.exe</Image>
-			<Image condition="end with">Program Files\SplunkUniversalForwarder\bin\splunk-MonitorNoHandle.exe</Image>
+			<Image condition="contains">\SWELF.exe</Image>
+			<Image condition="is">C:\Program Files\SplunkUniversalForwarder\bin\splunkd.exe</Image>
+			<Image condition="is">C:\Program Files\SplunkUniversalForwarder\bin\splunk.exe</Image>
+			<Image condition="is">C:\Program Files\SplunkUniversalForwarder\bin\splunk-MonitorNoHandle.exe</Image>
 			<Image condition="is">c:\windows\system32\inetsrv\w3wp.exe</Image> 
-			<Image condition="end with">Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\CMAgent\OfcCMAgent.exe</Image>
-			<Image condition="end with">Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\web\service\ofcservice.exe</Image>
-			<Image condition="end with">Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\Web\Service\DbServer.exe</Image>                    
-			<Image condition="end with">Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\web\service\verconn.exe</Image>  
-			<Image condition="end with">Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\WEB_OSCE\WEB\CGI\cgiOnClose.exe</Image>  
-			<Image condition="end with">Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\WEB_OSCE\WEB\CGI\cgiRqHotFix.exe</Image>
-			<Image condition="end with">Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\LWCS\LWCSService.exe</Image>
-			<Image condition="end with">Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\WSS\iCRCService.exe</Image>
-			<Image condition="end with">Program Files\Trend\SPROTECT\x64\tsc.exe</Image>
-			<Image condition="end with">Program Files\Trend\SPROTECT\x64\tsc64.exe</Image>
-			<Image condition="end with">Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\web\service\osceintegrationservice.exe</Image>
-			<Image condition="end with">Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\web\service\OfcLogReceiverSvc.exe</Image>
-			<Image condition="is">Program Files\Qlik\Sense\Engine\Engine.exe</Image>
+			<Image condition="is">c:\Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\CMAgent\OfcCMAgent.exe</Image>
+			<Image condition="is">c:\Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\web\service\ofcservice.exe</Image>
+			<Image condition="is">c:\Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\Web\Service\DbServer.exe</Image>                    
+			<Image condition="is">c:\Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\web\service\verconn.exe</Image>  
+			<Image condition="is">c:\Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\WEB_OSCE\WEB\CGI\cgiOnClose.exe</Image>  
+			<Image condition="is">c:\Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\WEB_OSCE\WEB\CGI\cgiRqHotFix.exe</Image>
+			<Image condition="is">c:\Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\LWCS\LWCSService.exe</Image>
+			<Image condition="is">c:\Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\WSS\iCRCService.exe</Image>
+			<Image condition="is">c:\Program Files\Trend\SPROTECT\x64\tsc.exe</Image>
+			<Image condition="is">c:\Program Files\Trend\SPROTECT\x64\tsc64.exe</Image>
+			<Image condition="is">c:\Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\web\service\osceintegrationservice.exe</Image>
+			<Image condition="is">c:\Program Files (x86)\Trend Micro\OfficeScan\PCCSRV\web\service\OfcLogReceiverSvc.exe</Image>
+			<Image condition="is">c:\Program Files\Qlik\Sense\Engine\Engine.exe</Image>
 			<PipeName condition="contains">Anonymous Pipe</PipeName>
 			<PipeName condition="begin with">\Vivisimo Velocity</PipeName>
 			<PipeName condition="is">\ntapvsrq</PipeName>
@@ -1607,7 +1650,7 @@
 			<PipeName condition="is">\SQLLocal\RTCLOCAL</PipeName>
 			<PipeName condition="is">\SQLLocal\RTC</PipeName>
 			<PipeName condition="is">\SQLLocal\TMSM</PipeName>
-			<Image condition="is">Program Files (x86)\Microsoft SQL Server\110\DTS\binn\dtexec.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\Microsoft SQL Server\110\DTS\binn\dtexec.exe</Image>
 		</PipeEvent>
 		</RuleGroup>
 	    
