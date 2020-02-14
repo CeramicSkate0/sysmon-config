@@ -557,6 +557,7 @@
 			  <ImageLoaded condition="contains" name="Possible MSBUILD Payload">Microsoft.Build.Tasks</ImageLoaded>
 			  <ImageLoaded condition="contains" name="Possible MSBUILD Payload">Microsoft.Build.Framework</ImageLoaded>
 			  <ImageLoaded condition="contains" name="Possible MSBUILD Payload">Microsoft.Build.Utilities</ImageLoaded>
+			  <ImageLoaded condition="contains" name=".Net Lib InstallAssembly to register the dll as a COM+ obj">System.EnterpriseServices.RegistrationHelper</ImageLoaded>
 			  <ImageLoaded condition="end with" name="Evasion - Possible DLL Side Loading via jjs.exe">jli.dll</ImageLoaded>
 			  <ImageLoaded condition="end with" name="Evasion - Possible DLL Side Loading via jjs.exe">tapi32.dll</ImageLoaded>
 			  <ImageLoaded condition="end with" name="Suspicious image load - ntoskrnl.exe. Possible Exploit">C:\Windows\System32\ntoskrnl.exe</ImageLoaded>
