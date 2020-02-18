@@ -520,10 +520,10 @@
 		    <ImageLoaded condition="end with" name="Dfense Evasion - DLL Side Loading">coccocpdate.dll</ImageLoaded> <!-- CocCocUpdate.exe -->
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">chrome_elf.dll</ImageLoaded> <!-- 360se.exe -->
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading, possible minidump of lsass">dbghelp.dll</ImageLoaded> <!-- 360 SoftManager.exe -->
-			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">FaultRep.dll</ImageLoaded> <!-- FontsSet.exe -->
-			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">McVsoCfg.dll</ImageLoaded>
-			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">product_info.dll</ImageLoaded> <!-- Kasper avpla.exe -->
-			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">wsc.dll</ImageLoaded> <!-- Avast wsc_proxy.exe -->
+		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">FaultRep.dll</ImageLoaded> <!-- FontsSet.exe -->
+		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">McVsoCfg.dll</ImageLoaded>
+		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">product_info.dll</ImageLoaded> <!-- Kasper avpla.exe -->
+		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">wsc.dll</ImageLoaded> <!-- Avast wsc_proxy.exe -->
 			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">winspool.drv</ImageLoaded><!-- loaded by avz.exe free AV https://www.welivesecurity.com/2019/07/11/buhtrap-zero-day-espionage-campaigns/ -->
 			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">WptsExtensions.dll</ImageLoaded> <!-- https://remoteawesomethoughts.blogspot.com/2019/05/windows-10-task-schedulerservice.html -->
 			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">NvSmartMax.dll</ImageLoaded> <!--https://quequero.org/2013/09/quick-analysissome-observation-about-a-low-detection-flash_update-exe/ -->
@@ -537,6 +537,7 @@
 			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">Sidebar.dll</ImageLoaded>
 			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">hha.dll</ImageLoaded>
 			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">hccutils.dll</ImageLoaded>
+		  <ImageLoaded condition="end with" name="Possible Defense Evasion - .Net Code capability loaded">clr.dll</ImageLoaded><!-- This is a dll loaded often by both good ware and .Net malware. Its required for .Net --><!-- https://www.youtube.com/watch?v=FuxpMXTgV9s&feature=emb_logo-->
 			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">NtUserEx.dll</ImageLoaded>
 			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">McUtil.dll</ImageLoaded>
 			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">MpSvc.dll</ImageLoaded>
