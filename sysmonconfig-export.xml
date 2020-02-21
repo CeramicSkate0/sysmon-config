@@ -88,6 +88,7 @@
 			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
 			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
 			<Image condition="is">C:\Windows\System32\audiodg.exe</Image>
+			<Image condition="is">C:\Windows\System32\RuntimeBroker.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image>
 			<Image condition="is">C:\Windows\System32\SearchProtocolHost.exe</Image>
 			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
@@ -425,12 +426,14 @@
 			<Image condition="is">C:\Windows\System32\smartscreen.exe</Image>
 			<Image condition="begin with">C:\Program Files (x86)\</Image>
 			<Image condition="begin with">C:\Program Files\</Image>
-			<Image condition="contains">C:\Windows\System32\conhost.exe</Image>
+			<Image condition="is">C:\Windows\System32\conhost.exe</Image>
 			<Image condition="is">C:\Windows\System32\dllhost.exe</Image>
 			<Image condition="is">C:\Windows\System32\svchost.exe</Image>
 			<Image condition="is">C:\Windows\System32\wbem\WmiPrvSE.exe</Image>
-			<Image condition="end with">C:\Windows\SysWOW64\wbem\WMIC.exe</Image>
-			<Image condition="end with">C:\WINDOWS\system32\cmd.exe</Image>
+			<Image condition="is">C:\Windows\SysWOW64\wbem\WMIC.exe</Image>
+			<Image condition="is">C:\WINDOWS\system32\cmd.exe</Image>
+			<Image condition="is">C:\WINDOWS\system32\RuntimeBroker.exe</Image>
+			<Image condition="is">C:\WINDOWS\system32\backgroundtaskhost.exe</Image>
 			<Image condition="end with">\SWELF.exe</Image>
 		</ProcessTerminate>
 		</RuleGroup>
@@ -897,7 +900,8 @@
 			<Image condition="begin with">C:\Windows\</Image>
 			<Image condition="is">system</Image>
 			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\Platform\4.18.1907.4-0\MsMpEng.exe</Image>
-			<Image condition="is">C:\Windows\System32\svchost.exe</Image> 
+			<Image condition="is">C:\Windows\System32\svchost.exe</Image>
+			<Image condition="is">C:\Program Files\VMWare\VMWare Tools\vmtoolsd.exe</Image>
 		</RawAccessRead>
 		</RuleGroup>
 		
