@@ -475,6 +475,7 @@
 		<ImageLoad onmatch="include">
 		    <Image name="MitreRef=T1128,Technique=Netsh Helper Beacon DLL,Tactic=Persistence, also it manages windows firewall." condition="contains">netsh.exe</Image>
 		    <ImageLoaded name="technique_id=T1047,technique_name=Windows Management Instrumentation" condition="end with">wmiutils.dll</ImageLoaded>
+			<ImageLoaded condition="end with" name="comsvcs dll load- Look for Possible minidump or com bypass">comsvcs.dll</ImageLoaded><!-- This DLL is known to be able to minidump lsass using minidump arg -->
 		    <ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">\\</ImageLoaded><!-- loaded from network file share -->
 		    <ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">admin$</ImageLoaded><!-- loaded from network file share -->
 		    <ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">c$</ImageLoaded><!-- loaded from network file share -->
@@ -562,35 +563,35 @@
 			  <ImageLoaded condition="contains" name=".Net Lib InstallAssembly to register the dll as a COM+ obj">System.EnterpriseServices.RegistrationHelper</ImageLoaded>
 			  <ImageLoaded condition="end with" name="Evasion - Possible DLL Side Loading via jjs.exe">jli.dll</ImageLoaded>
 			  <ImageLoaded condition="end with" name="Evasion - Possible DLL Side Loading via jjs.exe">tapi32.dll</ImageLoaded>
-			  <ImageLoaded condition="end with" name="Suspicious image load - ntoskrnl.exe. Possible Exploit">C:\Windows\System32\ntoskrnl.exe</ImageLoaded>
+			  <ImageLoaded condition="is" name="Suspicious image load - ntoskrnl.exe. Possible Exploit">C:\Windows\System32\ntoskrnl.exe</ImageLoaded>
 			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">sspisrv.dll</ImageLoaded>
 			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">ftllib.dll</ImageLoaded>
 			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">userenv.dll</ImageLoaded>
-		    <ImageLoaded name="DLL loaded from suspicious location (\Temp\)" condition="contains">\Temp\</ImageLoaded>
-			<ImageLoaded name="DLL loaded from suspicious location (C:\Users\)" condition="begin with">C:\Users</ImageLoaded>
-			<ImageLoaded name="Powershell DLL loaded, Possible Powershell use without Powershell.exe" condition="contains">system.management.automation</ImageLoaded> 
-			<ImageLoaded name="PLoad of .Net Reflection DLL. Could be used for injection." condition="contains">System.Runtime.InteropServices.</ImageLoaded>
-			<ImageLoaded name="Attempts to ID by name the DLL that deals with Certificate and Cryptographic Messaging functions" condition="contains">Crypt</ImageLoaded> 
-			<ImageLoaded name="Javascript Lib was loaded into process" condition="contains">jscript</ImageLoaded> 
-			<ImageLoaded name="Visual basic Lib" condition="contains">vbscript</ImageLoaded> 
-			<ImageLoaded name="Attempts to ID Microsoft DLL that contains a set of services that allowed applications written in JScript, VBScript, and Microsoft development tools to build Windows-native XML-based applications." condition="contains">msxm</ImageLoaded>
-			<ImageLoaded name="Attempts to ID Microsoft DLL that contains a library which contains core OLE functions" condition="contains">ole32</ImageLoaded>
-			<ImageLoaded name="Possible unaltered Mimikatz DLL Load" condition="contains">mimi</ImageLoaded>
-			<ImageLoaded name="DLL lxssmanager loaded. Microsoft recommends blocking it." condition="contains">lxssmanager</ImageLoaded> 
-			<ImageLoaded name="Attempts to ID Microsoft DLL used to Download and upload" condition="contains">WebClient</ImageLoaded> 
-			<ImageLoaded name="Attempts to ID Microsoft DLL used to allow injection and other suspicious activities." condition="contains">Reflection</ImageLoaded> 
-			<ImageLoaded name="Attempts to ID Microsoft DLL loaded that is often used in Malware to add functionality to do things like injection" condition="contains">runtime</ImageLoaded> 
-			<ImageLoaded name="Attempts to ID Microsoft DLL loaded that is often used in Malware to add functionality to do things like injection" condition="contains">InteropServices</ImageLoaded>
-			<ImageLoaded name="Attempts to ID Microsoft DLL loaded that is often used in Malware to add functionality to do things like native windows execution and injection" condition="contains">Win32</ImageLoaded>
-			<ImageLoaded name="Attempts to ID Microsoft DLL loaded that is often used in Malware to add functionality to do things like encrypt and encrypt data, files, and other things in memory and on disk." condition="contains">Cryptography</ImageLoaded>
-			<ImageLoaded name="Attempts to ID Microsoft DLL loaded that is often used in Malware to add functionality to do things like encrypt and encrypt data, files, and other things in memory and on disk." condition="contains">System.Security.Cryptography.X509Certificates</ImageLoaded>
-			<ImageLoaded name="Alert=Ramnit Banker Malware!" condition="contains">rmnsoft.dll</ImageLoaded>
-			<ImageLoaded name=".Net Assembly used" condition="contains">C:\Windows\assembly\NativeImages</ImageLoaded>
-			<ImageLoaded name="Mitre: https://attack.mitre.org/wiki/Technique/T1098" condition="contains">samlib.dll</ImageLoaded>
-			<ImageLoaded name="Mitre: https://attack.mitre.org/wiki/Technique/T1098" condition="contains">WinSCard.dll</ImageLoaded>
-			<ImageLoaded name="" condition="is">C:\windows\system32\fxsst.dll</ImageLoaded>
-			<ImageLoaded name="Powershell Lib loaded" condition="contains">powershell</ImageLoaded> 
-			<ImageLoaded name="" condition="contains">C:\Windows\System32\wbem\oci.dll</ImageLoaded>
+		    <ImageLoaded condition="contains name" name="DLL loaded from suspicious location (\Temp\)">\Temp\</ImageLoaded>
+			<ImageLoaded condition="begin with" name="DLL loaded from suspicious location (C:\Users\)">C:\Users</ImageLoaded>
+			<ImageLoaded condition="contains" name="Powershell DLL loaded, Possible Powershell use without Powershell.exe" >system.management.automation</ImageLoaded> 
+			<ImageLoaded condition="contains" name="PLoad of .Net Reflection DLL. Could be used for injection.">System.Runtime.InteropServices.</ImageLoaded>
+			<ImageLoaded condition="contains" name="Attempts to ID by name the DLL that deals with Certificate and Cryptographic Messaging functions" >Crypt</ImageLoaded> 
+			<ImageLoaded condition="contains" name="Javascript Lib was loaded into process">jscript</ImageLoaded> 
+			<ImageLoaded condition="contains" name="Visual basic Lib">vbscript</ImageLoaded> 
+			<ImageLoaded condition="contains" name="Attempts to ID Microsoft DLL that contains a set of services that allowed applications written in JScript, VBScript, and Microsoft development tools to build Windows-native XML-based applications.">msxm</ImageLoaded>
+			<ImageLoaded condition="contains" name="Attempts to ID Microsoft DLL that contains a library which contains core OLE functions">ole32</ImageLoaded>
+			<ImageLoaded condition="contains" name="Possible unaltered Mimikatz DLL Load">mimi</ImageLoaded>
+			<ImageLoaded condition="contains" name="DLL lxssmanager loaded. Microsoft recommends blocking it.">lxssmanager</ImageLoaded> 
+			<ImageLoaded condition="contains" name="Attempts to ID Microsoft DLL used to Download and upload">WebClient</ImageLoaded> 
+			<ImageLoaded condition="contains" name="Attempts to ID Microsoft DLL used to allow injection and other suspicious activities.">Reflection</ImageLoaded> 
+			<ImageLoaded condition="contains" name="Attempts to ID Microsoft DLL loaded that is often used in Malware to add functionality to do things like injection">runtime</ImageLoaded> 
+			<ImageLoaded condition="contains" name="Attempts to ID Microsoft DLL loaded that is often used in Malware to add functionality to do things like injection">InteropServices</ImageLoaded>
+			<ImageLoaded condition="contains" name="Attempts to ID Microsoft DLL loaded that is often used in Malware to add functionality to do things like native windows execution and injection">Win32</ImageLoaded>
+			<ImageLoaded condition="contains" name="Attempts to ID Microsoft DLL loaded that is often used in Malware to add functionality to do things like encrypt and encrypt data, files, and other things in memory and on disk.">Cryptography</ImageLoaded>
+			<ImageLoaded condition="contains" name="Attempts to ID Microsoft DLL loaded that is often used in Malware to add functionality to do things like encrypt and encrypt data, files, and other things in memory and on disk.">System.Security.Cryptography.X509Certificates</ImageLoaded>
+			<ImageLoaded condition="end with" name="Alert=Ramnit Banker Malware!" >rmnsoft.dll</ImageLoaded>
+			<ImageLoaded condition="begin with" name=".Net Assembly used">C:\Windows\assembly\NativeImages</ImageLoaded>
+			<ImageLoaded condition="contains" name="Mitre: https://attack.mitre.org/wiki/Technique/T1098" >samlib.dll</ImageLoaded>
+			<ImageLoaded condition="contains" name="Mitre: https://attack.mitre.org/wiki/Technique/T1098" >WinSCard.dll</ImageLoaded>
+			<ImageLoaded condition="is" name="fxsst.dll loaded">C:\windows\system32\fxsst.dll</ImageLoaded>
+			<ImageLoaded condition="contains" name="Powershell Lib loaded" >powershell</ImageLoaded> 
+			<ImageLoaded condition="end with" name="oci.dll loaded">oci.dll</ImageLoaded>
 			<ImageLoaded condition="end with" name="PrivEsc - DLL Hijack - UACME 32">osksupport.dll</ImageLoaded>
 			<ImageLoaded condition="end with" name="PrivEsc - DLL Hijack - UACME 30">wow64log.dll</ImageLoaded>
 			<ImageLoaded condition="end with" name="PrivEsc - DLL Hijack - UACME 23">DismCore.dll</ImageLoaded>
@@ -603,12 +604,12 @@
 			<ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading or UACBypass">Duser.dll</ImageLoaded>
 			<ImageLoaded condition="end with" name="PrivEsc - UACBypass - UACME 39">pe386.dll</ImageLoaded>
 			<ImageLoaded condition="end with" name="PrivEsc - UACBypass - DLL hijack Cliconfig">NTWDBLIB.dll</ImageLoaded>
-			<ImageLoaded name="MitreRef=T1128,Technique=Netsh Helper Beacon DLL,Tactic=Persistence,Alert=Cobalt Strike Netsh Helper Beacon" condition="contains">NetshHelperBeacon</ImageLoaded>
-			<SignatureStatus name="DLL loaded with Invalid signature. Suspicous." condition="is">Unavailable</SignatureStatus>
-			<SignatureStatus name="DLL loaded with Invalid signature. Suspicous." condition="is">Invalid</SignatureStatus>			
-			<Signature name="Non Micrsoft DLL found" condition="is not">Microsoft Windows</Signature>
-			<Signed name="DLL loaded with Invalid Hash Signature. Suspicous." condition="is">Invalid hash</Signed>
-			<Signed name="Unsigned DLL loaded" condition="is">false</Signed>
+			<ImageLoaded condition="contains" name="MitreRef=T1128,Technique=Netsh Helper Beacon DLL,Tactic=Persistence,Alert=Cobalt Strike Netsh Helper Beacon">NetshHelperBeacon</ImageLoaded>
+			<SignatureStatus condition="is" name="DLL loaded with Invalid signature. Suspicous.">Unavailable</SignatureStatus>
+			<SignatureStatus name="DLL loaded with Invalid signature. Suspicous.">Invalid</SignatureStatus>			
+			<Signature condition="is not" name="Non Micrsoft DLL found">Microsoft Windows</Signature>
+			<Signed  condition="is" name="DLL loaded with Invalid Hash Signature. Suspicous.">Invalid hash</Signed>
+			<Signed condition="is" name="Unsigned DLL loaded" >false</Signed>
 			<Rule groupRelation="and">
 			<ImageLoaded name="technique_id=T1170,technique_name=MSHTA with AMSI Bypass" condition="end with">jscript9.dll</ImageLoaded>
 			<Image condition="end with">mshta.exe</Image>
