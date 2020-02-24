@@ -569,7 +569,7 @@
 			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">sspisrv.dll</ImageLoaded>
 			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">ftllib.dll</ImageLoaded>
 			  <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">userenv.dll</ImageLoaded>
-		    <ImageLoaded condition="contains name" name="DLL loaded from suspicious location (\Temp\)">\Temp\</ImageLoaded>
+		    <ImageLoaded condition="contains" name="DLL loaded from suspicious location (\Temp\)">\Temp\</ImageLoaded>
 			<ImageLoaded condition="begin with" name="DLL loaded from suspicious location (C:\Users\)">C:\Users</ImageLoaded>
 			<ImageLoaded condition="contains" name="Powershell DLL loaded, Possible Powershell use without Powershell.exe" >system.management.automation</ImageLoaded> 
 			<ImageLoaded condition="contains" name="PLoad of .Net Reflection DLL. Could be used for injection.">System.Runtime.InteropServices.</ImageLoaded>
