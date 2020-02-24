@@ -3,7 +3,7 @@ Ceramicskate0's fork of SwiftOnSecurity's sysmon config differs in 1 key area. W
 
 [HOW TO INSTALL SYSMON AND UPDATE WITH SCHEDULED TASK HERE](https://github.com/ceramicskate0/Scripts/tree/master/WindowsBatch)
 
-[If and .Net EXE is more your thing HERE you go](https://github.com/ceramicskate0/AutoUpdateSysmonEXE)
+[If a .Net EXE is more your thing HERE you go](https://github.com/ceramicskate0/AutoUpdateSysmonEXE)
 
 # sysmon-config | A Sysmon configuration file for everybody to fork #
 
