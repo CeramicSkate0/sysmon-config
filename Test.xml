@@ -78,6 +78,8 @@
 		<ProcessCreate onmatch="exclude">
 			<!--SECTION: Microsoft Windows-->
 			<IntegrityLevel condition="is">AppContainer</IntegrityLevel> <!--Microsoft:Windows: Don't care about sandboxed processes-->
+			<Image condition="is">C:\Windows\System32\usocoreworker.exe</Image>
+			<Image condition="is">C:\Windows\System32\UsoClient.exe</Image>
 			<Image condition="is">c:\windows\system32\mmc.exe</Image>
 			<Image condition="is">C:\Windows\System32\WerFault.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Microsoft Office\root\VFS\ProgramFilesCommonX86\Microsoft Shared\OFFICE16\SDXHelper.exe</Image>
@@ -368,6 +370,7 @@
 			<Image condition="is">C:\WINDOWS\system32\cmd.exe</Image>
 			<Image condition="is">C:\WINDOWS\system32\RuntimeBroker.exe</Image>
 			<Image condition="is">C:\WINDOWS\system32\backgroundtaskhost.exe</Image>
+			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
 			<Image condition="end with">\SWELF.exe</Image>
 		</ProcessTerminate>
 		</RuleGroup>
@@ -1421,6 +1424,12 @@
 			<Image condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</Image> <!--Microsoft:Windows:Defender-->
 			<Image condition="is">C:\Windows\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy\SearchUI.exe</Image> <!--Microsoft:Cortana-->
 			<Image condition="is">C:\Program Files (x86)\EMET 5.5\EMET_Service.exe</Image> <!--Microsoft:EMET: Routinely refreshes EMET configuration keys from Group Policy-->
+			
+			<Rule groupRelation="and">
+			<Image condition="is">C:\WINDOWS\system32\svchost.exe</Image><!--noisy-->
+			<TargetObject condition="end with">\Root\Certificates</TargetObject>
+			</Rule>
+						
 			<TargetObject condition="end with">Toolbar\WebBrowser</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">Toolbar\WebBrowser\ITBar7Height</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">Toolbar\WebBrowser\ITBar7Layout</TargetObject> <!--Microsoft:IE: Extraneous activity-->
