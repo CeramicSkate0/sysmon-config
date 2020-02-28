@@ -79,6 +79,7 @@
 			<!--SECTION: Microsoft Windows-->
 			<IntegrityLevel condition="is">AppContainer</IntegrityLevel> <!--Microsoft:Windows: Don't care about sandboxed processes-->
 			<Image condition="is">C:\Windows\System32\usocoreworker.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Image>
 			<Image condition="is">C:\Windows\System32\UsoClient.exe</Image>
 			<Image condition="is">c:\windows\system32\mmc.exe</Image>
 			<Image condition="is">C:\Windows\System32\WerFault.exe</Image>
@@ -267,6 +268,7 @@
 		
 		<RuleGroup name="FileCreateTime Exclude" groupRelation="or">
 		<FileCreateTime onmatch="exclude">
+			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image>
 			<Image condition="end with">\OneDrive.exe</Image> <!--OneDrive constantly changes file times-->
 			<Image condition="is">C:\Windows\system32\backgroundTaskHost.exe</Image>
@@ -1547,6 +1549,7 @@
 		<!--SYSMON EVENT ID 17 & 18 : PipeEvent MONITORING [PipeEvent]-->
 		<RuleGroup name="PipeEvent exclude" groupRelation="or">		
 		<PipeEvent onmatch="exclude">
+			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
 			<Image condition="is">C:\Program Files\Fortinet\FortiClient\FCVbltScan.exe</Image>
 			<Image condition="is">C:\Program Files\Mozilla Firefox\firefox.exe</Image> 
