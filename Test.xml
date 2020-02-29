@@ -130,7 +130,8 @@
 			<Image condition="is">C:\Program Files\Microsoft Office\Office16\msoia.exe</Image> <!--Microsoft:Office: Telemetry collector-->
 			<Image condition="is">C:\Program Files (x86)\Microsoft Office\root\Office16\officebackgroundtaskhandler.exe</Image>			
 			<Image condition="is">C:\Windows\System32\TokenBrokerCookies.exe</Image> <!--Microsoft:Windows: SSO sign-in assistant for MicrosoftOnline.com-->
-			
+			<Image condition="is">C:\WINDOWS\system32\wermgr.exe</Image>
+			<Image condition="is">C:\Windows\system32\svchost.exe</Image>
 			<CommandLine condition="begin with">C:\Windows\system32\DllHost.exe /Processid</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\SearchIndexer.exe /Embedding</CommandLine> <!--Microsoft:Windows: Search Indexer-->
 			<CommandLine condition="is">\SystemRoot\System32\smss.exe</CommandLine> <!--Microsoft:Bootup: Windows Session Manager-->
@@ -143,12 +144,9 @@
 			</Rule>
 			
 			<Rule groupRelation="and">
-			<Image condition="is">C:\WINDOWS\system32\wermgr.exe</Image>
-			</Rule>		
-			
-			<Rule groupRelation="and">
-			<Image condition="is">C:\Windows\system32\svchost.exe</Image>
-			</Rule>		
+			<Image condition="is">C:\Windows\System32\smartscreen.exe</Image>
+			<ParentImage condition="is">C:\Windows\System32\svchost.exe</ParentImage>
+			</Rule>
 			
 			<Image condition="end with">\ngentask.exe</Image>
 			<Image condition="end with">\ngen.exe</Image> <!--Microsoft:DotNet-->
@@ -309,6 +307,7 @@
 			<Image condition="end with">\iexplore.exe</Image><!--Browser-->
 			<Image condition="end with">MicrosoftEdge.exe</Image><!--Browser-->
 			<Image condition="is">C:\Windows\System32\dns.exe</Image><!-- noisy for dns -->
+			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Image>
 			<Image condition="is">C:\Windows\System32\smartscreen.exe</Image><!-- noisy -->
 			<Image condition="is">C:\Windows\System32\svchost.exe</Image><!-- noisy for dns and ldap -->
 			<Image condition="is">C:\Windows\System32\lsass.exe</Image><!-- noisy for ldap -->
@@ -373,6 +372,7 @@
 			<Image condition="is">C:\WINDOWS\system32\RuntimeBroker.exe</Image>
 			<Image condition="is">C:\WINDOWS\system32\backgroundtaskhost.exe</Image>
 			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
+			<Image condition="is">C:\Windows\System32\UsoClient.exe</Image>
 			<Image condition="end with">\SWELF.exe</Image>
 		</ProcessTerminate>
 		</RuleGroup>
@@ -1431,7 +1431,11 @@
 			<Image condition="is">C:\WINDOWS\system32\svchost.exe</Image><!--noisy-->
 			<TargetObject condition="end with">\Root\Certificates</TargetObject>
 			</Rule>
-						
+			<Rule groupRelation="and">
+			<Image condition="is">C:\WINDOWS\Explorer.EXE</Image><!--noisy-->
+			<TargetObject condition="contains">\Local Settings\Software\Microsoft\Windows\Shell\Bags\</TargetObject>
+			</Rule>
+			
 			<TargetObject condition="end with">Toolbar\WebBrowser</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">Toolbar\WebBrowser\ITBar7Height</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">Toolbar\WebBrowser\ITBar7Layout</TargetObject> <!--Microsoft:IE: Extraneous activity-->
@@ -1551,6 +1555,7 @@
 		<PipeEvent onmatch="exclude">
 			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
+			<Image condition="begin with">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\ServiceHub\Hosts\</Image>
 			<Image condition="is">C:\Program Files\Fortinet\FortiClient\FCVbltScan.exe</Image>
 			<Image condition="is">C:\Program Files\Mozilla Firefox\firefox.exe</Image> 
 			<Image condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Image> 
