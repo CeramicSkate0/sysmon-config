@@ -77,26 +77,27 @@
 		<RuleGroup name="ProcessCreate Exclude" groupRelation="or">
 		<ProcessCreate onmatch="exclude">
 			<!--SECTION: Microsoft Windows-->
+			<IntegrityLevel condition="is">AppContainer</IntegrityLevel> <!--Microsoft:Windows: Don't care about sandboxed processes-->
+			<Image condition="is">C:\Windows\System32\usocoreworker.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Image>
+			<Image condition="is">C:\Windows\System32\UsoClient.exe</Image>
 			<Image condition="is">c:\windows\system32\mmc.exe</Image>
 			<Image condition="is">C:\Windows\System32\WerFault.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Microsoft Office\root\VFS\ProgramFilesCommonX86\Microsoft Shared\OFFICE16\SDXHelper.exe</Image>
 			<Image condition="end with">AppData\Roaming\Resilio Sync\Resilio Sync.exe</Image> <!--Resilio Sync-->
 			<Image condition="is">C:\Windows\ImmersiveControlPanel\SystemSettings.exe</Image>
-			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\Platform\4.18.1907.4-0\MpCmdRun.exe</Image>
+			<Image condition="begin with">C:\ProgramData\Microsoft\Windows Defender\Platform\</Image>
+			<Image condition="begin with">C:\Program Files\Windows Defender</Image> <!--Microsoft:Windows:Defender in Win10-->
 			<Image condition="is">c:\windows\system32\conhost.exe</Image><!-- Child process of conhost not very good tell, parent of conhost is better for detection. But this is useful if you want to track who is using console per process-->
 			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\Common Files\microsoft shared\ink\TabTip32.exe</Image> <!--Microsoft:Windows: Touch Keyboard and Handwriting Panel Helper-->
 			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
 			<Image condition="is">C:\Windows\System32\audiodg.exe</Image>
 			<Image condition="is">C:\Windows\System32\RuntimeBroker.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image>
 			<Image condition="is">C:\Windows\System32\SearchProtocolHost.exe</Image>
-			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
-			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
 			<Image condition="is">C:\Program Files\Oracle\VirtualBox\VBoxHeadless.exe</Image>
-			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
-			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
 			<Image condition="is">C:\Program Files\Oracle\VirtualBox\VBoxNetDHCP.exe</Image>
-			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
 			<Image condition="begin with">C:\Program Files (x86)\NVIDIA Corporation\Update Core\</Image>
 			<Image condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
@@ -113,130 +114,57 @@
 			<Image condition="is">C:\Windows\system32\sppsvc.exe</Image> <!--Microsoft:Windows: Software Protection Service-->
 			<Image condition="is">C:\Windows\system32\wbem\WmiApSrv.exe</Image> <!--Microsoft:Windows: WMI performance adapter host process-->
 			<Image condition="is">C:\Windows\System32\plasrv.exe</Image> <!--Microsoft:Windows: Performance Logs and Alerts DCOM Server-->
-			<Image condition="is"> C:\Windows\System32\wuauclt.exe </Image>
-			<Image condition="is">C:\Windows\System32\MusNotifyIcon.exe</Image>	
-			<Image condition="is">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\mscorsvw.exe</Image> <!--Microsoft:DotNet-->
-			<Image condition="is">C:\Windows\Microsoft.NET\Framework\v4.0.30319\mscorsvw.exe</Image> <!--Microsoft:DotNet-->
+			<Image condition="is"> C:\Windows\System32\wuauclt.exe</Image>
+			<Image condition="is">C:\Windows\System32\MusNotifyIcon.exe</Image>
+			<Image condition="is">C:\Windows\System32\appidcertstorecheck.exe</Image>
 			<Image condition="is">C:\Windows\Microsoft.Net\Framework64\v3.0\WPF\PresentationFontCache.exe</Image> <!--Microsoft:Windows: Font cache service-->			
 			<Image condition="is">C:\Windows\system32\mobsync.exe</Image> <!--Microsoft:Windows: Network file syncing-->
 			<Image condition="is">C:\Windows\system32\SppExtComObj.Exe</Image> <!--Microsoft:Windows: KMS activation-->
 			<Image condition="is">C:\Windows\system32\PrintIsolationHost.exe</Image> <!--Microsoft:Windows: Printing-->
-			<Image condition="begin with">C:\Program Files\Windows Defender</Image> <!--Microsoft:Windows:Defender in Win10-->
 			<Image condition="is">C:\Windows\system32\MpSigStub.exe</Image> <!--Microsoft:Windows: Microsoft Malware Protection Signature Update Stub-->
 			<Image condition="begin with">C:\Windows\SoftwareDistribution\Download\Install\AM_</Image> <!--Microsoft:Defender: Signature updates-->
 			<Image condition="is">C:\Windows\System32\dxgiadaptercache.exe</Image>	
 			<Image condition="is">C:\Program Files\Microsoft Office\Office16\MSOSYNC.EXE</Image> <!--Microsoft:Office: Background process for SharePoint/Office365 connectivity-->
 			<Image condition="is">C:\Program Files (x86)\Microsoft Office\Office16\MSOSYNC.EXE</Image> <!--Microsoft:Office: Background process for SharePoint/Office365 connectivity-->
-			<Image condition="is">C:\Program Files\Microsoft Office\Office15\MSOSYNC.EXE</Image> <!--Microsoft:Office: Background process for SharePoint/Office365 connectivity-->
 			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\OfficeSoftwareProtectionPlatform\OSPPSVC.EXE</Image> <!--Microsoft:Office: Licensing service-->
 			<Image condition="is">C:\Program Files\Microsoft Office\Office16\msoia.exe</Image> <!--Microsoft:Office: Telemetry collector-->
 			<Image condition="is">C:\Program Files (x86)\Microsoft Office\root\Office16\officebackgroundtaskhandler.exe</Image>			
-			<Image condition="is">C:\Program Files (x86)\Common Files\microsoft shared\ink\TabTip32.exe</Image> <!--Microsoft:Windows: Touch Keyboard and Handwriting Panel Helper-->
 			<Image condition="is">C:\Windows\System32\TokenBrokerCookies.exe</Image> <!--Microsoft:Windows: SSO sign-in assistant for MicrosoftOnline.com-->
-			<IntegrityLevel condition="is">AppContainer</IntegrityLevel> <!--Microsoft:Windows: Don't care about sandboxed processes-->
-			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k wsappx -p -s AppXSvc</CommandLine>
-			<CommandLine condition="is">C:\WINDOWS\system32\rundll32.exe /d sdengin2.dll,ExecuteScheduledBackup</CommandLine>
+			<Image condition="is">C:\WINDOWS\system32\wermgr.exe</Image>
+			<Image condition="is">C:\Windows\system32\svchost.exe</Image>
 			<CommandLine condition="begin with">C:\Windows\system32\DllHost.exe /Processid</CommandLine>
-			<CommandLine condition="begin with">C:\Program Files\Mozilla Firefox\firefox.exe" -contentproc --channel=</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\SearchIndexer.exe /Embedding</CommandLine> <!--Microsoft:Windows: Search Indexer-->
-			<CommandLine condition="is">c:\windows\system32\svchost.exe -k localservicenetworkrestricted -p -s winhttpautoproxysvc</CommandLine>
-			<CommandLine condition="is">C:\windows\system32\wermgr.exe -queuereporting</CommandLine><!--Microsoft:Windows:Windows error reporting/telemetry-->
-			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k appmodel -p -s camsvc</CommandLine>
-			<CommandLine condition="begin with"> "C:\Windows\system32\wermgr.exe" "-queuereporting_svc" </CommandLine> <!--Microsoft:Windows:Windows error reporting/telemetry-->
-			<CommandLine condition="is">C:\WINDOWS\system32\wermgr.exe -upload</CommandLine> <!--Microsoft:Windows:Windows error reporting/telemetry-->
 			<CommandLine condition="is">\SystemRoot\System32\smss.exe</CommandLine> <!--Microsoft:Bootup: Windows Session Manager-->
 			<CommandLine condition="is">\??\C:\WINDOWS\system32\autochk.exe *</CommandLine> <!--Microsoft:Bootup: Auto Check Utility-->
-			<CommandLine condition="begin with">C:\Program Files\Mozilla Firefox\firefox.exe" -contentproc --channel=</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k appmodel -s StateRepository</CommandLine>
-			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k wusvcs -p -s WaaSMedicSvc</CommandLine>
-			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k netsvcs -p -s DsmSvc</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k appmodel</CommandLine> <!--Microsoft:Windows 10-->
-			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k appmodel -p -s tiledatamodelsvc</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k camera -s FrameServer</CommandLine>
-			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k netsvcs -p -s wuauserv</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k dcomlaunch -s LSM</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k dcomlaunch -s PlugPlay</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k defragsvc</CommandLine> <!--Microsoft:Windows defragmentation-->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k devicesflow -s DevicesFlowUserSvc</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k imgsvc</CommandLine> <!--Microsoft:The Windows Image Acquisition Service-->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localService -s EventSystem</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localService -s bthserv</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localService -s nsi</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localService -s w32Time</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceAndNoImpersonation</CommandLine> <!--Microsoft:Windows: Network services-->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceNetworkRestricted -s Dhcp</CommandLine> <!--Microsoft:Windows: Network services-->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceNetworkRestricted -s EventLog</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceNetworkRestricted -s TimeBrokerSvc</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceNetworkRestricted -s WFDSConMgrSvc</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceNetworkRestricted</CommandLine> <!--Microsoft:Windows: Network services-->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceAndNoImpersonation -s SensrSvc</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localServiceNoNetwork</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -p -s WPDBusEnum</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -p -s fhsvc</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -s DeviceAssociationService</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -s NcbService</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -s SensorService</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -s TabletInputService</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -s UmRdpService</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -s WPDBusEnum</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted -s WdiSystemHost</CommandLine> <!--Microsoft:Windows: Diagnostic System Host [ http://www.blackviper.com/windows-services/diagnostic-system-host/ ] -->
-			<CommandLine condition="is">C:\WINDOWS\System32\svchost.exe -k LocalSystemNetworkRestricted -p -s WdiSystemHost</CommandLine> <!--Microsoft:Windows: Diagnostic System Host [ http://www.blackviper.com/windows-services/diagnostic-system-host/ ] -->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted</CommandLine> <!--Microsoft:Windows-->
-			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k netsvcs -p -s wlidsvc</CommandLine> <!--Microsoft:Windows: Windows Live Sign-In Assistant [ https://www.howtogeek.com/howto/30348/what-are-wlidsvc.exe-and-wlidsvcm.exe-and-why-are-they-running/ ] -->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -p -s ncaSvc</CommandLine> <!--Microsoft:Windows: Network Connectivity Assistant [ http://www.blackviper.com/windows-services/network-connectivity-assistant/ ] -->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s BDESVC</CommandLine> <!--Microsoft:Windows:Network: BitLocker Drive Encryption-->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s BITS</CommandLine> <!--Microsoft:Windows:Network: Background Intelligent File Transfer (BITS) -->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s CertPropSvc</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s DsmSvc</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s Gpsvc</CommandLine> <!--Microsoft:Windows:Network: Group Policy -->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s ProfSvc</CommandLine> <!--Microsoft:Windows: Network services-->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s SENS</CommandLine> <!--Microsoft:Windows: Network services-->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s SessionEnv</CommandLine> <!--Microsoft:Windows: Network services-->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s Themes</CommandLine> <!--Microsoft:Windows: Network services-->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs -s Winmgmt</CommandLine> <!--Microsoft:Windows: Windows Management Instrumentation (WMI) -->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs</CommandLine> <!--Microsoft:Windows: Network services-->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k networkService -p -s DoSvc</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k networkService -s Dnscache</CommandLine> <!--Microsoft:Windows:Network: DNS caching, other uses -->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k networkService -s LanmanWorkstation</CommandLine> <!--Microsoft:Windows:Network: "Workstation" service, used for SMB file-sharing connections and RDP-->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k networkService -s NlaSvc</CommandLine> <!--Microsoft:Windows:Network: Network Location Awareness-->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k networkService -s TermService</CommandLine> <!--Microsoft:Windows:Network: Terminal Services (RDP)-->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k networkService</CommandLine> <!--Microsoft:Windows: Network services-->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k networkServiceNetworkRestricted</CommandLine> <!--Microsoft:Windows: Network services-->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k rPCSS</CommandLine> <!--Microsoft:Windows Services-->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k secsvcs</CommandLine>
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k swprv</CommandLine> <!--Microsoft:Software Shadow Copy Provider-->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k unistackSvcGroup</CommandLine> <!--Microsoft:Windows 10-->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k utcsvc</CommandLine> <!--Microsoft:Windows Services-->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k wbioSvcGroup</CommandLine> <!--Microsoft:Windows Services-->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k werSvcGroup</CommandLine> <!--Microsoft:Windows: ErrorReporting-->
-			<CommandLine condition="is">C:\WINDOWS\System32\svchost.exe -k wsappx -p -s ClipSVC</CommandLine> <!--Microsoft:Windows:Apps: Client License Service-->
-			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k wsappx -p -s AppXSvc</CommandLine> <!--Microsoft:Windows:Apps: AppX Deployment Service-->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k wsappx -s ClipSVC</CommandLine> <!--Microsoft:Windows:Apps: Client License Service-->
-			<CommandLine condition="is">C:\Windows\system32\svchost.exe -k wsappx</CommandLine>
-			<CommandLine condition="is">C:\WINDOWS\System32\svchost.exe -k netsvcs -p -s NetSetupSvc</CommandLine>
-			<CommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k LocalService -p -s tzautoupdate</CommandLine>
-			<CommandLine condition="begin with">C:\WINDOWS\system32\cmd.exe /c wmic logicaldisk where "drivetype=2 AND NOT deviceid like "a:"" get deviceid, volumename, description, FileSystem, Size, VolumeSerialNumber</CommandLine> 
-			<CommandLine condition="end with">\ngen.exe</CommandLine> <!--Microsoft:DotNet-->
-			<ParentCommandLine condition="is">C:\Windows\system32\svchost.exe -k netsvcs</ParentCommandLine> <!--Microsoft:Windows: Network services: Spawns Consent.exe-->
-			<ParentCommandLine condition="is">C:\Windows\system32\svchost.exe -k localSystemNetworkRestricted</ParentCommandLine> <!--Microsoft:Windows-->
-			<ParentCommandLine condition="contains">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\ngentask.exe</ParentCommandLine>
-			<ParentImage condition="is">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\mscorsvw.exe</ParentImage> <!--Microsoft:DotNet-->
-			<ParentImage condition="is">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\ngentask.exe</ParentImage> <!--Microsoft:DotNet-->
-			<ParentImage condition="is">C:\Windows\Microsoft.NET\Framework\v4.0.30319\mscorsvw.exe</ParentImage> <!--Microsoft:DotNet-->
-			<ParentImage condition="is">C:\Windows\Microsoft.NET\Framework\v4.0.30319\ngentask.exe</ParentImage> <!--Microsoft:DotNet: Spawns thousands of ngen.exe processes-->
+			<Image condition="is">C:\Program Files\Mozilla Firefox\firefox.exe</Image>
+			
+			<Rule groupRelation="and">
+			<Image condition="is">C:\WINDOWS\system32\rundll32.exe</Image>
+			<CommandLine condition="is">C:\WINDOWS\system32\rundll32.exe /d sdengin2.dll,ExecuteScheduledBackup</CommandLine>
+			</Rule>
+			
+			<Rule groupRelation="and">
+			<Image condition="is">C:\Windows\System32\smartscreen.exe</Image>
+			<ParentImage condition="is">C:\Windows\System32\svchost.exe</ParentImage>
+			</Rule>
+			
+			<Image condition="end with">\ngentask.exe</Image>
+			<Image condition="end with">\ngen.exe</Image> <!--Microsoft:DotNet-->
+			<Image condition="end with">\mscorsvw.exe</Image> <!--Microsoft:DotNet-->
+			<Image condition="end with">\ngentask.exe</Image> <!--Microsoft:DotNet: Spawns thousands of ngen.exe processes-->
+			
 			<Image condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeC2RClient.exe</Image> <!--Microsoft:Office: Background process-->
 			<ParentImage condition="end with">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeClickToRun.exe</ParentImage> <!--Microsoft:Office: Background process-->
 			<ParentImage condition="is">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeC2RClient.exe</ParentImage> <!--Microsoft:Office: Background process-->
 			<!--SECTION: Microsoft:Windows: Media player-->
 			<Image condition="is">C:\Program Files\Windows Media Player\wmpnscfg.exe</Image> <!--Microsoft:Windows: Windows Media Player Network Sharing Service Configuration Application-->
 			<!--SECTION: Google-->
-			<CommandLine condition="begin with">"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --type=</CommandLine> <!--Google:Chrome: massive command-line arguments-->
-			<CommandLine condition="begin with">"C:\Program Files\Google\Chrome\Application\chrome.exe" --type=</CommandLine> <!--Google:Chrome: massive command-line arguments-->
+			<Image condition="is">"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Image> <!--Google:Chrome: massive command-line arguments-->
 			<Image condition="begin with">C:\Program Files (x86)\Google\Update\</Image> <!--Google:Chrome:Updater: You should experiment with this line since attackers sometimes hide in this folder-->
 			<ParentImage condition="begin with">C:\Program Files (x86)\Google\Update\</ParentImage> <!--Google:Chrome:Updater: You should experiment with this line since attackers sometimes hide in this folder-->
 			<!--SECTION: Firefox-->
-			<CommandLine condition="begin with">"C:\Program Files\Mozilla Firefox\plugin-container.exe" --channel</CommandLine> <!-- Mozilla:Firefox: Large command-line arguments | Credit @Darkbat91 -->
-			<CommandLine condition="begin with">"C:\Program Files (x86)\Mozilla Firefox\plugin-container.exe" --channel</CommandLine> <!-- Mozilla:Firefox: Large command-line arguments | Credit @Darkbat91 -->
+			<Image condition="is">"C:\Program Files\Mozilla Firefox\plugin-container.exe</Image> <!-- Mozilla:Firefox: Large command-line arguments | Credit @Darkbat91 -->
+			<Image condition="is">"C:\Program Files (x86)\Mozilla Firefox\plugin-container.exe</Image> <!-- Mozilla:Firefox: Large command-line arguments | Credit @Darkbat91 -->
 			<!--SECTION: Adobe-->
 			<CommandLine condition="contains">AcroRd32.exe" /CR </CommandLine> <!--Adobe:AcrobatReader: Uninteresting sandbox subprocess-->
 			<CommandLine condition="contains">AcroRd32.exe" --channel=</CommandLine> <!--Adobe:AcrobatReader: Uninteresting sandbox subprocess-->
@@ -327,11 +255,18 @@
 			<TargetFilename name="Possible  persist or hijack exec flow via appcompat shim database" condition="end with">.sdb</TargetFilename> <!-- persist or hijack exec flow via appcompat shim database -->
 			<TargetFilename name="UAC Bypass via custom manifest targeting vulnerable trusted programs" condition="end with">.manifest</TargetFilename> <!-- UAC Bypass via custom manifest targeting vulnerable trusted programs -->
 			<TargetFilename name="by default bloodhound drops this file to disk if not disabled by cmdline " condition="end with">bloodhound.bin</TargetFilename> <!-- by default bloodhound drops this file to disk if not disabled by cmdline -->
+			<TargetFilename name="Persistence - Outlook VBA Backdoor" condition="end with" >VBAProject.OTM</TargetFilename> <!-- office less famous extensions -->
+			<TargetFilename name="UAC Bypass via rogue manifest" condition="end with">wscript.exe</TargetFilename><!-- UAC Bypass via rogue manifest -->
+			<TargetFilename name="Possible  persist or hijack exec flow via appcompat shim database" condition="end with">.sdb</TargetFilename> <!-- persist or hijack exec flow via appcompat shim database -->
+			<TargetFilename name="UAC Bypass via custom manifest targeting vulnerable trusted programs" condition="end with">.manifest</TargetFilename> <!-- UAC Bypass via custom manifest targeting vulnerable trusted programs -->
+			<TargetFilename name="by default bloodhound drops this file to disk if not disabled by cmdline " condition="end with">bloodhound.bin</TargetFilename> <!-- by default bloodhound drops this file to disk if not disabled by cmdline -->
+			<TargetFilename name="Minidump default file name" condition="contains">minidump</TargetFilename> <!-- by default this is file name for mimikatz and other tools for lsass dump -->
 		</FileCreateTime>
 		</RuleGroup>
 		
 		<RuleGroup name="FileCreateTime Exclude" groupRelation="or">
 		<FileCreateTime onmatch="exclude">
+			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image>
 			<Image condition="end with">\OneDrive.exe</Image> <!--OneDrive constantly changes file times-->
 			<Image condition="is">C:\Windows\system32\backgroundTaskHost.exe</Image>
@@ -372,6 +307,7 @@
 			<Image condition="end with">\iexplore.exe</Image><!--Browser-->
 			<Image condition="end with">MicrosoftEdge.exe</Image><!--Browser-->
 			<Image condition="is">C:\Windows\System32\dns.exe</Image><!-- noisy for dns -->
+			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Image>
 			<Image condition="is">C:\Windows\System32\smartscreen.exe</Image><!-- noisy -->
 			<Image condition="is">C:\Windows\System32\svchost.exe</Image><!-- noisy for dns and ldap -->
 			<Image condition="is">C:\Windows\System32\lsass.exe</Image><!-- noisy for ldap -->
@@ -381,6 +317,8 @@
 			<Image condition="is">C:\Windows\System32\wbem\WmiApSrv.exe</Image><!-- noisy for ldap -->
 			<Image condition="is">C:\Windows\System32\taskhostw.exe</Image><!-- noisy for ldap -->
 			<Image condition="is">C:\Windows\CCM\CcmExec.exe</Image>
+			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ClickToRun\OfficeClickToRun.exe</Image><!-- noisy-->
+			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\ServiceHub\Hosts\ServiceHub.Host.CLR.x86\ServiceHub.SettingsHost.exe</Image><!-- noisy-->
 			<Image condition="is">C:\Windows\ADWS\Microsoft.ActiveDirectory.WebServices.exe</Image><!-- noisy for ldap -->
 		    <Image condition="is">C:\Program Files (x86)\BigFix Enterprise\BES Client\BESClient.exe</Image><!-- noisy for ldap -->
 			<Image condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Image><!-- noisy for 5353 MDNS -->
@@ -433,6 +371,8 @@
 			<Image condition="is">C:\WINDOWS\system32\cmd.exe</Image>
 			<Image condition="is">C:\WINDOWS\system32\RuntimeBroker.exe</Image>
 			<Image condition="is">C:\WINDOWS\system32\backgroundtaskhost.exe</Image>
+			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
+			<Image condition="is">C:\Windows\System32\UsoClient.exe</Image>
 			<Image condition="end with">\SWELF.exe</Image>
 		</ProcessTerminate>
 		</RuleGroup>
@@ -872,7 +812,7 @@
 			<SourceImage condition="is">C:\Windows\system32\services.exe</SourceImage>
 			<SourceImage condition="is">C:\Windows\system32\winlogon.exe</SourceImage>
 			<SourceImage condition="is">C:\Windows\system32\audiodg.exe</SourceImage>
-			<StartModule condition="is">C:\Windows\system32\kernel32.dll</StartModule><!--This does createremote thread for injection as well as other things-->
+			<!--<StartModule condition="is">C:\Windows\system32\kernel32.dll</StartModule>This does createremote thread for injection as well as other things-->
 			<TargetImage condition="end with">Google\Chrome\Application\chrome.exe</TargetImage>
 			<SourceImage condition="is">C:\Program Files (x86)\Webroot\WRSA.exe</SourceImage>
 			<SourceImage condition="begin with">C:\Program Files (x86)\Fortinet\FortiClient\</SourceImage>
@@ -1132,6 +1072,7 @@
 		<FileCreate onmatch="exclude">
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image>
 			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\platform\4.18.1907.4-0\MsMpEng.exe</Image>
+			<Image condition="begin with">C:\ProgramData\Microsoft\Windows Defender\platform\</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
 			<Image condition="end with">\SearchUI.exe</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
@@ -1486,6 +1427,16 @@
 			<Image condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</Image> <!--Microsoft:Windows:Defender-->
 			<Image condition="is">C:\Windows\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy\SearchUI.exe</Image> <!--Microsoft:Cortana-->
 			<Image condition="is">C:\Program Files (x86)\EMET 5.5\EMET_Service.exe</Image> <!--Microsoft:EMET: Routinely refreshes EMET configuration keys from Group Policy-->
+			
+			<Rule groupRelation="and">
+			<Image condition="is">C:\WINDOWS\system32\svchost.exe</Image><!--noisy-->
+			<TargetObject condition="end with">\Root\Certificates</TargetObject>
+			</Rule>
+			<Rule groupRelation="and">
+			<Image condition="is">C:\WINDOWS\Explorer.EXE</Image><!--noisy-->
+			<TargetObject condition="contains">\Local Settings\Software\Microsoft\Windows\Shell\Bags\</TargetObject>
+			</Rule>
+			
 			<TargetObject condition="end with">Toolbar\WebBrowser</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">Toolbar\WebBrowser\ITBar7Height</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">Toolbar\WebBrowser\ITBar7Layout</TargetObject> <!--Microsoft:IE: Extraneous activity-->
@@ -1603,7 +1554,9 @@
 		<!--SYSMON EVENT ID 17 & 18 : PipeEvent MONITORING [PipeEvent]-->
 		<RuleGroup name="PipeEvent exclude" groupRelation="or">		
 		<PipeEvent onmatch="exclude">
+			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
+			<Image condition="begin with">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\ServiceHub\Hosts\</Image>
 			<Image condition="is">C:\Program Files\Fortinet\FortiClient\FCVbltScan.exe</Image>
 			<Image condition="is">C:\Program Files\Mozilla Firefox\firefox.exe</Image> 
 			<Image condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Image> 
