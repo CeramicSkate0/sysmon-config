@@ -368,7 +368,6 @@
 			<Image condition="is">C:\Windows\System32\svchost.exe</Image>
 			<Image condition="is">C:\Windows\System32\wbem\WmiPrvSE.exe</Image>
 			<Image condition="is">C:\Windows\SysWOW64\wbem\WMIC.exe</Image>
-			<Image condition="is">C:\WINDOWS\system32\cmd.exe</Image>
 			<Image condition="is">C:\WINDOWS\system32\RuntimeBroker.exe</Image>
 			<Image condition="is">C:\WINDOWS\system32\backgroundtaskhost.exe</Image>
 			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
@@ -957,7 +956,6 @@
 		  <SourceImage condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</SourceImage>
 		  <TargetImage condition="is">C:\Windows\Sysmon.exe</TargetImage>
 		  <TargetImage condition="is">C:\Windows\Sysmon64.exe</TargetImage>
-		  <TargetImage condition="end with">csc.exe</TargetImage>
 		  <SourceImage condition="end with">:\Windows\system32\sppsvc.exe</SourceImage>
 		  <SourceImage condition="end with">:\Windows\system32\sdiagnhost.exe</SourceImage>
 		  <SourceImage condition="end with">\Common Files\Adobe\ARM\1.0\AdobeARMHelper.exe</SourceImage>
