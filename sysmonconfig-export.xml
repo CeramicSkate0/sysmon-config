@@ -539,7 +539,8 @@
 			<ImageLoaded condition="end with" name="PrivEsc - DLL Hijack - UACME 23">DismCore.dll</ImageLoaded>
 			<ImageLoaded condition="end with" name="PrivEsc - DLL Hijack - UACME 22">comctl32.dll</ImageLoaded>
 			<ImageLoaded condition="contains" name="PrivEsc - DLL Hijack - UACME 54">AppData\Local\Microsoft\WindowsApps\srrstr.dll</ImageLoaded>
-		    <ImageLoaded condition="begin with" name="PrivEsc - UACBypass Mocking Trusted WinFolders">C:\Windows \</ImageLoaded>
+		        <ImageLoaded condition="begin with" name="PrivEsc - UACBypass Mocking Trusted WinFolders">C:\Windows \</ImageLoaded>
+			<ImageLoaded condition="begin with" name="PrivEsc - UACBypass Mocking Trusted WinFolders">C:\ Windows \</ImageLoaded>
 			<ImageLoaded condition="begin with" name="PrivEsc - UACBypass Mocking Trusted WinFolders">C:\ Windows</ImageLoaded>
 			<ImageLoaded condition="end with" name="PrivEsc - UACBypass - DiskCleanup">logprovider.dll</ImageLoaded>
 			<ImageLoaded condition="end with" name="PrivEsc - Possible UACBypass - mcx2prov DLL">CRYPTBASE.dll</ImageLoaded><!-- UACBypass via mcx2prov executable and rogue CRYPTBASE.dll-->
