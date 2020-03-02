@@ -79,6 +79,7 @@
 			<!--SECTION: Microsoft Windows-->
 			<IntegrityLevel condition="is">AppContainer</IntegrityLevel> <!--Microsoft:Windows: Don't care about sandboxed processes-->
 			<Image condition="is">C:\Windows\System32\usocoreworker.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\PrivateAssemblies\ScriptedSandbox64.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Image>
 			<Image condition="is">C:\Windows\System32\UsoClient.exe</Image>
 			<Image condition="is">c:\windows\system32\mmc.exe</Image>
@@ -1427,7 +1428,7 @@
 			<Image condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</Image> <!--Microsoft:Windows:Defender-->
 			<Image condition="is">C:\Windows\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy\SearchUI.exe</Image> <!--Microsoft:Cortana-->
 			<Image condition="is">C:\Program Files (x86)\EMET 5.5\EMET_Service.exe</Image> <!--Microsoft:EMET: Routinely refreshes EMET configuration keys from Group Policy-->
-			
+			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\PrivateAssemblies\ScriptedSandbox64.exe</Image>
 			<Rule groupRelation="and">
 			<Image condition="is">C:\WINDOWS\system32\svchost.exe</Image><!--noisy-->
 			<TargetObject condition="end with">\Root\Certificates</TargetObject>
@@ -1554,6 +1555,7 @@
 		<!--SYSMON EVENT ID 17 & 18 : PipeEvent MONITORING [PipeEvent]-->
 		<RuleGroup name="PipeEvent exclude" groupRelation="or">		
 		<PipeEvent onmatch="exclude">
+			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\PrivateAssemblies\ScriptedSandbox64.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
 			<Image condition="begin with">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\ServiceHub\Hosts\</Image>
