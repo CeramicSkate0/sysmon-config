@@ -1456,7 +1456,7 @@
 			</Rule>
 			<Rule groupRelation="and">
 			<Image condition="is">C:\WINDOWS\Explorer.EXE</Image><!--noisy-->
-			<TargetObject condition="contains">\Local Settings\Software\Microsoft\Windows\Shell\Bags\</TargetObject>
+			<TargetObject condition="contains">\Local Settings\Software\Microsoft\Windows\Shell\Bags</TargetObject>
 			</Rule>
 			
 			<TargetObject condition="end with">Toolbar\WebBrowser</TargetObject> <!--Microsoft:IE: Extraneous activity-->
