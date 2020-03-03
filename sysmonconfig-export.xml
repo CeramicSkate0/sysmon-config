@@ -631,7 +631,10 @@
 			  <ImageLoaded>c:\windows\SysWOW64\dism\LogProvider.dll</ImageLoaded>
 			  <Image condition="is">C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</Image>
 			  <ImageLoaded condition="begin with">C:\Program Files\Microsoft Office\root\Office</ImageLoaded> <!-- wwlib.dll side loading FP -->
-			  <Image>C:\Windows\System32\WinSAT.exe</Image>
+			  <Image condition="is">C:\Windows\System32\WinSAT.exe</Image>
+			  <Image condition="is">c:\windows\system32\surfacedtx.exe</Image>
+			  <Image condition="is">c:\windows\system32\cavs\intel(r) audio service\intelaudioservice.exe</Image>
+			  <Image condition="is">c:\program files (x86)\keepass password safe 2\keepass.exe</Image>
 			  <Image>C:\Windows\System32\wermgr.exe</Image> <!-- FP for schtask COM -->
 			  <Image>C:\Windows\System32\sdiagnhost.exe</Image><!-- FPs for wmiutil -->
 			  <ImageLoaded>C:\Windows\System32\cryptbase.dll</ImageLoaded>
