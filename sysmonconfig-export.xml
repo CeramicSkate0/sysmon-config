@@ -133,6 +133,12 @@
 			<Image condition="is">C:\Windows\System32\TokenBrokerCookies.exe</Image> <!--Microsoft:Windows: SSO sign-in assistant for MicrosoftOnline.com-->
 			<Image condition="is">C:\WINDOWS\system32\wermgr.exe</Image>
 			<Image condition="is">C:\Windows\system32\svchost.exe</Image>
+			<Image condition="is">c:\program files (x86)\notepad++\updater\gup.exe</Image>
+			<Image condition="is">c:\windows\system32\xblgamesavetask.exe</Image>
+			<Image condition="is">c:\windows\system32\provtool.exe</Image>
+			<Image condition="is">c:\program files (x86)\microsoft office\root\office16\sdxhelper.exe</Image>
+			<Image condition="is">c:\program files (x86)\microsoft visual studio\2019\community\common7\servicehub\hosts\servicehub.host.clr.anycpu\servicehub.testwindowstorehost.exe</Image>
+			<Image condition="is">c:\program files (x86)\microsoft visual studio\installer\resources\app\servicehub\services\microsoft.visualstudio.setup.service\backgrounddownload.exe</Image>
 			<CommandLine condition="begin with">C:\Windows\system32\DllHost.exe /Processid</CommandLine>
 			<CommandLine condition="is">C:\Windows\system32\SearchIndexer.exe /Embedding</CommandLine> <!--Microsoft:Windows: Search Indexer-->
 			<CommandLine condition="is">\SystemRoot\System32\smss.exe</CommandLine> <!--Microsoft:Bootup: Windows Session Manager-->
