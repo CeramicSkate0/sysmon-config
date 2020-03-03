@@ -82,6 +82,7 @@
 			<Image condition="is">C:\Windows\System32\UsoClient.exe</Image>
 			<Image condition="is">c:\windows\system32\sdclt.exe</Image>
 			<Image condition="is">c:\windows\system32\mmc.exe</Image>
+			<Image condition="is">C:\Windows\System32\CompPkgSrv.exe</Image>
 			<Image condition="is">c:\windows\system32\sgrmbroker.exe</Image>
 			<Image condition="is">C:\Windows\System32\WerFault.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Microsoft Office\root\VFS\ProgramFilesCommonX86\Microsoft Shared\OFFICE16\SDXHelper.exe</Image>
