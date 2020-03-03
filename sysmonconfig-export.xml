@@ -372,6 +372,7 @@
 			<Image condition="begin with">C:\Program Files\HP Inc\</Image>
 			<Image condition="begin with">C:\Program Files (x86)\Trend Micro\</Image>
 			<Image condition="begin with">C:\Program Files\Trend Micro\</Image>
+			<Image condition="begin with">C:\Program Files (x86)\Microsoft Visual Studio\</Image>
 			<Image condition="begin with">C:\Program Files\Microsoft Office\root\</Image>
 			<Image condition="begin with">C:\Program Files (x86)\Symantec\Symantec Endpoint Protection\</Image>
 			<DestinationHostname condition="end with">microsoft.com</DestinationHostname> <!--Microsoft:Update delivery-->
