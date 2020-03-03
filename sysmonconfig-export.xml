@@ -136,6 +136,7 @@
 			<Image condition="is">c:\program files (x86)\notepad++\updater\gup.exe</Image>
 			<Image condition="is">c:\windows\system32\xblgamesavetask.exe</Image>
 			<Image condition="is">c:\windows\system32\provtool.exe</Image>
+			<Image condition="is">c:\windows\system32\surfaceservice.exe</Image>
 			<Image condition="is">c:\program files (x86)\microsoft office\root\office16\sdxhelper.exe</Image>
 			<Image condition="is">c:\program files (x86)\microsoft visual studio\2019\community\common7\servicehub\hosts\servicehub.host.clr.anycpu\servicehub.testwindowstorehost.exe</Image>
 			<Image condition="is">c:\program files (x86)\microsoft visual studio\installer\resources\app\servicehub\services\microsoft.visualstudio.setup.service\backgrounddownload.exe</Image>
