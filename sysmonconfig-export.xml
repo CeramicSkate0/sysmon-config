@@ -1473,7 +1473,7 @@
 			</Rule>
 			<Rule groupRelation="and">
 			<Image condition="is">C:\WINDOWS\Explorer.EXE</Image><!--noisy-->
-			<TargetObject condition="contains">\Local Settings\Software\Microsoft\Windows\Shell\</TargetObject>
+			<TargetObject condition="contains">\Local Settings\Software\Microsoft\Windows\Shell\</TargetObject><!--This is normal(and loud), BUT leaves you blind to an injected malware attempting to do UAC bypass or shellbaging-->
 			</Rule>
 			<Rule groupRelation="and">
 			<Image condition="is">C:\Windows\System32\svchost.exe</Image>
