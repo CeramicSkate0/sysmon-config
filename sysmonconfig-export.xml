@@ -1479,7 +1479,7 @@
 			<Image condition="is">C:\Windows\System32\svchost.exe</Image>
 			<TargetObject condition="contains">\Software\Microsoft\Windows NT\CurrentVersion\</TargetObject>
 			</Rule>
-			
+			<TargetObject condition="contains">\{CAFEEFAC-</TargetObject>
 			<TargetObject condition="end with">Toolbar\WebBrowser</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">Toolbar\WebBrowser\ITBar7Height</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">Toolbar\WebBrowser\ITBar7Layout</TargetObject> <!--Microsoft:IE: Extraneous activity-->
@@ -1571,6 +1571,7 @@
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, Hash-->
 		<RuleGroup name="ALTERNATE DATA STREAM include" groupRelation="or">
         <FileCreateStreamHash onmatch="include">
+		<TargetFilename condition="contains">Startup</TargetFilename> <!--ADS startup | Example: [ https://www.hybrid-analysis.com/sample/a314f6106633fba4b70f9d6ddbee452e8f8f44a72117749c21243dc93c7ed3ac?environmentId=100 ] -->
 		<TargetFilename name="File stream created 7zip extractions" condition="contains">Temp\7z</TargetFilename> <!--7zip extractions-->
 		<TargetFilename condition="end with">.bat</TargetFilename> <!--Batch scripting-->
 		<TargetFilename condition="end with">.cmd</TargetFilename> <!--Batch scripting | Credit @ion-storm -->
@@ -1580,17 +1581,26 @@
 		<TargetFilename condition="end with">.dll</TargetFilename>
 		<TargetFilename condition="end with">.ini</TargetFilename>
 		<TargetFilename condition="end with">.bin</TargetFilename>
+		<TargetFilename condition="end with">.doc</TargetFilename> <!--Office doc potentially with macro -->
+		<TargetFilename condition="end with">.xls</TargetFilename> <!--Office doc potentially with macro -->
+		<TargetFilename condition="end with">.ppt</TargetFilename> <!--Office doc potentially with macros-->
 		<TargetFilename name="File stream created Mitre T1170" condition="end with">.hta</TargetFilename> <!--Mitre T1170--><!--Scripting-->
 		<TargetFilename condition="end with">.lnk</TargetFilename> <!--Shortcut file | Credit @ion-storm -->
 		<TargetFilename condition="contains">Content.Outlook</TargetFilename> <!--Microsoft:Outlook: Attachments--> <!--PRIVACY WARNING-->
 		<TargetFilename name="technique_id=T1086,technique_name=PowerShell" condition="end with">.ps1</TargetFilename> <!--Powershell-->
 		<TargetFilename name="technique_id=T1086,technique_name=PowerShell" condition="end with">.ps2</TargetFilename> <!--Powershell-->
 		<TargetFilename condition="end with">.reg</TargetFilename> <!--Registry File-->
+		<TargetFilename condition="end with">.jse</TargetFilename> <!--Registry File-->
 		<TargetFilename condition="end with">.vb</TargetFilename> <!--VisualBasicScripting files-->
 		<TargetFilename condition="end with">.vbe</TargetFilename> <!--VisualBasicScripting files-->
 		<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting files-->	
 		</FileCreateStreamHash>
 		</RuleGroup>	
+		
+		<RuleGroup name="" groupRelation="or">
+			<FileCreateStreamHash onmatch="exclude">
+			</FileCreateStreamHash>
+		</RuleGroup>
 		
 		<!--ADDITIONAL REFERENCE: [ https://blog.cobaltstrike.com/2015/10/07/named-pipe-pivoting/ ] -->
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, PipeName, Image-->
@@ -1657,29 +1667,59 @@
 		</PipeEvent>
 		</RuleGroup>
 	    
-		<!--SYSMON EVENT ID 19 & 20 & 21 : WMI EVENT MONITORING [WmiEvent]-->
+	<!--SYSMON EVENT ID 19 & 20 & 21 : WMI EVENT MONITORING [WmiEvent]-->
 		<!--EVENT 19: "WmiEventFilter activity detected"-->
 		<!--EVENT 20: "WmiEventConsumer activity detected"-->
 		<!--EVENT 21: "WmiEventConsumerToFilter activity detected"-->
 		<!--ADDITIONAL REFERENCE: [ https://www.darkoperator.com/blog/2017/10/15/sysinternals-sysmon-610-tracking-of-permanent-wmi-events ] -->
 		<!--ADDITIONAL REFERENCE: [ https://rawsec.lu/blog/posts/2017/Sep/19/sysmon-v610-vs-wmi-persistence/ ] -->
 		<!--DATA: EventType, UtcTime, Operation, User, Name, Type, Destination, Consumer, Filter-->
-		<WmiEvent onmatch="exclude">
-		</WmiEvent>
+		<RuleGroup name="" groupRelation="or">
+			<WmiEvent onmatch="exclude">
+				<!--NOTE: Using exclude with no rules means everything will be logged-->
+			</WmiEvent>
+		</RuleGroup>
+		
+		<!--SYSMON EVENT ID 22 : DNS QUERY [DnsQuery]-->
+		<!--EVENT 22: "Dns query"-->
+		<!--NOTE:	Due to the volume of events that DNS queries generate, some orgs may want to remove this section from their configuration to reduce Sysmon log turnover. -->
+		<!--COMMENT:	DNS logging is a very nuanced challenge in monitoring due to event volume. Legitimate domains can be used to host malware/C2, but lookup itself is not very informative.
+						It's fine to exclude monitoring these bulk low-value lookups, but at same time, you would not have a full log of how malware communicated, potentially missing C2.
+						This section of Sysmon configuration will require your full judgement and knowledge of your org's priorities. There is no correct answer.-->
+		<!--OPERATIONS:	Chrome and Firefox prefetch DNS lookups, or use alternate DNS lookup methods Sysmon won't capture. You need to turn these off.
+						Search for Group Policy for these browsers to configure this.-->
+		<!--OPERATIONS:	Most DNS traffic is web advertising. To significantly reduce DNS queries and malware ads, enable client-side advertising filtering via Group Policy. This is easy.
+				Internet Explorer: https://decentsecurity.com/adblocking-for-internet-explorer-deployment/
+				Chrome: https://decentsecurity.com/ublock-for-google-chrome-deployment/
+				Firefox: ToDo
+						Also note, this configuration is designed for United States computers. Your country's users will may need customization to reduce noise.
+			-->
+		<!--CONFIG:	DNS poisoning is an issue during threat investigations. Try to only exclude ROUTINE system-level queries you know are strongly validated with HTTPS or code signing.-->
+		<!--CONFIG:	If you exclude microsoft.com, someone could register malware-microsoft.com and it wouldn't be logged. Use "END WITH" with leading . or "IS" operators.-->
+		<!--CONFIG:	Be very specific in exclusions. Threat actors use legitimate services, too. Dont exclude all of AWS or Azure or Google or CDNs!-->
+		<!--CONFIG: Popularity data: [ http://s3-us-west-1.amazonaws.com/umbrella-static/index.html ] [ https://better.fyi/trackers/alexa-top-500-news/ ] -->
+		<!--CRITICAL:	Do NOT exclude "wpad" lookups. This is a MitM vector routinely used by attackers. Disable WPAD or enforce client-side DNSSEC for AD domain lookups.-->
+		<!--CRITICAL:	Do NOT exclude IPv6 lookups.-->
+		<!--DATA: RuleName, UtcTime, ProcessGuid, ProcessId, QueryName, QueryType, QueryStatus, QueryResults (can't filter on)-->
+		<!--BELOW: These domains should not be excluded at the top level. Be specific if you want to reduce noise under them.-->
+		<!-- Rejected: .cloudapp.net, customer content [ https://blogs.technet.microsoft.com/ptsblog/2012/06/18/security-consideration-when-using-cloudapp-net-domain-as-production-environment-in-windows-azure/ ] -->
+		<!-- Rejected: .googleapis.com, customer content [ https://www.zdnet.com/article/this-business-email-scam-spreads-trojans-through-google-cloud-storage/ ] -->
+		<!-- Rejected: .cloudfront.net, customer content -->
+		<!-- Rejected: .windows.net, customer content -->
+		<!-- Rejected: *github.com, customer content, including open-source malware components -->
 
 		<RuleGroup name="DnsQuery exclude" groupRelation="or">
 		<DnsQuery onmatch="exclude">
-		
-		<!--SYSMON EVENT ID 255 : ERROR-->
-		<!--"This event is generated when an error occurred within Sysmon. They can happen if the system is under heavy load
-			and certain tasked could not be performed or a bug exists in the Sysmon service. You can report any bugs on the
-			Sysinternals forum or over Twitter (@markrussinovich)."-->
-		<!--Cannot be filtered.-->
-		<QueryName condition="is">cdn.onenote.net</QueryName>
+			<Image condition="is">c:\program files\fortinet\forticlient\fortiwf.exe</Image>
+			<Image condition="is">C:\Program Files (x86)\OpenDNS Updater\OpenDNSUpdater.exe</Image>
+			<Image condition="is">c:\windows\sysmon.exe</Image>
+			<!--Network noise-->
+			<QueryName condition="is">cdn.onenote.net</QueryName>
 			<QueryName condition="end with">.arpa.</QueryName> <!--Design decision to not log reverse DNS lookups. You will need to decide.-->
 			<QueryName condition="end with">.arpa</QueryName> <!--Design decision to not log reverse DNS lookups. You will need to decide.-->
 			<QueryName condition="end with">.msftncsi.com</QueryName> <!--Microsoft proxy detection | Microsoft default exclusion-->
 			<QueryName condition="is">..localmachine</QueryName>
+			<QueryName condition="is">localhost</QueryName>
 			<!--Microsoft-->
 			<QueryName condition="end with">.msftconnecttest.com</QueryName>
 			<QueryName condition="end with">.microsoft.com</QueryName>
@@ -1752,6 +1792,7 @@
 			<QueryName condition="end with">.fontawesome.com</QueryName>
 			<QueryName condition="is">disqus.com</QueryName> <!--Microsoft default exclusion-->
 			<!--Ads-->
+			<QueryName condition="end with">.1rx.io</QueryName> <!--Ads-->
 			<QueryName condition="end with">.2mdn.net</QueryName> <!--Ads: Google | Microsoft default exclusion-->
 			<QueryName condition="end with">.adadvisor.net</QueryName> <!--Ads: Neustar [ https://better.fyi/trackers/adadvisor.net/ ] -->
 			<QueryName condition="end with">.addthis.com</QueryName> <!--Ads:Oracle | Microsoft default exclusion [ https://en.wikipedia.org/wiki/AddThis ] -->
@@ -1880,12 +1921,16 @@
 			<QueryName condition="end with">ocsp.identrust.com</QueryName>
 			<QueryName condition="is">status.rapidssl.com</QueryName>
 			<QueryName condition="is">status.thawte.com</QueryName>
-			<Image condition="is">C:\Program Files (x86)\OpenDNS Updater\OpenDNSUpdater.exe</Image>
-			<Image condition="is">c:\windows\sysmon.exe</Image>
 			<QueryName condition="end with">.googlevideo.com</QueryName>
 			<QueryName condition="end with">.googleusercontent.com</QueryName>
 			<QueryName condition="end with">.googleapis.com</QueryName>
 		</DnsQuery>
 		</RuleGroup>
-    </EventFiltering>
+    	
+		<!--SYSMON EVENT ID 255 : ERROR-->
+		<!--"This event is generated when an error occurred within Sysmon. They can happen if the system is under heavy load
+			and certain tasked could not be performed or a bug exists in the Sysmon service. You can report any bugs on the
+			Sysinternals forum or over Twitter (@markrussinovich)."-->
+		<!--Cannot be filtered.-->
+	</EventFiltering>
 	</Sysmon>
