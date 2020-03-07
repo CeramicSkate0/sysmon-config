@@ -133,7 +133,15 @@
 			<Image condition="is">C:\Program Files\Microsoft Office\Office16\msoia.exe</Image> <!--Microsoft:Office: Telemetry collector-->
 			<Image condition="is">C:\Program Files (x86)\Microsoft Office\root\Office16\officebackgroundtaskhandler.exe</Image>			
 			<Image condition="is">C:\Windows\System32\TokenBrokerCookies.exe</Image> <!--Microsoft:Windows: SSO sign-in assistant for MicrosoftOnline.com-->
+			<Rule groupRelation="and">
 			<Image condition="is">C:\WINDOWS\system32\wermgr.exe</Image>
+			<CommandLine condition="contains">-p</CommandLine>
+			</Rule>
+			<Rule groupRelation="and">
+			<Image condition="is">C:\WINDOWS\system32\wermgr.exe</Image>
+			<CommandLine condition="contains">shared Global</CommandLine>
+			</Rule>
+			
 			<Image condition="is">C:\Windows\system32\svchost.exe</Image>
 			<Image condition="is">c:\program files (x86)\notepad++\updater\gup.exe</Image>
 			<Image condition="is">c:\windows\system32\xblgamesavetask.exe</Image>
@@ -206,8 +214,14 @@
 			<Image condition="is">"C:\Program Files\Mozilla Firefox\plugin-container.exe</Image> <!-- Mozilla:Firefox: Large command-line arguments | Credit @Darkbat91 -->
 			<Image condition="is">"C:\Program Files (x86)\Mozilla Firefox\plugin-container.exe</Image> <!-- Mozilla:Firefox: Large command-line arguments | Credit @Darkbat91 -->
 			<!--SECTION: Adobe-->
+			<Rule groupRelation="and">
+			<Image condition="begin with">C:\Program Files (x86)\Adobe\</Image>
 			<CommandLine condition="contains">AcroRd32.exe" /CR </CommandLine> <!--Adobe:AcrobatReader: Uninteresting sandbox subprocess-->
+			</Rule>
+			<Rule groupRelation="and">
+			<Image condition="begin with">C:\Program Files (x86)\Adobe\</Image>
 			<CommandLine condition="contains">AcroRd32.exe" --channel=</CommandLine> <!--Adobe:AcrobatReader: Uninteresting sandbox subprocess-->
+			</Rule>
 			<ParentImage condition="end with">C:\Program Files (x86)\Common Files\Adobe\AdobeGCClient\AGSService.exe</ParentImage>
 			<!--SECTION: Adobe:Acrobat DC-->
 			<Image condition="end with">C:\Program Files (x86)\Adobe\Acrobat DC\Acrobat\AcroCEF\AcroCEF.exe</Image> <!--Adobe:Acrobat: Sandbox subprocess, still evaluating security exposure-->
@@ -243,11 +257,17 @@
 			<!--SECTION: Cisco-->
 			<ParentImage condition="end with">C:\Program Files (x86)\Cisco\Cisco AnyConnect Secure Mobility Client\vpnagent.exe</ParentImage> <!--Cisco: Calls netsh to change settings on connect-->
 			<!--SECTION: Drivers-->
+			<Rule groupRelation="and">
+			<Image condition="is">C:\Program Files\DellTPad\ApMsgFwd.exe</Image>
 			<CommandLine condition="begin with">"C:\Program Files\DellTPad\ApMsgFwd.exe" -s{</CommandLine>
+			</Rule>
+			<Rule groupRelation="and">
+			<Image condition="is">C:\Program Files\DellTPad\ApMsgFwd.exe</Image>
 			<CommandLine condition="is">C:\Windows\system32\igfxsrvc.exe -Embedding</CommandLine>
+			</Rule>
 			<ParentImage condition="end with">C:\Program Files\Realtek\Audio\HDA\RtkAudioService64.exe</ParentImage> <!--Realtek:Driver: routine actions-->
 			<!--SECTION: Dropbox-->
-			<Image condition="end with">C:\Program Files (x86)\Dropbox\Update\DropboxUpdate.exe</Image> <!--Dropbox:Updater: Lots of command-line arguments-->
+			<Image condition="is">C:\Program Files (x86)\Dropbox\Update\DropboxUpdate.exe</Image> <!--Dropbox:Updater: Lots of command-line arguments-->
 			<ParentImage condition="end with">C:\Program Files (x86)\Dropbox\Update\DropboxUpdate.exe</ParentImage>
 			<!--SECTION: Dell-->
 			<ParentImage condition="is">C:\Program Files (x86)\Dell\CommandUpdate\InvColPC.exe</ParentImage> <!--Dell:CommandUpdate: Detection process-->
