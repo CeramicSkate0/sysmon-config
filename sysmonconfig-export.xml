@@ -1751,6 +1751,7 @@
 		<RuleGroup name="DnsQuery exclude" groupRelation="or">
 		<DnsQuery onmatch="exclude">
 			<Image condition="is">c:\program files\fortinet\forticlient\fortiwf.exe</Image>
+			<Image condition="is">C:\Program Files\Fortinet\FortiClient\update_task.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\OpenDNS Updater\OpenDNSUpdater.exe</Image>
 			<Image condition="is">c:\windows\sysmon.exe</Image>
 			<!--Network noise-->
