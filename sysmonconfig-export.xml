@@ -1201,7 +1201,6 @@
 		<RuleGroup name="RegistryEvent include" groupRelation="or">
 		<RegistryEvent onmatch="include">
 			<!--Credential providers-->
-			<TargetObject name="A windows Reg Modification has occured for a windows service" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Services\</TargetObject>
 			<TargetObject name="Modification on WMI logging method ETW Tracer" condition="contains">\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AUTOLOGGER_NAME\</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\Credential Provider</TargetObject> <!--Wildcard, includes Credental Providers and Credential Provider Filters-->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa</TargetObject>
