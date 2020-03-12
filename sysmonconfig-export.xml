@@ -539,6 +539,8 @@
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">chrome_frame_helper.dll</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">DESqmWrapper.dll</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">fslapi.dll</ImageLoaded>
+			<ImageLoaded condition="end with" name="Debugging DLL Loaded">dbgeng.dll</ImageLoaded>
+			<ImageLoaded condition="end with" name="Debugging DLL Loaded">dbghelp.dll</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">FSPMAPI.dll</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">Sidebar.dll</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">hha.dll</ImageLoaded>
