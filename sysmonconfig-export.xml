@@ -163,7 +163,6 @@
 			
 			<Rule groupRelation="and">
 			<Image condition="is">c:\windows\system32\taskhostw.exe</Image>
-			<CommandLine condition="is">taskhostw.exe "c:\program files\common files\microsoft shared\clicktorun\officec2rclient.exe" /frequentupdate scheduledtask displaylevel=false</CommandLine>
 			<ParentImage condition="is">c:\windows\system32\svchost.exe</ParentImage>
 			</Rule>
 			
