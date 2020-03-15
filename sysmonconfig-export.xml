@@ -367,6 +367,7 @@
 			<Image condition="end with">\iexplore.exe</Image><!--Browser-->
 			<Image condition="end with">MicrosoftEdge.exe</Image><!--Browser-->
 			<Image condition="is">C:\Windows\System32\dns.exe</Image><!-- noisy for dns -->
+			<Image condition="begin with">c:\program files\oracle\virtualbox\</Image>
 			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Image>
 			<Image condition="is">C:\Windows\System32\smartscreen.exe</Image><!-- noisy -->
 			<Image condition="is">C:\Windows\System32\svchost.exe</Image><!-- noisy for dns and ldap -->
@@ -384,7 +385,6 @@
 			<Image condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Image><!-- noisy for 5353 MDNS -->
 			<Image condition="is">C:\Windows\System32\dfssvc.exe</Image><!-- noisy for ldap -->
 			<Image condition="is">C:\Windows\System32\dsregcmd.exe</Image><!-- noisy for ldap -->
-			<Image condition="is">C:\Program Files\Oracle\VirtualBox\VirtualBoxVM.exe</Image>
 			<Image condition="is">C:\Windows\System32\certsrv.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Trend Micro\Control Manager\ReportServer.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Citrix\XenCenter\XenCenterMain.exe</Image>
