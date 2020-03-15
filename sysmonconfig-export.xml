@@ -909,6 +909,7 @@
 			<Image condition="begin with">C:\Program Files (x86)\</Image> 
 			<Image condition="begin with">C:\Program Files \</Image> 
 			<Image condition="begin with">C:\Windows\</Image>
+			<Image condition="begin with">C:\ProgramData\Microsoft\Windows Defender\Platform\</Image>
 			<Image condition="is">system</Image>
 			<Image condition="is">C:\ProgramData\Microsoft\Windows Defender\Platform\4.18.1907.4-0\MsMpEng.exe</Image>
 			<Image condition="is">C:\Windows\System32\svchost.exe</Image>
