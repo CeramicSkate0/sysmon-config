@@ -480,7 +480,7 @@
 		<RuleGroup name="ImageLoad include" groupRelation="or">
 		<ImageLoad onmatch="include">
 			<Image condition="end with">mshta.exe</Image>
-		    <Image name="MitreRef=T1128,Technique=Netsh Helper Beacon DLL,Tactic=Persistence, also it manages windows firewall." condition="contains">netsh.exe</Image>
+		    <Image name="MitreRef=T1128,Technique=Netsh Helper Beacon DLL,Tactic=Persistence, also it manages windows firewall." condition="end with">netsh.exe</Image>
 		    <ImageLoaded name="technique_id=T1047,technique_name=Windows Management Instrumentation" condition="end with">wmiutils.dll</ImageLoaded>
 			<ImageLoaded condition="end with" name="comsvcs dll load- Look for Possible minidump or com bypass">comsvcs.dll</ImageLoaded><!-- This DLL is known to be able to minidump lsass using minidump arg -->
 		    <ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">\\</ImageLoaded><!-- loaded from network file share -->
@@ -543,6 +543,7 @@
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">fslapi.dll</ImageLoaded>
 			<ImageLoaded condition="end with" name="Debugging DLL Loaded">dbgeng.dll</ImageLoaded>
 			<ImageLoaded condition="end with" name="Debugging DLL Loaded">dbghelp.dll</ImageLoaded>
+            <ImageLoaded condition="end with" name="Debuging DLL Loaded">dbgcore.dll</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">FSPMAPI.dll</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">Sidebar.dll</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">hha.dll</ImageLoaded>
@@ -565,7 +566,6 @@
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">Ushata.dll</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">libvlc.dll</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">AhnI2.dll</ImageLoaded>
-		    <ImageLoaded condition="end with" name="Debuging DLL Loaded">dbgcore.dll</ImageLoaded>
 		    <ImageLoaded condition="contains" name="Possible MSBUILD Payload">Microsoft.Build.Tasks</ImageLoaded>
 		    <ImageLoaded condition="contains" name="Possible MSBUILD Payload">Microsoft.Build.Framework</ImageLoaded>
 		    <ImageLoaded condition="contains" name="Possible MSBUILD Payload">Microsoft.Build.Utilities</ImageLoaded>
@@ -619,117 +619,175 @@
 			<SignatureStatus condition="is" name="DLL loaded with Invalid signature. Suspicous.">Unavailable</SignatureStatus>
 			<SignatureStatus name="DLL loaded with Invalid signature. Suspicous.">Invalid</SignatureStatus>			
 			<Signature condition="is not" name="Non Micrsoft DLL found">Microsoft Windows</Signature>
-			<Signed  condition="is" name="DLL loaded with Invalid Hash Signature. Suspicous.">Invalid hash</Signed>
-			<Signed condition="is" name="Unsigned DLL loaded" >false</Signed>
+			<Signed condition="is" name="DLL loaded with Invalid Hash Signature. Suspicous.">Invalid hash</Signed>
+			<Signed condition="is" name="Unsigned DLL loaded">false</Signed>
 			<!--Capture components used by malicious macros and scripts.-->
 			<Rule groupRelation="or">
-			<ImageLoaded name="technique_id=T1064,technique_name=Windows Scripting Host Component" condition="end with">wshom.ocx</ImageLoaded>
-			<ImageLoaded condition="end with">scrrun.dll</ImageLoaded>
-			<ImageLoaded condition="end with">vbscript.dll</ImageLoaded>
+				<ImageLoaded name="technique_id=T1064,technique_name=Windows Scripting Host Component" condition="end with">wshom.ocx</ImageLoaded>
+				<ImageLoaded name="technique_id=T1064,technique_name=Windows Scripting Host Component" condition="end with">scrrun.dll</ImageLoaded>
+				<ImageLoaded name="technique_id=T1064,technique_name=Windows Scripting Host Component" condition="end with">vbscript.dll</ImageLoaded>
 			</Rule>
 			<!--Check for loading of the PowerShell engine-->
 			<Rule groupRelation="or">
-			<ImageLoaded name="technique_id=T1086,technique_name=PowerShell Engine" condition="end with">System.Management.Automation.ni.dll</ImageLoaded>
-			<ImageLoaded condition="end with">System.Management.Automation.dll</ImageLoaded>
+				<ImageLoaded name="technique_id=T1086,technique_name=PowerShell Engine" condition="end with">System.Management.Automation.ni.dll</ImageLoaded>
+				<ImageLoaded name="technique_id=T1086,technique_name=PowerShell Engine" condition="end with">System.Management.Automation.dll</ImageLoaded>
 			</Rule>
 			<Rule groupRelation="or">
-			<ImageLoaded condition="end with" name="Defense Evasion - Unusual EXE Extension loaded as DLL">.exe</ImageLoaded>
-			<Signed condition="is" name="Unsigned DLL loaded" >false</Signed>
+				<ImageLoaded condition="end with" name="Defense Evasion - Unusual EXE Extension loaded as DLL">.exe</ImageLoaded>
+				<Signed condition="is" name="Unsigned DLL loaded" >false</Signed>
 			</Rule>
 			<!--Detect the Squiblydoo technique-->
 			<Rule groupRelation="or">
-			<ImageLoaded name="technique_id=T1117,technique_name=Regsvr32" condition="end with">scrobj.dll</ImageLoaded>
+				<ImageLoaded name="technique_id=T1117,technique_name=Regsvr32" condition="end with">scrobj.dll</ImageLoaded>
 			</Rule>
 			<Rule groupRelation="and">
-			<ImageLoaded name="technique_id=T1003,technique_name=Credential Dumping mimikatz_inmem" condition="is">C:\Windows\System32\samlib.dll</ImageLoaded> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003-->
-			<ImageLoaded name="technique_id=T1003,technique_name=Credential Dumping mimikatz_inmem" condition="is">C:\Windows\System32\WinSCard.dll</ImageLoaded> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003-->
-			<ImageLoaded name="technique_id=T1003,technique_name=Credential Dumping mimikatz_inmem" condition="is">C:\Windows\System32\cryptdll.dll</ImageLoaded> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003-->
-			<ImageLoaded name="technique_id=T1003,technique_name=Credential Dumping mimikatz_inmem" condition="is">C:\Windows\System32\hid.dll</ImageLoaded> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003-->
-			<ImageLoaded name="technique_id=T1003,technique_name=Credential Dumping mimikatz_inmem" condition="is">C:\Windows\System32\vaultcli.dll</ImageLoaded> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003-->
-			<ImageLoaded name="technique_id=T1003,technique_name=Credential Dumping mimikatz_inmem" condition="is">C:\Windows\System32\wlanapi.dll</ImageLoaded> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003-->      
-			<ImageLoaded name="technique_id=1137,technique_name=Office Application Startup" condition="end with">.wll</ImageLoaded>
-			<ImageLoaded name="technique_id=T1137,technique_name=Office Application Startup" condition="end with">.xll</ImageLoaded>
+				<ImageLoaded name="technique_id=T1003,technique_name=Credential Dumping mimikatz_inmem" condition="is">C:\Windows\System32\samlib.dll</ImageLoaded> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003-->
+				<ImageLoaded name="technique_id=T1003,technique_name=Credential Dumping mimikatz_inmem" condition="is">C:\Windows\System32\WinSCard.dll</ImageLoaded> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003-->
+				<ImageLoaded name="technique_id=T1003,technique_name=Credential Dumping mimikatz_inmem" condition="is">C:\Windows\System32\cryptdll.dll</ImageLoaded> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003-->
+				<ImageLoaded name="technique_id=T1003,technique_name=Credential Dumping mimikatz_inmem" condition="is">C:\Windows\System32\hid.dll</ImageLoaded> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003-->
+				<ImageLoaded name="technique_id=T1003,technique_name=Credential Dumping mimikatz_inmem" condition="is">C:\Windows\System32\vaultcli.dll</ImageLoaded> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003-->
+				<ImageLoaded name="technique_id=T1003,technique_name=Credential Dumping mimikatz_inmem" condition="is">C:\Windows\System32\wlanapi.dll</ImageLoaded> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003-->      
+				<ImageLoaded name="technique_id=1137,technique_name=Office Application Startup" condition="end with">.wll</ImageLoaded>
+				<ImageLoaded name="technique_id=T1137,technique_name=Office Application Startup" condition="end with">.xll</ImageLoaded>
 			</Rule>
 			<ImageLoaded name="technique_id=T1073,technique_name=DLL Side-Loading" condition="contains any" >admin$;c$;\\;\appdata\;\temp\</ImageLoaded><!-- loaded from network file share -->   
+			<!--Detect execution of HTA using the IE Javascript engine to bypass AMSI-->
+			<!--Note: Rule placed before Windows Scriptingh to ensure it triggers on this on case any other component is used.-->
+			<Rule groupRelation="and">
+				<ImageLoaded name="technique_id=T1170,technique_name=MSHTA with AMSI Bypass" condition="end with">jscript9.dll</ImageLoaded>
+				<Image condition="end with">mshta.exe</Image>
+			</Rule>
+			<!--Detect the Squiblydoo technique-->
+			<Rule groupRelation="or">
+				<ImageLoaded name="technique_id=T1117,technique_name=Regsvr32" condition="end with">scrobj.dll</ImageLoaded>
+			</Rule>
+			<Rule groupRelation="and">
+				<Image condition="end with">excel.exe</Image>
+				<ImageLoaded condition="end with" name="MS Excel loading task scheduler functionality">taskschd.dll</ImageLoaded>
+			</Rule>
+			<Rule groupRelation="and">
+				<Image condition="end with">winword.exe</Image>
+				<ImageLoaded condition="end with" name="MS Word loading task scheduler functionality">taskschd.dll</ImageLoaded>
+			</Rule>
+			<Rule groupRelation="and">
+				<Image condition="end with">powerpnt.exe</Image>
+				<ImageLoaded condition="end with" name="MS Powerpoint loading task scheduler functionality">taskschd.dll</ImageLoaded>
+			</Rule>
+			<Rule groupRelation="and">
+				<Image condition="end with">outlook.exe</Image>
+				<ImageLoaded condition="end with" name="MS Outlook loading task scheduler functionality">taskschd.dll</ImageLoaded>
+			</Rule>
+			<Rule groupRelation="and">
+				<Image condition="end with">excel.exe</Image>
+				<ImageLoaded condition="end with" name="MS Excel loading WMI">wmiutils.dll</ImageLoaded>
+			</Rule>
+			<Rule groupRelation="and">
+				<Image condition="end with">winword.exe</Image>
+				<ImageLoaded condition="end with" name="MS Word loading WMI">wmiutils.dll</ImageLoaded>
+			</Rule>
+			<Rule groupRelation="and">
+				<Image condition="end with">powerpnt.exe</Image>
+				<ImageLoaded condition="end with" name="MS powerpoint loading WMI">wmiutils.dll</ImageLoaded>
+			</Rule>
+			<Rule groupRelation="and">
+				<Image condition="end with">outlook.exe</Image>
+				<ImageLoaded condition="end with" name="MS outlook loading WMI">wmiutils.dll</ImageLoaded>
+			</Rule>
+			<Rule groupRelation="and">
+				<Image condition="end with">excel.exe</Image>
+				<ImageLoaded condition="end with" name="MS Excel loading WMI">wbemsvc.dll</ImageLoaded>
+			</Rule>
+			<Rule groupRelation="and">
+				<Image condition="end with">winword.exe</Image>
+				<ImageLoaded condition="end with" name="MS Word loading WMI">wbemsvc.dll</ImageLoaded>
+			</Rule>
+			<Rule groupRelation="and">
+				<Image condition="end with">powerpnt.exe</Image>
+				<ImageLoaded condition="end with" name="MS powerpoint loading WMI">wbemsvc.dll</ImageLoaded>
+			</Rule>
+			<Rule groupRelation="and">
+				<Image condition="end with">outlook.exe</Image>
+				<ImageLoaded condition="end with" name="MS outlook loading WMI">wbemsvc.dll</ImageLoaded>
+			</Rule>
 		</ImageLoad>
 		</RuleGroup>
 		
 		<!--SYSMON EVENT ID 7 : DLL (IMAGE) LOADED BY PROCESS [ImageLoad]-->
 		<RuleGroup name="ImageLoad exclude" groupRelation="or">
 		<ImageLoad onmatch="exclude">
-			  <ImageLoaded>C:\Windows\System32\duser.dll</ImageLoaded>
-			  <ImageLoaded>C:\Windows\Syswow64\duser.dll</ImageLoaded>
-			  <ImageLoaded>C:\Windows\System32\osksupport.dll</ImageLoaded>
-			  <ImageLoaded>C:\Windows\Syswow64\osksupport.dll</ImageLoaded>
-			  <ImageLoaded>C:\Windows\System32\DismCore.dll</ImageLoaded>
-			  <ImageLoaded>C:\Windows\Syswow64\DismCore.dll</ImageLoaded>
-			  <ImageLoaded>C:\Windows\Syswow64\comctl32.dll</ImageLoaded>
-			  <ImageLoaded>C:\Windows\System32\comctl32.dll</ImageLoaded>
-			  <ImageLoaded>C:\Windows\System32\Dism\LogProvider.dll</ImageLoaded>
-			  <ImageLoaded>c:\windows\SysWOW64\dism\LogProvider.dll</ImageLoaded>
-			  <Image condition="is">C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</Image>
+			  <ImageLoaded condition="is">C:\Windows\System32\duser.dll</ImageLoaded>
+			  <ImageLoaded condition="is">C:\Windows\Syswow64\duser.dll</ImageLoaded>
+			  <ImageLoaded condition="is">C:\Windows\System32\osksupport.dll</ImageLoaded>
+			  <ImageLoaded condition="is">C:\Windows\Syswow64\osksupport.dll</ImageLoaded>
+			  <ImageLoaded condition="is">C:\Windows\System32\DismCore.dll</ImageLoaded>
+			  <ImageLoaded condition="is">C:\Windows\Syswow64\DismCore.dll</ImageLoaded>
+			  <ImageLoaded condition="is">C:\Windows\Syswow64\comctl32.dll</ImageLoaded>
+			  <ImageLoaded condition="is">C:\Windows\System32\comctl32.dll</ImageLoaded>
+			  <ImageLoaded condition="is">C:\Windows\System32\Dism\LogProvider.dll</ImageLoaded>
+			  <ImageLoaded condition="is">c:\windows\SysWOW64\dism\LogProvider.dll</ImageLoaded>
+			  <!-- <Image condition="is">C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</Image> -->
 			  <ImageLoaded condition="begin with">C:\Program Files\Microsoft Office\root\Office</ImageLoaded> <!-- wwlib.dll side loading FP -->
 			  <Image condition="is">C:\Windows\System32\WinSAT.exe</Image>
 			  <Image condition="is">c:\windows\system32\surfacedtx.exe</Image>
 			  <Image condition="is">c:\windows\system32\cavs\intel(r) audio service\intelaudioservice.exe</Image>
 			  <Image condition="is">c:\program files (x86)\keepass password safe 2\keepass.exe</Image>
-			  <Image>C:\Windows\System32\wermgr.exe</Image> <!-- FP for schtask COM -->
-			  <Image>C:\Windows\System32\sdiagnhost.exe</Image><!-- FPs for wmiutil -->
-			  <ImageLoaded>C:\Windows\System32\cryptbase.dll</ImageLoaded>
-			  <ImageLoaded>C:\Windows\SysWOW64\winspool.drv</ImageLoaded>
-			  <ImageLoaded>C:\Windows\System32\winspool.drv</ImageLoaded>
+			  <Image condition="is">C:\Windows\System32\wermgr.exe</Image> <!-- FP for schtask COM -->
+			  <Image condition="is">C:\Windows\System32\sdiagnhost.exe</Image><!-- FPs for wmiutil -->
+			  <ImageLoaded condition="is">C:\Windows\System32\cryptbase.dll</ImageLoaded>
+			  <ImageLoaded condition="is">C:\Windows\SysWOW64\winspool.drv</ImageLoaded>
+			  <ImageLoaded condition="is">C:\Windows\System32\winspool.drv</ImageLoaded>
 			  <ImageLoaded condition="begin with">PathC:\Windows\WinSxS</ImageLoaded>
-			  <ImageLoaded>C:\Windows\System32\amsi.dll</ImageLoaded>
-			  <ImageLoaded>C:\Windows\System32\msi.dll</ImageLoaded>
-			  <ImageLoaded>C:\Windows\System32\userenv.dll</ImageLoaded>
-			  <ImageLoaded>C:\Windows\System32\winmm.dll</ImageLoaded>
+			  <ImageLoaded condition="is">C:\Windows\System32\amsi.dll</ImageLoaded>
+			  <ImageLoaded condition="is">C:\Windows\System32\msi.dll</ImageLoaded>
+			  <ImageLoaded condition="is">C:\Windows\System32\userenv.dll</ImageLoaded>
+			  <ImageLoaded condition="is">C:\Windows\System32\winmm.dll</ImageLoaded>
 			  <ImageLoaded condition="end with">.exe</ImageLoaded>
-			  <Image>C:\Windows\System32\dllhost.exe</Image>
+			  <Image condition="is">C:\Windows\System32\dllhost.exe</Image>
 			  <Image condition="end with">powershell.exe</Image>
 			  <Image condition="begin with">C:\Windows\Microsoft.NET\Framework64\</Image>
-			  <Image>C:\Windows\System32\DeviceCensus.exe</Image>
-			  <Image>C:\Windows\System32\systeminfo.exe</Image>
-			  <Image>C:\Windows\System32\LockAppHost.exe</Image>
-			  <Image>C:\Program Files\Google\Update\GoogleUpdate.exe</Image>
+			  <Image condition="is">C:\Windows\System32\DeviceCensus.exe</Image>
+			  <Image condition="is">C:\Windows\System32\systeminfo.exe</Image>
+			  <Image condition="is">C:\Windows\System32\LockAppHost.exe</Image>
+			  <Image condition="is">C:\Program Files\Google\Update\GoogleUpdate.exe</Image>
 			  <Image condition="end with">powershell_ise.exe</Image>
-			  <Image>C:\Windows\System32\wbem\WmiPrvSE.exe</Image>
-			  <Image>C:\Windows\System32\SrTasks.exe</Image>
+			  <Image condition="is">C:\Windows\System32\wbem\WmiPrvSE.exe</Image>
+			  <Image condition="is">C:\Windows\System32\SrTasks.exe</Image>
 			  <Image condition="end with">DismHost.exe</Image>
 			  <Image condition="begin with">C:\Windows\Microsoft.NET\Framework\</Image>
-			  <Image>C:\Windows\System32\wbem\WmiApSrv.exe</Image>
-			  <Image>C:\Windows\SysWOW64\wbem\WmiPrvSE.exe</Image>
-			  <Image>C:\Program Files\Microsoft Policy Platform\policyHost.exe</Image>
-			  <Image>C:\Windows\System32\SearchProtocolHost.exe</Image>
-			  <Image>C:\Windows\System32\SearchFilterHost.exe</Image>
-			  <Image>C:\Windows\System32\backgroundTaskHost.exe</Image>
-			  <Image>C:\Windows\servicing\TrustedInstaller.exe</Image>
+			  <Image condition="is">C:\Windows\System32\wbem\WmiApSrv.exe</Image>
+			  <Image condition="is">C:\Windows\SysWOW64\wbem\WmiPrvSE.exe</Image>
+			  <Image condition="is">C:\Program Files\Microsoft Policy Platform\policyHost.exe</Image>
+			  <Image condition="is">C:\Windows\System32\SearchProtocolHost.exe</Image>
+			  <Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
+			  <Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image>
+			  <Image condition="is">C:\Windows\servicing\TrustedInstaller.exe</Image>
 			  <Image condition="begin with">C:\Windows\System32\taskhost</Image>
-			  <Image>C:\Windows\System32\LogonUI.exe</Image>
-			  <Image>C:\Windows\System32\wifitask.exe</Image>
-			  <Image>C:\Program Files\Microsoft Data Protection Manager\DPM\bin\DPMRA.exe</Image>
-			  <Image>C:\Windows\System32\VSSVC.exe</Image>
-			  <Image>C:\Windows\System32\netsh.exe</Image>
+			  <Image condition="is">C:\Windows\System32\LogonUI.exe</Image>
+			  <Image condition="is">C:\Windows\System32\wifitask.exe</Image>
+			  <Image condition="is">C:\Program Files\Microsoft Data Protection Manager\DPM\bin\DPMRA.exe</Image>
+			  <Image condition="is">C:\Windows\System32\VSSVC.exe</Image>
+			  <Image condition="is">C:\Windows\System32\netsh.exe</Image>
 			  <Image condition="end with">AppData\Local\Microsoft\Teams\current\Teams.exe</Image>
-			  <Image>C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Image>
-			  <Image>C:\Windows\System32\raserver.exe</Image>
-			  <Image>C:\Windows\System32\RuntimeBroker.exe</Image>
+			  <Image condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Image>
+			  <Image condition="is">C:\Windows\System32\raserver.exe</Image>
+			  <Image condition="is">C:\Windows\System32\RuntimeBroker.exe</Image>
 			  <Image condition="begin with">C:\Windows\SystemApps\</Image>
-			  <Image>C:\Windows\System32\SearchIndexer.exe</Image>
-			  <Image>C:\Windows\explorer.exe</Image>
-			  <Image>C:\Windows\System32\sppsvc.exe</Image><!-- noisy for taskschd.dll-->
-			  <Image>C:\Program Files\Internet Explorer\iexplore.exe</Image>
+			  <Image condition="is">C:\Windows\System32\SearchIndexer.exe</Image>
+			  <Image condition="is">C:\Windows\explorer.exe</Image>
+			  <Image condition="is">C:\Windows\System32\sppsvc.exe</Image><!-- noisy for taskschd.dll-->
+			  <Image condition="is">C:\Program Files\Internet Explorer\iexplore.exe</Image>
 			  <Image condition="begin with">C:\Windows\CCM\</Image>
-			  <Image>C:\Program Files\Manufacturer\Endpoint Agent\edpa.exe</Image>
-			  <Image>C:\Program Files\Microsoft Data Protection Manager\DPM\bin\DPMClientService.exe</Image>
+			  <Image condition="is">C:\Program Files\Manufacturer\Endpoint Agent\edpa.exe</Image>
+			  <Image condition="is">C:\Program Files\Microsoft Data Protection Manager\DPM\bin\DPMClientService.exe</Image>
 			  <Image condition="begin with">C:\Program Files (x86)\Microsoft Visual Studio\</Image>
-			  <Image>C:\Windows\System32\provtool.exe</Image>
-			  <Image>C:\Program Files\CONEXANT\SA3\HP-NB-AIO\SmartAudio3.exe</Image>
-			  <Image>C:\Windows\System32\mmc.exe</Image>
-			  <Image>C:\Program Files\Synaptics\SynTP\SynTPEnh.exe</Image>
-			  <Image>C:\Windows\System32\wlanext.exe</Image>
+			  <Image condition="is">C:\Windows\System32\provtool.exe</Image>
+			  <Image condition="is">C:\Program Files\CONEXANT\SA3\HP-NB-AIO\SmartAudio3.exe</Image>
+			  <Image condition="is">C:\Windows\System32\mmc.exe</Image>
+			  <Image condition="is">C:\Program Files\Synaptics\SynTP\SynTPEnh.exe</Image>
+			  <Image condition="is">C:\Windows\System32\wlanext.exe</Image>
 			  <Image condition="begin with">C:\Program Files\Microsoft SQL Server\</Image>
 			  <Image condition="is">C:\Windows\System32\ibtsiva.exe</Image>
-			  <Image condition="is">C:\Windows\System32\lsass.exe</Image>
+			  <Image condition="is">C:\Windows\System32\lsass.exe</Image><!-- I'd recommend commenting this out if you want to look for DLLs loaded into this processes, but it can be noisy-->
 			  <Image condition="is">C:\Windows\System32\dwm.exe</Image>
 			  <Image condition="is">C:\Windows\System32\MicTray64.exe</Image>
 			  <Image condition="is">C:\Program Files\Intel\WiFi\bin\EvtEng.exe</Image>
@@ -803,6 +861,14 @@
 			<ImageLoaded condition="begin with">C:\Windows\System32\spool\</ImageLoaded>
 			<ImageLoaded condition="begin with">C:\Program Files\WindowsApps</ImageLoaded>
 			<ImageLoaded condition="is">C:\Program Files\Microsoft SQL Server\100\Shared\dbghelp.dll</ImageLoaded>
+				<!-- Exclude SPLUNK HEY! NOTE This needs to point to the exact path of your splunk install to avoid a blind spot if you dont want to log it-->
+			<Image condition="end with">splunkd.exe</Image>
+			<Image condition="end with">splunk-MonitorNoHandle.exe</Image>
+			<Image condition="end with">splunk-regmon.exe</Image>
+			<Image condition="end with">splunk-netmon.exe</Image>
+			<Image condition="end with">splunk-powershell.exe</Image>
+			<Image condition="end with">splunk-winprintmon.exe</Image>
+			<Image condition="end with">splunk-admon.exe</Image>
 			<Rule groupRelation="and">
 			<Signature condition="contains">Microsoft</Signature>
 			<SignatureStatus condition="is">Valid</SignatureStatus>
