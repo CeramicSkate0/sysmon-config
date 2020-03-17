@@ -636,10 +636,6 @@
 				<ImageLoaded condition="end with" name="Defense Evasion - Unusual EXE Extension loaded as DLL">.exe</ImageLoaded>
 				<Signed condition="is" name="Unsigned DLL loaded" >false</Signed>
 			</Rule>
-			<!--Detect the Squiblydoo technique-->
-			<Rule groupRelation="or">
-				<ImageLoaded name="technique_id=T1117,technique_name=Regsvr32" condition="end with">scrobj.dll</ImageLoaded>
-			</Rule>
 			<Rule groupRelation="and">
 				<ImageLoaded name="technique_id=T1003,technique_name=Credential Dumping mimikatz_inmem" condition="is">C:\Windows\System32\samlib.dll</ImageLoaded> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003-->
 				<ImageLoaded name="technique_id=T1003,technique_name=Credential Dumping mimikatz_inmem" condition="is">C:\Windows\System32\WinSCard.dll</ImageLoaded> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003-->
