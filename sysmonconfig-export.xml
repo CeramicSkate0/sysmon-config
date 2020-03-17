@@ -646,6 +646,10 @@
 				<ImageLoaded name="technique_id=1137,technique_name=Office Application Startup" condition="end with">.wll</ImageLoaded>
 				<ImageLoaded name="technique_id=T1137,technique_name=Office Application Startup" condition="end with">.xll</ImageLoaded>
 			</Rule>
+			<Rule groupRelation="and">
+				<Image condition="is not">C:\Windows\System32\vaultcmd.exe</Image>
+				<ImageLoaded name="technique_id=T1003,technique_name=Credential Dumping via access to windows cred vault by Suspicious Process" condition="is">C:\Windows\System32\vaultcli.dll</ImageLoaded> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003-->
+			</Rule>
 			<ImageLoaded name="technique_id=T1073,technique_name=DLL Side-Loading" condition="contains any" >admin$;c$;\\;\appdata\;\temp\</ImageLoaded><!-- loaded from network file share -->   
 			<!--Detect execution of HTA using the IE Javascript engine to bypass AMSI-->
 			<!--Note: Rule placed before Windows Scriptingh to ensure it triggers on this on case any other component is used.-->
