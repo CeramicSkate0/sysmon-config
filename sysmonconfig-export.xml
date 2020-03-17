@@ -1626,6 +1626,7 @@
 		<TargetFilename condition="end with">.dll</TargetFilename>
 		<TargetFilename condition="end with">.zip</TargetFilename>
 		<TargetFilename condition="end with">.txt</TargetFilename>
+		<TargetFilename condition="end with">.sct</TargetFilename>
 		<TargetFilename condition="end with">.js</TargetFilename>
 		<TargetFilename condition="end with">.jse</TargetFilename>
 		<TargetFilename condition="end with">.ini</TargetFilename>
