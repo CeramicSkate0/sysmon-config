@@ -1615,7 +1615,7 @@
 		<!--NOTE: Other filesystem minifilters can make it appear to Sysmon that some files are being written twice. This is not a Sysmon issue, per Mark Russinovich.-->
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, Hash-->
 		<RuleGroup name="ALTERNATE DATA STREAM include" groupRelation="or">
-        <FileCreateStreamHash onmatch="include">
+        	<FileCreateStreamHash onmatch="include">
 		<TargetFilename condition="contains">Startup</TargetFilename> <!--ADS startup | Example: [ https://www.hybrid-analysis.com/sample/a314f6106633fba4b70f9d6ddbee452e8f8f44a72117749c21243dc93c7ed3ac?environmentId=100 ] -->
 		<TargetFilename name="File stream created 7zip extractions" condition="contains">Temp\7z</TargetFilename> <!--7zip extractions-->
 		<TargetFilename condition="end with">.bat</TargetFilename> <!--Batch scripting-->
@@ -1624,6 +1624,10 @@
 		<TargetFilename condition="contains">\Downloads\</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE-->
 		<TargetFilename condition="end with">.exe</TargetFilename>
 		<TargetFilename condition="end with">.dll</TargetFilename>
+		<TargetFilename condition="end with">.zip</TargetFilename>
+		<TargetFilename condition="end with">.txt</TargetFilename>
+		<TargetFilename condition="end with">.js</TargetFilename>
+		<TargetFilename condition="end with">.jse</TargetFilename>
 		<TargetFilename condition="end with">.ini</TargetFilename>
 		<TargetFilename condition="end with">.bin</TargetFilename>
 		<TargetFilename condition="end with">.doc</TargetFilename> <!--Office doc potentially with macro -->
