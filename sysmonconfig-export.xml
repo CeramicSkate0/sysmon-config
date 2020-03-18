@@ -178,7 +178,12 @@
 			<ParentCommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k DcomLaunch -p</ParentCommandLine>
 			<User condition="is">NT AUTHORITY\NETWORK SERVICE</User>
 			</Rule>
-			
+			<Rule groupRelation="and">
+			<Image condition="is">C:\Windows\System32\wermgr.exe</Image>
+			<ParentImage condition="is">C:\Windows\System32\svchost.exee</ParentImage>
+			<CommandLine condition="is">C:\WINDOWS\system32\wermgr.exe -upload</CommandLine>
+			<ParentCommandLine condition="is">C:\WINDOWS\system32\svchost.exe -k netsvcs -p -s Schedule</ParentCommandLine>
+			</Rule>
 			<Rule groupRelation="and">
 			<Image condition="is">c:\windows\system32\logonui.exe</Image>
 			<ParentImage condition="is">c:\windows\system32\winlogon.exe</ParentImage>
