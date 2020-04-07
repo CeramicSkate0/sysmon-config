@@ -626,6 +626,18 @@
 			<Signature condition="is not" name="Non Micrsoft DLL found">Microsoft Windows</Signature>
 			<Signed condition="is" name="DLL loaded with Invalid Hash Signature. Suspicous.">Invalid hash</Signed>
 			<Signed condition="is" name="Unsigned DLL loaded">false</Signed>
+			<!--Default named C# OffSec Tooling, Google name with Word Github at the end to find it-->
+			<Rule groupRelation="or">
+				<ImageLoaded name="Default named CSharp Offensive Sec Tool" condition="contains">Sharphound</ImageLoaded>
+				<ImageLoaded name="Default named CSharp Offensive Sec Tool" condition="contains">SharpUp</ImageLoaded>
+				<ImageLoaded name="Default named CSharp Offensive Sec Tool" condition="contains">SharpDump</ImageLoaded>
+				<ImageLoaded name="Default named CSharp Offensive Sec Tool" condition="contains">Internal-Monologue</ImageLoaded>
+				<ImageLoaded name="Default named CSharp Offensive Sec Tool" condition="contains">Seatbelt</ImageLoaded>
+				<ImageLoaded name="Default named CSharp Offensive Sec Tool" condition="contains">SharpSploit</ImageLoaded>
+				<ImageLoaded name="Default named CSharp Offensive Sec Tool" condition="contains">SharpDPAPI</ImageLoaded>
+				<ImageLoaded name="Default named CSharp Offensive Sec Tool" condition="contains">SharpWMI</ImageLoaded>
+				<ImageLoaded name="Default named CSharp Offensive Sec Tool" condition="contains">SafetyKatz</ImageLoaded>
+\			</Rule>
 			<!--Capture components used by malicious macros and scripts.-->
 			<Rule groupRelation="or">
 				<ImageLoaded name="technique_id=T1064,technique_name=Windows Scripting Host Component" condition="end with">wshom.ocx</ImageLoaded>
