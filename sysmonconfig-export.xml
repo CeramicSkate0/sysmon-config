@@ -510,11 +510,6 @@
 		    <ImageLoaded condition="end with" name="Defense Evasion - Unusual Module Extension">.log</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Persistence - Winword Library Addin Loaded">.wll</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Persistence - Excel Library Addin Loaded">.xll</ImageLoaded>
-		    <ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">\\</ImageLoaded><!-- loaded from network file share -->
-		    <ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">admin$</ImageLoaded><!-- loaded from network file share -->
-		    <ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">c$</ImageLoaded><!-- loaded from network file share -->
-		    <ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">\appdata\</ImageLoaded>
-		    <ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">\temp\</ImageLoaded>
 		    <ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">c:\programdata\</ImageLoaded>
 		    <ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">C:\Windows\Media\</ImageLoaded>
 		    <ImageLoaded condition="begin with" name="Execution - Image Loaded from suspicious path">C:\Windows\addins\</ImageLoaded>
@@ -609,8 +604,8 @@
 			<ImageLoaded condition="contains" name="Attempts to ID Microsoft DLL loaded that is often used in Malware to add functionality to do things like encrypt and encrypt data, files, and other things in memory and on disk.">System.Security.Cryptography.X509Certificates</ImageLoaded>
 			<ImageLoaded condition="end with" name="Alert=Ramnit Banker Malware!" >rmnsoft.dll</ImageLoaded>
 			<ImageLoaded condition="begin with" name=".Net Assembly used">C:\Windows\assembly\NativeImages</ImageLoaded>
-			<ImageLoaded condition="contains" name="Mitre: https://attack.mitre.org/wiki/Technique/T1098" >samlib.dll</ImageLoaded>
-			<ImageLoaded condition="contains" name="Mitre: https://attack.mitre.org/wiki/Technique/T1098" >WinSCard.dll</ImageLoaded>
+			<ImageLoaded condition="contains" name="Mitre: https://attack.mitre.org/wiki/Technique/T1098">samlib.dll</ImageLoaded>
+			<ImageLoaded condition="contains" name="Mitre: https://attack.mitre.org/wiki/Technique/T1098">WinSCard.dll</ImageLoaded>
 			<ImageLoaded condition="is" name="fxsst.dll loaded">C:\windows\system32\fxsst.dll</ImageLoaded>
 			<ImageLoaded condition="contains" name="Powershell Lib loaded" >powershell</ImageLoaded> 
 			<ImageLoaded condition="end with" name="oci.dll loaded">oci.dll</ImageLoaded>
@@ -645,6 +640,9 @@
 				<ImageLoaded name="Default named CSharp Offensive Sec Tool" condition="contains">SharpDPAPI</ImageLoaded>
 				<ImageLoaded name="Default named CSharp Offensive Sec Tool" condition="contains">SharpWMI</ImageLoaded>
 				<ImageLoaded name="Default named CSharp Offensive Sec Tool" condition="contains">SafetyKatz</ImageLoaded>
+				<ImageLoaded name="Default named CSharp Offensive Sec Tool" condition="contains">Kiwi</ImageLoaded>
+				<ImageLoaded name="Default named CSharp Offensive Sec Tool" condition="contains">Katz</ImageLoaded>
+				<ImageLoaded name="Default named CSharp Offensive Sec Tool" condition="contains">Sharp</ImageLoaded>
 			</Rule>
 			<!--Capture components used by malicious macros and scripts.-->
 			<Rule groupRelation="or">
