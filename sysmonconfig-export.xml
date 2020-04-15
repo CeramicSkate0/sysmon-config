@@ -1589,6 +1589,8 @@
 		<RegistryEvent onmatch="exclude">
 		<!--COMMENT:	Remove low-information noise. Often these hide a procress recreating an empty key and do not hide the values created subsequently.-->
 			<!--SECTION: Microsoft binaries-->
+			<Image condition="is">c:\program files (x86)\microsoft visual studio\2019\community\msbuild\current\bin\msbuild.exe</Image>
+			<Image condition="is">c:\program files (x86)\microsoft visual studio\2019\community\msbuild\current\bin\roslyn\vbcscompiler.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\PerfWatson2.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\ServiceHub\Hosts\ServiceHub.Host.CLR.x86\ServiceHub.RoslynCodeAnalysisService32.exe</Image>
@@ -1755,6 +1757,8 @@
 		<!--SYSMON EVENT ID 17 & 18 : PipeEvent MONITORING [PipeEvent]-->
 		<RuleGroup name="PipeEvent exclude" groupRelation="or">		
 		<PipeEvent onmatch="exclude">
+			<Image condition="is">c:\program files (x86)\microsoft visual studio\2019\community\msbuild\current\bin\msbuild.exe</Image>
+			<Image condition="is">c:\program files (x86)\microsoft visual studio\2019\community\msbuild\current\bin\roslyn\vbcscompiler.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\PrivateAssemblies\ScriptedSandbox64.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\FortiClient\</Image>
