@@ -494,6 +494,7 @@
 		<RuleGroup name="ImageLoad include" groupRelation="or">
 		<ImageLoad onmatch="include">
 			<Image condition="end with">mshta.exe</Image>
+			<Image condition="end with">Dism.exe</Image>
 		    <Image name="MitreRef=T1128,Technique=Netsh Helper Beacon DLL,Tactic=Persistence, also it manages windows firewall." condition="end with">netsh.exe</Image>
 		    <ImageLoaded name="technique_id=T1047,technique_name=Windows Management Instrumentation" condition="end with">wmiutils.dll</ImageLoaded>
 			<ImageLoaded condition="end with" name="comsvcs dll load- Look for Possible minidump or com bypass">comsvcs.dll</ImageLoaded><!-- This DLL is known to be able to minidump lsass using minidump arg -->
@@ -631,6 +632,22 @@
 			<Signed condition="is" name="DLL loaded with Invalid Hash Signature. Suspicous.">Invalid hash</Signed>
 			<Signed condition="is" name="Unsigned DLL loaded">false</Signed>
 			<!--Default named C# OffSec Tooling, Google name with Word Github at the end to find it-->
+			<Rule groupRelation="or">
+			<Image condition="end with">Control.exe</Image>
+			<ImageLoaded condition="end with" name="Defense Evasion -Application Whitelisting Bypasses. Lolbins">.cpl</ImageLoaded>
+			</Rule>
+			<Rule groupRelation="or">
+			<Image condition="end with">rundll32.exe</Image>
+			<ImageLoaded condition="end with" name="Defense Evasion - Unusual Module Extension">.cpl</ImageLoaded>
+			</Rule>
+			<Rule groupRelation="or">
+			<Image condition="end with">SubWCRev.exe</Image>
+			<ImageLoaded condition="end with" name="Defense Evasion - Application Whitelisting Bypasses">crshhndl.dll</ImageLoaded>
+			</Rule>
+			<Rule groupRelation="or">
+			<Image condition="end with">PotPlayer.exe</Image>
+			<ImageLoaded condition="end with" name="Defense Evasion - Application Whitelisting Bypasses">PotPlayer.dll</ImageLoaded>
+			</Rule>
 			<Rule groupRelation="or">
 				<ImageLoaded name="Default named CSharp Offensive Sec Tool" condition="contains">Sharphound</ImageLoaded>
 				<ImageLoaded name="Default named CSharp Offensive Sec Tool" condition="contains">SharpUp</ImageLoaded>
