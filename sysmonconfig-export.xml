@@ -1774,6 +1774,7 @@
 		<!--SYSMON EVENT ID 17 & 18 : PipeEvent MONITORING [PipeEvent]-->
 		<RuleGroup name="PipeEvent exclude" groupRelation="or">		
 		<PipeEvent onmatch="exclude">
+			<Image condition="is">c:\program files (x86)\microsoft visual studio\2019\community\common7\servicehub\controller\microsoft.servicehub.controller.exe</Image>
 			<Image condition="is">c:\program files (x86)\microsoft visual studio\2019\community\msbuild\current\bin\msbuild.exe</Image>
 			<Image condition="is">c:\program files (x86)\microsoft visual studio\2019\community\msbuild\current\bin\roslyn\vbcscompiler.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\PrivateAssemblies\ScriptedSandbox64.exe</Image>
