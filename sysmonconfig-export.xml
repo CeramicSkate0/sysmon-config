@@ -1606,6 +1606,7 @@
 		<RegistryEvent onmatch="exclude">
 		<!--COMMENT:	Remove low-information noise. Often these hide a procress recreating an empty key and do not hide the values created subsequently.-->
 			<!--SECTION: Microsoft binaries-->
+			<Image condition="is">c:\program files\oracle\virtualbox\virtualboxvm.exe</Image>
 			<Image condition="is">c:\program files (x86)\microsoft visual studio\2019\community\common7\servicehub\hosts\servicehub.host.clr.x86\servicehub.settingshost.exe</Image>
 			<Image condition="is">c:\program files (x86)\microsoft visual studio\2019\community\msbuild\current\bin\msbuild.exe</Image>
 			<Image condition="is">c:\program files (x86)\microsoft visual studio\2019\community\msbuild\current\bin\roslyn\vbcscompiler.exe</Image>
@@ -1895,6 +1896,8 @@
 			<QueryName condition="is">localhost</QueryName>
 			<!--Microsoft-->
 			<QueryName condition="end with">.msftconnecttest.com</QueryName>
+			<QueryName condition="end with">.riotgames.com</QueryName>
+			<QueryName condition="end with">.riotcdn.net</QueryName>
 			<QueryName condition="end with">.microsoft.com</QueryName>
 			<QueryName condition="end with">-pushp.svc.ms</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
 			<QueryName condition="end with">.b-msedge.net</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
