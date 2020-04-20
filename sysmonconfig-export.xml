@@ -1977,7 +1977,7 @@
 			<!--Web resources-->
 			<QueryName condition="end with">.disqus.com</QueryName> <!--Microsoft default exclusion-->
 			<QueryName condition="end with">.fontawesome.com</QueryName>
-			<QueryName condition="is">disqus.com</QueryName> <!--Microsoft default exclusion-->
+			<QueryName condition="is">.disqus.com</QueryName> <!--Microsoft default exclusion-->
 			<!--Ads-->
 			<QueryName condition="end with">.1rx.io</QueryName> <!--Ads-->
 			<QueryName condition="end with">.2mdn.net</QueryName> <!--Ads: Google | Microsoft default exclusion-->
@@ -2096,7 +2096,7 @@
 			<QueryName condition="is">ocsp.msocsp.com</QueryName> <!--Microsoft:OCSP-->
 			<QueryName condition="end with">pki.goog</QueryName>
 			<QueryName condition="is">ocsp.godaddy.com</QueryName>
-			<QueryName condition="end with">amazontrust.com</QueryName>
+			<QueryName condition="end with">.amazontrust.com</QueryName>
 			<QueryName condition="is">ocsp.sectigo.com</QueryName>
 			<QueryName condition="is">pki-goog.l.google.com</QueryName>
 			<QueryName condition="end with">.usertrust.com</QueryName>
