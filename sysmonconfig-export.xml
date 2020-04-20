@@ -95,7 +95,7 @@
 			<Image condition="is">c:\windows\system32\conhost.exe</Image><!-- Child process of conhost not very good tell, parent of conhost is better for detection. But this is useful if you want to track who is using console per process-->
 			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Common Files\microsoft shared\ink\TabTip32.exe</Image> <!--Microsoft:Windows: Touch Keyboard and Handwriting Panel Helper-->
-			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image>
+			<Image condition="is">C:\Windows\System32\SearchFilterHost.exe</Image><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
 			<Image condition="is">C:\Windows\System32\audiodg.exe</Image>
 			<Image condition="is">C:\Windows\System32\wsqmcons.exe</Image>
 			<Image condition="is">C:\Windows\System32\RuntimeBroker.exe</Image>
@@ -135,10 +135,10 @@
 			<Image condition="is">C:\Program Files\Microsoft Office\Office16\msoia.exe</Image> <!--Microsoft:Office: Telemetry collector-->
 			<Image condition="is">C:\Program Files (x86)\Microsoft Office\root\Office16\officebackgroundtaskhandler.exe</Image>			
 			<Image condition="is">C:\Windows\System32\TokenBrokerCookies.exe</Image> <!--Microsoft:Windows: SSO sign-in assistant for MicrosoftOnline.com-->
-			<Image condition="end with">\ngentask.exe</Image>
-			<Image condition="end with">\ngen.exe</Image> <!--Microsoft:DotNet-->
-			<Image condition="end with">\mscorsvw.exe</Image> <!--Microsoft:DotNet-->
-			<Image condition="end with">\ngentask.exe</Image> <!--Microsoft:DotNet: Spawns thousands of ngen.exe processes-->
+			<Image condition="end with">\ngentask.exe</Image><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
+			<Image condition="end with">\ngen.exe</Image> <!--Microsoft:DotNet--><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
+			<Image condition="end with">\mscorsvw.exe</Image> <!--Microsoft:DotNet--><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
+			<Image condition="end with">\ngentask.exe</Image> <!--Microsoft:DotNet: Spawns thousands of ngen.exe processes--><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
 			<!--Microsoft:Visual Studio 2019-->
 			<Image condition="is">c:\program files (x86)\microsoft visual studio\2019\community\team tools\static analysis tools\fxcop\fxcopcmd.exe</Image>
 			<ParentImage condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</ParentImage>
