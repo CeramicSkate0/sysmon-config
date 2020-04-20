@@ -79,6 +79,7 @@
 			<!--SECTION: Microsoft Windows-->
 			<IntegrityLevel condition="is">AppContainer</IntegrityLevel> <!--Microsoft:Windows: Don't care about sandboxed processes-->
 			<Image condition="is">C:\Windows\System32\usocoreworker.exe</Image>
+			<Image condition="is">c:\riot games\league of legends\leagueclient.exe</Image><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
 			<Image condition="is">c:\program files (x86)\microsoft visual studio\2019\community\common7\servicehub\hosts\servicehub.host.clr.x64\servicehub.datawarehousehost.exe</Image>
 			<Image condition="is">C:\Windows\System32\UsoClient.exe</Image>
 			<Image condition="is">c:\windows\system32\sdclt.exe</Image>
