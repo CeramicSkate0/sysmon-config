@@ -156,9 +156,9 @@
 			<Image condition="is">c:\program files (x86)\microsoft visual studio\installer\resources\app\servicehub\services\microsoft.visualstudio.setup.service\backgrounddownload.exe</Image>
 			<!-- Commandline excludes are weak at best -->
 			<CommandLine condition="begin with">C:\Windows\system32\DllHost.exe /Processid</CommandLine><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
-			<CommandLine condition="is">C:\Windows\system32\SearchIndexer.exe /Embedding</CommandLine> <!--Microsoft:Windows: Search Indexer--><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
-			<CommandLine condition="is">\SystemRoot\System32\smss.exe</CommandLine> <!--Microsoft:Bootup: Windows Session Manager--><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
-			<CommandLine condition="is">\??\C:\WINDOWS\system32\autochk.exe *</CommandLine> <!--Microsoft:Bootup: Auto Check Utility--><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
+			<Image condition="is">C:\Windows\system32\SearchIndexer.exe</Image> <!--Microsoft:Windows: Search Indexer--><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
+			<Image condition="is">C:\Windows\System32\smss.exe</Image> <!--Microsoft:Bootup: Windows Session Manager--><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
+			<Image condition="is">C:\WINDOWS\system32\autochk.exe </Image> <!--Microsoft:Bootup: Auto Check Utility--><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
 			<Image condition="is">C:\Program Files\Mozilla Firefox\firefox.exe</Image>	
 			<!--Microsoft:Office: -->
 			<ParentImage condition="end with">C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeClickToRun.exe</ParentImage> <!--Microsoft:Office: Background process-->
