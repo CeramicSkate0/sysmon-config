@@ -1,6 +1,9 @@
 # Note about this fork:
 Ceramicskate0's fork of SwiftOnSecurity's sysmon config differs in 1 key area. With the exception of RegistryEvent, FileCreateTime, ImageLoads, and ProcessAccess I have tried to take a exclude only approach. I use [SWELF](https://github.com/ceramicskate0/SWELF) to ship my logs and thus do not get all of them on the SIEM. I only get the logs I want and if ever needed all the logs they will remain on the end point until they roll. This means that the idea behind this config is that you have only logs for events of interest. It is my hope that a config with this approach gets you to that 80% solution to start your testing with. Also this fork is under more rapid development than all others.
 
+# Things you need to know:
+Due to ongoing research please search the config file for tthe comment "<!-- Could miss things if you leave this uncommented, but it also reduces noise-->" and review each on see its something you want to monitor. If so comment or remove the line in the config.
+
 [HOW TO INSTALL SYSMON AND UPDATE WITH SCHEDULED TASK HERE](https://github.com/ceramicskate0/Scripts/tree/master/WindowsBatch)
 
 [If a .Net EXE is more your thing HERE you go](https://github.com/ceramicskate0/AutoUpdateSysmonEXE)
