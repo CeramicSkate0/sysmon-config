@@ -1296,6 +1296,7 @@
 			<TargetFilename condition="is">C:\Windows\System32\Tasks\Adobe Flash Player Updater</TargetFilename>
 			<TargetFilename condition="begin with">C:\Windows\System32\LogFiles\</TargetFilename>
 			<TargetFilename condition="is">C:\Tools\SysinternalsSuite\Sysmon64.exe</TargetFilename> 
+			<TargetFilename condition="is">C:\windows\microsoft.net\ngennicupdatelock.dat</TargetFilename>
 			<TargetFilename condition="begin with">C:\Program Files\Fortinet\FortiClient\</TargetFilename> <!-- Could miss things if you leave this uncommented, but it also reduces noise-->
 			<TargetFilename condition="contains">\AppData\Roaming\Mozilla\Firefox\Profiles\</TargetFilename><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
 			<TargetFilename condition="contains">\AppData\Roaming\Microsoft\Teams\</TargetFilename><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
