@@ -1329,6 +1329,7 @@
 			<TargetObject name="Modification on WMI logging method ETW Tracer" condition="contains">\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AUTOLOGGER_NAME\</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\Credential Provider</TargetObject> <!--Wildcard, includes Credental Providers and Credential Provider Filters-->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa</TargetObject>
+			<TargetObject name="Outlook Homepage Persistence Reg Key" condition="contains">\Software\Microsoft\Office\16.0\Outlook\Profiles\Outlook</TargetObject>
 			<TargetObject name="technique_id=T1003,technique_name=Credential Dumping" condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SecurityProviders</TargetObject><!--Microsoft:Windows: Changes to WDigest-UseLogonCredential for password scraping [ https://www.trustedsec.com/april-2015/dumping-wdigest-creds-with-meterpreter-mimikatzkiwi-in-windows-8-1/ ] -->
 			<TargetObject name="technique_id=T1003,technique_name=Credential Dumping" condition="contains">\Control\SecurityProviders\WDigest</TargetObject>
 			<TargetObject name="technique_id=T1103,technique_name=Appinit DLLs" condition="begin with">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls</TargetObject><!--Microsoft:Windows: [ https://msdn.microsoft.com/en-us/library/windows/desktop/dd744762(v=vs.85).aspx ] -->
