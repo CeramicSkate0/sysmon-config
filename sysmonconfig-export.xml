@@ -6,7 +6,7 @@
   Source license:	Creative Commons Attribution 4.0 | You may privatize, fork, edit, teach, publish, or deploy for commercial use - with attribution in the text.
   Fork version:	<N/A>
   Fork author:	Ceramicskate0
-  Fork project:	<N/A>
+  Fork project:	https://github.com/ceramicskate0/sysmon-config
   Fork license:	<N/A>
   REQUIRED: Sysmon version 9.10 or higher (due to changes in syntax and bug-fixes)
 	https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon
