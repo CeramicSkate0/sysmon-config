@@ -781,6 +781,13 @@
 			  <ImageLoaded condition="begin with">C:\Program Files\Microsoft Office\root\Office</ImageLoaded> <!-- wwlib.dll side loading FP -->
 			  <Image condition="is">C:\Windows\System32\WinSAT.exe</Image>
 			  <Image condition="is">c:\windows\system32\surfacedtx.exe</Image>
+			  <Image condition="is">c:\riot games\riot client\ux\riotclientuxrender.exe</Image>
+			  <Image condition="is">c:\riot games\riot client\riotclientcrashhandler.exe</Image>
+			  <Image condition="is">c:\riot games\league of legends\game\league of legends.exe</Image>
+			  <Image condition="is">c:\riot games\league of legends\leagueclientuxrender.exe</Image>
+			  <Image condition="is">c:\riot games\riot client\ux\riotclientux.exe</Image>
+			  <Image condition="is">c:\riot games\league of legends\leagueclientux.exe</Image>
+			  <ImageLoaded condition="is">c: \riot games\riot client\riotclientcrashhandler.exe</ImageLoaded>
 			  <Image condition="is">c:\windows\system32\cavs\intel(r) audio service\intelaudioservice.exe</Image>
 			  <Image condition="is">c:\program files (x86)\keepass password safe 2\keepass.exe</Image>
 			  <Image condition="is">C:\Windows\System32\wermgr.exe</Image> <!-- FP for schtask COM -->
