@@ -1329,6 +1329,7 @@
 			<TargetObject name="Modification on WMI logging method ETW Tracer" condition="contains">\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AUTOLOGGER_NAME\</TargetObject>
 			<TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\Credential Provider</TargetObject> <!--Wildcard, includes Credental Providers and Credential Provider Filters-->
 			<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa</TargetObject>
+			<TargetObject name="AutoRun Reg Key Creation" condition="contains">\Software\Microsoft\Windows NT\CurrentVersion\Windows\Load</TargetObject>
 			<TargetObject name="Outlook Homepage Persistence Reg Key" condition="contains">\Outlook\Today\UserDefinedUrl</TargetObject>
 			<TargetObject name="Outlook Homepage Persistence Reg Key" condition="contains">\Outlook\WebView\Inbox</TargetObject>
 			<TargetObject name="Outlook Homepage Persistence Reg Key" condition="contains">\Outlook\Security</TargetObject>
