@@ -371,6 +371,10 @@
 		<RuleGroup name="NetworkConnect exclude" groupRelation="or">
 		<NetworkConnect onmatch="exclude">
 			<!--<Image condition="contains">C:\Windows\System32\svchost.exe</Image>-->
+			<Image condition="begin with">c:\riot games\riot client\</Image>
+			<Image condition="begin with">c:\riot games\league of legends\</Image>
+			<Image condition="begin with">c:\program files (x86)\steam\steam.exe</Image>
+			<Image condition="is">C:\program files\nvidia corporation\nvcontainer\nvcontainer.exe</Image>
 			<Image condition="end with">\g2ax_comm_expert.exe</Image> <!--GoToMeeting-->
 			<Image condition="end with">\g2mcomm.exe</Image> <!--GoToMeeting-->
 			<Image condition="end with">\SWELF.exe</Image><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
