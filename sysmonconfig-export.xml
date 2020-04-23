@@ -1370,7 +1370,7 @@
 			<TargetObject condition="contains" name="PrivEsc - UACBypass UACME-56">AppX82a6gwre4fdg3bt635tn5ctqjf8msdd2\shell\open\command</TargetObject>
 			<TargetObject condition="contains" name="PrivEsc - UACBypass - AppPathControl">Software\Microsoft\Windows\CurrentVersion\App Paths\control.exe\(Default)</TargetObject>
 			<Image name="Something from RecycleBin touched the registry, SUSPICIOUS" condition="begin with">C:\$Recycle.Bin</Image>
-			<Image name="Suspicious,ImageBeginWithBackslash" condition="begin with">\</Image> <!--Devices and VSC shouldn't be executing changes | Credit: @SBousseaden @ionstorm @neu5ron @PerchedSystems [ https://twitter.com/SwiftOnSecurity/status/1133167323991486464 ] -->
+			<Image name="Suspicious,Image Begin with Backslash" condition="begin with">\</Image> <!--Devices and VSC shouldn't be executing changes | Credit: @SBousseaden @ionstorm @neu5ron @PerchedSystems [ https://twitter.com/SwiftOnSecurity/status/1133167323991486464 ] -->
 			<TargetObject name="Persistence via SilentProcessExit hijack" condition="contains">CurrentVersion\SilentProcessExit</TargetObject>
 			<TargetObject name="Persistence - Outlook COM Addins" condition="contains">\Outlook\Addins</TargetObject>
 		    <TargetObject name="Persistence - Excel COM Addins" condition="contains">\Excel\Addins</TargetObject>
