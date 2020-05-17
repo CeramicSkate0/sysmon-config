@@ -341,6 +341,7 @@
 		<FileCreateTime onmatch="exclude">
 			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image>
+			<Image condition="is">C:\program files (x86)\adobe\acrobat reader dc\reader\acrocef\rdrservicesupdater.exe</Image>
 			<Image condition="end with">\OneDrive.exe</Image> <!--OneDrive constantly changes file times--><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
 			<Image condition="is">C:\Windows\system32\backgroundTaskHost.exe</Image>
 			<Image condition="contains">setup</Image> <!--Ignore setups--><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
