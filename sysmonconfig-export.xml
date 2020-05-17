@@ -1289,7 +1289,11 @@
 			<Image condition="is">c:\program files (x86)\autodesk\autodesk desktop app\adappmgrsvc.exe</Image>
 			<Image condition="is">c:\windows\system32\lsass.exe</Image>
 			<Image condition="is">c:\windows\system32\cleanmgr.exe</Image>
-			<Image condition="is">c:\windows\system32\backgroundtaskhost.exe</Image>
+			<Image condition="is">c:\windows\system32\backgroundtaskhost.exe</Image>		
+			<Rule groupRelation="and">
+			<Image condition="is">c:\windows\system32\svchost.exe</Image>
+			<TargetFilename condition="begin with">C:\programdata\diagnosis\</TargetFilename>
+			</Rule>			
 			<Image condition="is">c:\riot games\riot client\riotclientservices.exe</Image>
 			<TargetFilename condition="begin with">C:\Windows\System32\Tasks\OfficeSoftwareProtectionPlatform\SvcRestartTask</TargetFilename><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
 			<TargetFilename condition="begin with">C:\Windows\system32\DriverStore\Temp\</TargetFilename> <!-- Microsoft:Windows: Temp files by DrvInst.exe-->
