@@ -803,6 +803,11 @@
 			  <ImageLoaded condition="is">C:\Windows\System32\userenv.dll</ImageLoaded>
 			  <ImageLoaded condition="is">C:\Windows\System32\winmm.dll</ImageLoaded>
 			  <ImageLoaded condition="end with">.exe</ImageLoaded><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
+			  <Image condition="is">C:\Program Files (x86)\Google\Update\GoogleUpdate.exe</Image>
+			  <Image condition="is">C:\Windows\System32\taskeng.exe</Image>
+			  <Image condition="is">C:\Program Files\VMware\VMware Tools\TPAutoConnect.exe</Image>
+			  <Image condition="is">C:\Program Files\Windows Defender\NisSrv.exe</Image>
+			  <Image condition="is">C:\Program Files\Windows Defender\MsMpEng.exe</Image>
 			  <Image condition="is">C:\Windows\System32\dllhost.exe</Image><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
 			  <Image condition="begin with">C:\Windows\Microsoft.NET\Framework64\</Image><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
 			  <Image condition="is">C:\Windows\System32\DeviceCensus.exe</Image>
