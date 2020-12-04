@@ -472,6 +472,7 @@
 			<Image condition="is">C:\Windows\System32\UsoClient.exe</Image>
 			<Image condition="end with">\SWELF.exe</Image><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
 			<Image condition="is">c:\windows\syswow64\cmd.exe</Image><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
+			<Image condition="is">C:\Windows\System32\ctfmon.exe</Image>
 		</ProcessTerminate>
 		</RuleGroup>
 		
