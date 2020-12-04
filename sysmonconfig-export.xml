@@ -265,6 +265,12 @@
 			</Rule>
 			
 			<Rule groupRelation="and">
+			<Image condition="is">C:\Windows\System32\ctfmon.exe</Image>
+			<ParentImage condition="is">C:\Windows\System32\svchost.exe</ParentImage>
+			<ParentCommandLine condition="is">C:\WINDOWS\System32\svchost.exe -k LocalSystemNetworkRestricted -p -s TabletInputService</ParentCommandLine>
+			</Rule>
+			
+			<Rule groupRelation="and">
 			<Image condition="is">c:\windows\syswow64\cmd.exe</Image>
 			<ParentImage condition="is">c:\program files (x86)\microsoft visual studio\2019\community\common7\ide\devenv.exe</ParentImage>
 			</Rule>
