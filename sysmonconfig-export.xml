@@ -682,7 +682,9 @@
 				<ImageLoaded name="Default named CSharp Offensive Sec Tool" condition="contains">SafetyKatz</ImageLoaded>
 				<ImageLoaded name="Default named CSharp Offensive Sec Tool" condition="contains">Kiwi</ImageLoaded>
 				<ImageLoaded name="Default named CSharp Offensive Sec Tool" condition="contains">Katz</ImageLoaded>
-				<ImageLoaded name="Default named CSharp Offensive Sec Tool" condition="contains">Sharp</ImageLoaded>
+				<ImageLoaded name="Possible Default named CSharp Offensive Sec Tool" condition="contains">Sharp</ImageLoaded>
+				<ImageLoaded name="Default named CSharp Offensive Sec Tool" condition="contains">Inveigh</ImageLoaded>
+				<ImageLoaded name="Default named CSharp Offensive Sec Tool" condition="contains">Rubeus</ImageLoaded>
 			</Rule>
 			<!--Capture components used by malicious macros and scripts.-->
 			<Rule groupRelation="or">
@@ -709,6 +711,12 @@
 				<ImageLoaded name="technique_id=1137,technique_name=Office Application Startup" condition="end with">.wll</ImageLoaded>
 				<ImageLoaded name="technique_id=T1137,technique_name=Office Application Startup" condition="end with">.xll</ImageLoaded>
 			</Rule>
+			
+			<Rule groupRelation="and">
+				<ImageLoaded condition="contains" name="Execution - Image Loaded CSharp Dll used in Red Team Tooling">System.Diagnostics</ImageLoaded>
+				<ImageLoaded condition="contains" name="Execution - Image Loaded CSharp Dll used in Red Team Tooling">System.Runtime.InteropServices</ImageLoaded>
+			</Rule>
+			
 			<Rule groupRelation="and">
 				<Image condition="is not">C:\Windows\System32\vaultcmd.exe</Image>
 				<ImageLoaded name="technique_id=T1003,technique_name=Credential Dumping via access to windows cred vault by Suspicious Process" condition="is">C:\Windows\System32\vaultcli.dll</ImageLoaded> <!--Mitre T1098--> <!--Mitre T1075--> <!--Mitre T1003-->
