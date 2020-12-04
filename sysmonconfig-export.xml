@@ -1267,6 +1267,7 @@
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime-->
 		<RuleGroup name="FileCreate exclude" groupRelation="or">
 		<FileCreate onmatch="exclude">
+			<Image condition="is">C:\Windows\System32\mousocoreworker.exe</Image>
 			<Image condition="is">C:\program files (x86)\steam\steam.exe</Image>
 			<Image condition="is">C:\WINDOWS\System32\svchost.exe</Image>
 			<Image condition="is">C:\Program Files (x86)\Notepad++\notepad++.exe</Image>
