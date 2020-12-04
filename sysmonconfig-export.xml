@@ -1937,6 +1937,7 @@
 			<Image condition="is">c:\riot games\league of legends\leagueclient.exe</Image>
 			<!--Network noise-->
 			<QueryName condition="is">cdn.onenote.net</QueryName>
+			<QueryName condition="is">t.co</QueryName>
 			<QueryName condition="end with">.arpa.</QueryName> <!--Design decision to not log reverse DNS lookups. You will need to decide.-->
 			<QueryName condition="end with">.arpa</QueryName> <!--Design decision to not log reverse DNS lookups. You will need to decide.-->
 			<QueryName condition="end with">.msftncsi.com</QueryName> <!--Microsoft proxy detection | Microsoft default exclusion-->
