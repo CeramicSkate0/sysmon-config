@@ -623,6 +623,7 @@
 			<ImageLoaded condition="contains" name="Mitre: https://attack.mitre.org/wiki/Technique/T1098">WinSCard.dll</ImageLoaded>
 			<ImageLoaded condition="is" name="fxsst.dll loaded">C:\windows\system32\fxsst.dll</ImageLoaded>
 			<ImageLoaded condition="contains" name="Powershell Lib loaded" >powershell</ImageLoaded> 
+			<ImageLoaded condition="contains" name="CSharp(C#) Lib loaded" >clr.dll</ImageLoaded> 
 			<ImageLoaded condition="end with" name="oci.dll loaded">oci.dll</ImageLoaded>
 			<ImageLoaded condition="end with" name="PrivEsc - DLL Hijack - UACME 32">osksupport.dll</ImageLoaded>
 			<ImageLoaded condition="end with" name="PrivEsc - DLL Hijack - UACME 30">wow64log.dll</ImageLoaded>
