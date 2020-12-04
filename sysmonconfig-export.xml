@@ -356,6 +356,7 @@
 			<TargetFilename condition="begin with">C:\$WINDOWS.~BT\Sources\</TargetFilename> <!-- Windows: Feature updates containing lots of .exe and .sys-->
 			<TargetFilename condition="end with">.temp</TargetFilename><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
 			<TargetFilename condition="end with">.tmp</TargetFilename><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
+			<TargetFilename condition="begin with">C:\Windows\SoftwareDistribution\Download\</TargetFilename>
 		</FileCreateTime>
 		</RuleGroup>
 		
