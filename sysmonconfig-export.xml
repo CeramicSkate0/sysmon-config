@@ -1176,6 +1176,7 @@
 		  <SourceImage condition="end with">\Common Files\Adobe\ARM\1.0\AdobeARMHelper.exe</SourceImage>
 		  <SourceImage condition="end with">\Common Files\Adobe\AdobeGCClient\AGSService.exe</SourceImage>
 		  <SourceImage condition="begin with">C:\ProgramData\WebEx\webex\</SourceImage>
+		  <SourceImage condition="begin with">b:\steamlibrary\steamapps\</SourceImage><!-- Could miss things if you leave this uncommented, but it also reduces noise for me-->
 		  <SourceImage condition="end with">\Dropbox\Update\DropboxUpdate.exe</SourceImage><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
 		  <SourceImage condition="end with">LTSvc\LTSVC.exe</SourceImage><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
 		  <SourceImage condition="end with">\Trusteer\Rapport\bin\RapportMgmtService.exe</SourceImage><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
