@@ -2177,8 +2177,8 @@
 		<!--DATA: RuleName, UtcTime, ProcessGuid, ProcessId, User, Image, TargetFilename, Hashes, IsExecutable, Archived -->
 		<!--
 		<RuleGroup name="" groupRelation="or">
-			<ClipboardChange onmatch="include">
-			</ClipboardChange>
+			<FileDelete onmatch="include">
+			</FileDelete>
 		</RuleGroup>
 		-->
 
