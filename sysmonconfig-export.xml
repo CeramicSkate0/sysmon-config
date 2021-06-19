@@ -580,6 +580,7 @@
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">chrome_frame_helper.dll</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">DESqmWrapper.dll</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">fslapi.dll</ImageLoaded>
+                    <ImageLoaded condition="is" name="Defense Evasion - DLL Hijack">C:\Users\USER\AppData\Local\Microsoft\WindowsApps\vulkan-1.dll</ImageLoaded>
 			<ImageLoaded condition="end with" name="Debugging DLL Loaded">dbgeng.dll</ImageLoaded>
 			<ImageLoaded condition="end with" name="Debugging DLL Loaded">dbghelp.dll</ImageLoaded>
             <ImageLoaded condition="end with" name="Debuging DLL Loaded">dbgcore.dll</ImageLoaded>
