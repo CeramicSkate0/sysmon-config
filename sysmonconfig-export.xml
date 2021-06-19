@@ -516,6 +516,7 @@
 		<ImageLoad onmatch="include">
 			<Image condition="end with">mshta.exe</Image>
 			<Image condition="end with">Dism.exe</Image>
+            
 		    <Image name="MitreRef=T1128,Technique=Netsh Helper Beacon DLL,Tactic=Persistence, also it manages windows firewall." condition="end with">netsh.exe</Image>
 		    <ImageLoaded name="technique_id=T1047,technique_name=Windows Management Instrumentation" condition="end with">wmiutils.dll</ImageLoaded>
 			<ImageLoaded condition="end with" name="comsvcs dll load- Look for Possible minidump or com bypass">comsvcs.dll</ImageLoaded><!-- This DLL is known to be able to minidump lsass using minidump arg -->
@@ -526,6 +527,7 @@
 		    <ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">\temp\</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - Unusual Module Extension">.png</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - Unusual Module Extension">.jpg</ImageLoaded>
+            <ImageLoaded condition="end with" name="Defense Evasion - Unusual Module Extension">.cpl</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - Unusual Module Extension">.dat</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - Unusual Module Extension">.tmp</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - Unusual Module Extension">.inf</ImageLoaded>
@@ -550,6 +552,7 @@
 		    <ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">$Recycle.bin\</ImageLoaded>
 		    <ImageLoaded condition="contains" name="Execution - Image Loaded from suspicious path">\Windows\IME\</ImageLoaded>	
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">wwlib.dll</ImageLoaded> <!-- winword.exe -->
+            <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">sxsoa.dll</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">BIB.dll</ImageLoaded> <!-- Adobe A3DUtility.exe -->
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">goopdate.dll</ImageLoaded> <!-- vuln GoogleUpdate.exe version-->
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">msfte.dll</ImageLoaded> <!-- searchindexer.exe and searchprotocolhost.exe -->
@@ -561,6 +564,11 @@
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading, possible minidump of lsass">dbghelp.dll</ImageLoaded> <!-- 360 SoftManager.exe -->
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">FaultRep.dll</ImageLoaded> <!-- FontsSet.exe -->
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">McVsoCfg.dll</ImageLoaded>
+            <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">ActCtx.dll</ImageLoaded>
+            <ImageLoaded condition="end with" name="Defense Evasion - DLL Boo Lang">Boo.Lang.Compiler.dll</ImageLoaded>
+            <ImageLoaded condition="end with" name="Defense Evasion - DLL Boo Lang">Boo.Lang.dll</ImageLoaded>
+            <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">CLRJIT.DLL</ImageLoaded>
+            <ImageLoaded condition="end with" name="Defense Evasion - DLL Boo Lang">Boo.Lang.Parser.dll</ImageLoaded>
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">product_info.dll</ImageLoaded> <!-- Kasper avpla.exe -->
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">wsc.dll</ImageLoaded> <!-- Avast wsc_proxy.exe -->
 		    <ImageLoaded condition="end with" name="Defense Evasion - DLL Side Loading">winspool.drv</ImageLoaded><!-- loaded by avz.exe free AV https://www.welivesecurity.com/2019/07/11/buhtrap-zero-day-espionage-campaigns/ -->
@@ -1656,6 +1664,8 @@
 		<!--COMMENT:	Remove low-information noise. Often these hide a procress recreating an empty key and do not hide the values created subsequently.-->
 			<!--SECTION: Microsoft binaries-->
 			<Image condition="is">c:\program files\oracle\virtualbox\virtualboxvm.exe</Image>
+            <Image condition="is">c:\windows\system32\lsass.exe</Image>
+            <Image condition="is">C:\Program Files\Mozilla Firefox\firefox.exe</Image>
 			<Image condition="is">c:\program files (x86)\microsoft visual studio\2019\community\common7\servicehub\hosts\servicehub.host.clr.x86\servicehub.settingshost.exe</Image>
 			<Image condition="is">c:\program files (x86)\microsoft visual studio\2019\community\msbuild\current\bin\msbuild.exe</Image>
 			<Image condition="is">c:\program files (x86)\microsoft visual studio\2019\community\msbuild\current\bin\roslyn\vbcscompiler.exe</Image>
@@ -1681,8 +1691,12 @@
 			<TargetObject condition="contains">\Software\Microsoft\SystemCertificates\Root\Certificates</TargetObject>
 			</Rule>
 			<Rule groupRelation="and">
-			<Image condition="is">C:\WINDOWS\system32\svchost.exe</Image><!--noisy-->
+			<Image condition="is">c:\windows\system32\taskhostw.exe</Image><!--noisy-->
 			<TargetObject condition="end with">\Root\Certificates</TargetObject>
+			</Rule>
+            <Rule groupRelation="and">
+			<Image condition="is">C:\WINDOWS\system32\svchost.exe</Image><!--noisy-->
+			<TargetObject condition="contains">\software\microsoft\enterprisecertificates\root\certificates</TargetObject>
 			</Rule>
 			<Rule groupRelation="and">
 			<Image condition="is">C:\WINDOWS\Explorer.EXE</Image><!--noisy-->
@@ -1693,6 +1707,8 @@
 			<TargetObject condition="contains">\Software\Microsoft\Windows NT\CurrentVersion\</TargetObject>
 			</Rule>
 			<TargetObject condition="contains">\{CAFEEFAC-</TargetObject>
+            <TargetObject condition="contains">Local Settings\Software\Microsoft\Windows\Shell\BagMRU</TargetObject>
+            <TargetObject condition="contains">\appdata\local\microsoft\vault</TargetObject>
 			<TargetObject condition="end with">Toolbar\WebBrowser</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">Toolbar\WebBrowser\ITBar7Height</TargetObject> <!--Microsoft:IE: Extraneous activity-->
 			<TargetObject condition="end with">Toolbar\WebBrowser\ITBar7Layout</TargetObject> <!--Microsoft:IE: Extraneous activity-->
@@ -1784,34 +1800,34 @@
 		<!--DATA: UtcTime, ProcessGuid, ProcessId, Image, TargetFilename, CreationUtcTime, Hash-->
 		<RuleGroup name="ALTERNATE DATA STREAM include" groupRelation="or">
         <FileCreateStreamHash onmatch="include">
-		<TargetFilename condition="contains">Startup</TargetFilename> <!--ADS startup | Example: [ https://www.hybrid-analysis.com/sample/a314f6106633fba4b70f9d6ddbee452e8f8f44a72117749c21243dc93c7ed3ac?environmentId=100 ] -->
-		<TargetFilename name="File stream created 7zip extractions" condition="contains">Temp\7z</TargetFilename> <!--7zip extractions-->
-		<TargetFilename condition="end with">.bat</TargetFilename> <!--Batch scripting-->
-		<TargetFilename condition="end with">.cmd</TargetFilename> <!--Batch scripting | Credit @ion-storm -->
-		<TargetFilename condition="end with">\Temp\debug.bin</TargetFilename> <!--Bin files https://github.com/GhostPack/SafetyKatz creates debug.bin in a temp folder-->
-		<TargetFilename condition="contains">\Downloads\</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE-->
-		<TargetFilename condition="end with">.exe</TargetFilename>
-		<TargetFilename condition="end with">.dll</TargetFilename>
-		<TargetFilename condition="end with">.zip</TargetFilename>
-		<TargetFilename condition="end with">.txt</TargetFilename>
-		<TargetFilename condition="end with">.sct</TargetFilename>
-		<TargetFilename condition="end with">.js</TargetFilename>
-		<TargetFilename condition="end with">.jse</TargetFilename>
-		<TargetFilename condition="end with">.ini</TargetFilename>
-		<TargetFilename condition="end with">.bin</TargetFilename>
-		<TargetFilename condition="end with">.doc</TargetFilename> <!--Office doc potentially with macro -->
-		<TargetFilename condition="end with">.xls</TargetFilename> <!--Office doc potentially with macro -->
-		<TargetFilename condition="end with">.ppt</TargetFilename> <!--Office doc potentially with macros-->
-		<TargetFilename name="File stream created Mitre T1170" condition="end with">.hta</TargetFilename> <!--Mitre T1170--><!--Scripting-->
-		<TargetFilename condition="end with">.lnk</TargetFilename> <!--Shortcut file | Credit @ion-storm -->
-		<TargetFilename condition="contains">Content.Outlook</TargetFilename> <!--Microsoft:Outlook: Attachments--> <!--PRIVACY WARNING-->
-		<TargetFilename name="technique_id=T1086,technique_name=PowerShell" condition="end with">.ps1</TargetFilename> <!--Powershell-->
-		<TargetFilename name="technique_id=T1086,technique_name=PowerShell" condition="end with">.ps2</TargetFilename> <!--Powershell-->
-		<TargetFilename condition="end with">.reg</TargetFilename> <!--Registry File-->
-		<TargetFilename condition="end with">.jse</TargetFilename> <!--Registry File-->
-		<TargetFilename condition="end with">.vb</TargetFilename> <!--VisualBasicScripting files-->
-		<TargetFilename condition="end with">.vbe</TargetFilename> <!--VisualBasicScripting files-->
-		<TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting files-->	
+            <TargetFilename condition="contains">Startup</TargetFilename> <!--ADS startup | Example: [ https://www.hybrid-analysis.com/sample/a314f6106633fba4b70f9d6ddbee452e8f8f44a72117749c21243dc93c7ed3ac?environmentId=100 ] -->
+            <TargetFilename name="File stream created 7zip extractions" condition="contains">Temp\7z</TargetFilename> <!--7zip extractions-->
+            <TargetFilename condition="end with">.bat</TargetFilename> <!--Batch scripting-->
+            <TargetFilename condition="end with">.cmd</TargetFilename> <!--Batch scripting | Credit @ion-storm -->
+            <TargetFilename condition="end with">\Temp\debug.bin</TargetFilename> <!--Bin files https://github.com/GhostPack/SafetyKatz creates debug.bin in a temp folder-->
+            <TargetFilename condition="contains">\Downloads\</TargetFilename> <!--Downloaded files. Does not include "Run" files in IE-->
+            <TargetFilename condition="end with">.exe</TargetFilename>
+            <TargetFilename condition="end with">.dll</TargetFilename>
+            <TargetFilename condition="end with">.zip</TargetFilename>
+            <TargetFilename condition="end with">.txt</TargetFilename>
+            <TargetFilename condition="end with">.sct</TargetFilename>
+            <TargetFilename condition="end with">.js</TargetFilename>
+            <TargetFilename condition="end with">.jse</TargetFilename>
+            <TargetFilename condition="end with">.ini</TargetFilename>
+            <TargetFilename condition="end with">.bin</TargetFilename>
+            <TargetFilename condition="end with">.doc</TargetFilename> <!--Office doc potentially with macro -->
+            <TargetFilename condition="end with">.xls</TargetFilename> <!--Office doc potentially with macro -->
+            <TargetFilename condition="end with">.ppt</TargetFilename> <!--Office doc potentially with macros-->
+            <TargetFilename name="File stream created Mitre T1170" condition="end with">.hta</TargetFilename> <!--Mitre T1170--><!--Scripting-->
+            <TargetFilename condition="end with">.lnk</TargetFilename> <!--Shortcut file | Credit @ion-storm -->
+            <TargetFilename condition="contains">Content.Outlook</TargetFilename> <!--Microsoft:Outlook: Attachments--> <!--PRIVACY WARNING-->
+            <TargetFilename name="technique_id=T1086,technique_name=PowerShell" condition="end with">.ps1</TargetFilename> <!--Powershell-->
+            <TargetFilename name="technique_id=T1086,technique_name=PowerShell" condition="end with">.ps2</TargetFilename> <!--Powershell-->
+            <TargetFilename condition="end with">.reg</TargetFilename> <!--Registry File-->
+            <TargetFilename condition="end with">.jse</TargetFilename> <!--Registry File-->
+            <TargetFilename condition="end with">.vb</TargetFilename> <!--VisualBasicScripting files-->
+            <TargetFilename condition="end with">.vbe</TargetFilename> <!--VisualBasicScripting files-->
+            <TargetFilename condition="end with">.vbs</TargetFilename> <!--VisualBasicScripting files-->	
 		</FileCreateStreamHash>
 		</RuleGroup>	
 		
@@ -2158,9 +2174,7 @@
 		<!--COMMENT:	Sandbox usage. When a program signals to Windows a file should be deleted or wiped, Sysmon may be able to capture it. 
 			[ https://isc.sans.edu/forums/diary/Sysmon+and+File+Deletion/26084/ ]
 		-->
-
 		<!--DATA: RuleName, UtcTime, ProcessGuid, ProcessId, User, Image, TargetFilename, Hashes, IsExecutable, Archived -->
-
 		<!--
 		<RuleGroup name="" groupRelation="or">
 			<ClipboardChange onmatch="include">
@@ -2172,11 +2186,8 @@
 			<!--EVENT 24: "Clipboard changed"-->
 			<!--COMMENT:	Sandbox usage.  Sysmon can capture the contents of clipboard events.
 				An  example of what could be a production usage on restricted desktops is provided below, but it is commented-out. -->
-
 			<!--DATA: EventType, UtcTime, ProcessGuid, ProcessId, Image, Session, ClientInfo, Hashes, Archived -->
-
-		<!--
-		<RuleGroup name="" groupRelation="or">
+		<RuleGroup name="Clipboard Monitoring include" groupRelation="or">
 			<ClipboardChange onmatch="include">
 				<Image condition="end with">wscript.exe</Image>
 				<Image condition="end with">cscript.exe</Image>
@@ -2184,23 +2195,18 @@
 				<Image condition="end with">rdpclip.exe</Image>
 			</ClipboardChange>
 		</RuleGroup>
-		-->
 
 		<!--SYSMON EVENT ID 25 : PROCESS TAMPERING [ProcessTampering]-->
 			<!--EVENT 25: "Process Tampering"-->
 			<!--COMMENT:	This event is generated when a process image is changed from an external source, such as a different process.
 				This may or may not provide value in your environment as it requires tuning and a SIEM to correlate the ProcessGuids.
 				[ https://medium.com/falconforce/sysmon-13-process-tampering-detection-820366138a6c ] -->
-
 			<!--DATA: EventType, RuleName, UtcTime, ProcessGuid, ProcessId, Image, Type -->
-
-		<!--
-		<RuleGroup name="" groupRelation="or">
+		<RuleGroup name="PROCESS TAMPERING exclude" groupRelation="or">
 			<ProcessTampering onmatch="exclude">
 				<Image condition="begin with">C:\Program Files (x86)\Microsoft\Edge\Application\</Image>
 			</ProcessTampering>
 		</RuleGroup>
-		-->
 	
 		<!--SYSMON EVENT ID 255 : ERROR-->
 		<!--"This event is generated when an error occurred within Sysmon. They can happen if the system is under heavy load
