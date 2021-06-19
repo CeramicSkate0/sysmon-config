@@ -955,7 +955,12 @@
 			<Image condition="end with">splunk-powershell.exe</Image><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
 			<Image condition="end with">splunk-winprintmon.exe</Image><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
 			<Image condition="end with">splunk-admon.exe</Image><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
+			</Rule>
 			<Rule groupRelation="and">
+                <Image condition="is">c:\windows\system32\windowspowershell\v1.0\powershell.exe</Image>
+                <ImageLoaded condition="end with">system.management.automation.ni.dll</ImageLoaded>
+            </Rule>
+            <Rule groupRelation="and">
 			<Signature condition="contains">Microsoft</Signature>
 			<SignatureStatus condition="is">Valid</SignatureStatus>
 			</Rule>
