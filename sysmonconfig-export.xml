@@ -915,7 +915,7 @@
 			  <ImageLoaded condition="is">C:\Windows\System32\Dism\LogProvider.dll</ImageLoaded>
 			  <ImageLoaded condition="is">C:\Program Files\Windows Defender\MpClient.dll</ImageLoaded>
 			<Image condition="is">C:\Program Files\Microsoft Policy Platform\policyHost.exe</Image>
-		    <Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image>
+		    	<Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image>
 			<Image condition="begin with">C:\Program Files\Fortinet\</Image>
 			<Image condition="is">C:\Windows\System32\mmc.exe</Image>
 			<Image condition="is">C:\Windows\sysmon64.exe</Image>
@@ -947,7 +947,7 @@
 			<ImageLoaded condition="begin with">C:\Windows\System32\spool\</ImageLoaded>
 			<ImageLoaded condition="begin with">C:\Program Files\WindowsApps</ImageLoaded>
 			<ImageLoaded condition="is">C:\Program Files\Microsoft SQL Server\100\Shared\dbghelp.dll</ImageLoaded>
-				<!-- Exclude SPLUNK HEY! NOTE This needs to point to the exact path of your splunk install to avoid a blind spot if you dont want to log it-->
+			<!-- Exclude SPLUNK HEY! NOTE This needs to point to the exact path of your splunk install to avoid a blind spot if you dont want to log it-->
 			<Image condition="end with">splunkd.exe</Image><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
 			<Image condition="end with">splunk-MonitorNoHandle.exe</Image><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
 			<Image condition="end with">splunk-regmon.exe</Image><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
@@ -955,7 +955,6 @@
 			<Image condition="end with">splunk-powershell.exe</Image><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
 			<Image condition="end with">splunk-winprintmon.exe</Image><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
 			<Image condition="end with">splunk-admon.exe</Image><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
-			</Rule>
 			<Rule groupRelation="and">
                 <Image condition="is">c:\windows\system32\windowspowershell\v1.0\powershell.exe</Image>
                 <ImageLoaded condition="end with">system.management.automation.ni.dll</ImageLoaded>
