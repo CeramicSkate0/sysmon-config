@@ -380,10 +380,12 @@
 		<RuleGroup name="NetworkConnect exclude" groupRelation="or">
 		<NetworkConnect onmatch="exclude">
 			<!--<Image condition="contains">C:\Windows\System32\svchost.exe</Image>-->
-			<Image condition="begin with">c:\riot games\riot client\</Image>
-			<Image condition="begin with">c:\riot games\league of legends\</Image>
-			<Image condition="begin with">c:\program files (x86)\steam\steam.exe</Image>
+			<Image condition="begin with">c:\riot games\riot client\</Image><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
+			<Image condition="begin with">c:\program files\windowsapps\</Image><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
+			<Image condition="begin with">c:\riot games\league of legends\</Image><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
+			<Image condition="begin with">c:\program files (x86)\steam\steam.exe</Image><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
 			<Image condition="is">C:\program files\nvidia corporation\nvcontainer\nvcontainer.exe</Image>
+			<Image condition="is">C:\program files (x86)\steam\bin\cef\cef.win7x64\steamwebhelper.exe</Image>
 			<Image condition="end with">\g2ax_comm_expert.exe</Image> <!--GoToMeeting-->
 			<Image condition="end with">\g2mcomm.exe</Image> <!--GoToMeeting-->
 			<Image condition="end with">\SWELF.exe</Image><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
@@ -409,7 +411,7 @@
 			<Image condition="is">C:\Program Files\Common Files\microsoft shared\ClickToRun\OfficeClickToRun.exe</Image><!-- noisy-->
 			<Image condition="is">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\ServiceHub\Hosts\ServiceHub.Host.CLR.x86\ServiceHub.SettingsHost.exe</Image><!-- noisy-->
 			<Image condition="is">C:\Windows\ADWS\Microsoft.ActiveDirectory.WebServices.exe</Image><!-- noisy for ldap -->
-		    <Image condition="is">C:\Program Files (x86)\BigFix Enterprise\BES Client\BESClient.exe</Image><!-- noisy for ldap -->
+		    	<Image condition="is">C:\Program Files (x86)\BigFix Enterprise\BES Client\BESClient.exe</Image><!-- noisy for ldap -->
 			<Image condition="is">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe</Image><!-- noisy for 5353 MDNS -->
 			<Image condition="is">C:\Windows\System32\dfssvc.exe</Image><!-- noisy for ldap -->
 			<Image condition="is">C:\Windows\System32\dsregcmd.exe</Image><!-- noisy for ldap -->
@@ -1331,7 +1333,15 @@
 			<Rule groupRelation="and">
 			<Image condition="is">c:\windows\system32\svchost.exe</Image>
 			<TargetFilename condition="begin with">C:\programdata\diagnosis\</TargetFilename>
-			</Rule>			
+			</Rule>
+			<Rule groupRelation="and">
+			<Image condition="is">c:\windows\system32\werfault.exe</Image>
+			<TargetFilename condition="begin with">c:\programdata\microsoft\windows\wer\reportarchive\</TargetFilename>
+			</Rule>
+			<Rule groupRelation="and">
+			<Image condition="is">C:\program files (x86)\steam\bin\cef\cef.win7x64\steamwebhelper.exe</Image>
+			<TargetFilename condition="begin with">c:\users\host\appdata\local\steam\htmlcache\code cache\</TargetFilename>
+			</Rule>
 			<Image condition="is">c:\riot games\riot client\riotclientservices.exe</Image>
 			<TargetFilename condition="begin with">C:\Windows\System32\Tasks\OfficeSoftwareProtectionPlatform\SvcRestartTask</TargetFilename><!-- Could miss things if you leave this uncommented, but it also reduces noise-->
 			<TargetFilename condition="begin with">C:\Windows\system32\DriverStore\Temp\</TargetFilename> <!-- Microsoft:Windows: Temp files by DrvInst.exe-->
