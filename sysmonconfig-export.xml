@@ -2202,12 +2202,8 @@
 			<!--COMMENT:	Sandbox usage.  Sysmon can capture the contents of clipboard events.
 				An  example of what could be a production usage on restricted desktops is provided below, but it is commented-out. -->
 			<!--DATA: EventType, UtcTime, ProcessGuid, ProcessId, Image, Session, ClientInfo, Hashes, Archived -->
-		<RuleGroup name="Clipboard Monitoring include" groupRelation="or">
-			<ClipboardChange onmatch="include">
-				<Image condition="end with">wscript.exe</Image>
-				<Image condition="end with">cscript.exe</Image>
-				<Image condition="end with">powershell.exe</Image>
-				<Image condition="end with">rdpclip.exe</Image>
+		<RuleGroup name="Clipboard Monitoring exclude" groupRelation="or">
+			<ClipboardChange onmatch="exclude">
 			</ClipboardChange>
 		</RuleGroup>
 
