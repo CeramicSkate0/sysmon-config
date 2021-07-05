@@ -1709,7 +1709,12 @@
 			<Image condition="is">c:\windows\system32\taskhostw.exe</Image><!--noisy-->
 			<TargetObject condition="end with">\Root\Certificates</TargetObject>
 			</Rule>
-            <Rule groupRelation="and">
+			</Rule>
+			<Rule groupRelation="and">
+			<Image condition="is">C:\WINDOWS\system32\CompatTelRunner.exe</Image><!--noisy-->
+			<TargetObject condition="contains">}\Root\InventoryApplicationFile\</TargetObject>
+			</Rule>
+            		<Rule groupRelation="and">
 			<Image condition="is">C:\WINDOWS\system32\svchost.exe</Image><!--noisy-->
 			<TargetObject condition="contains">\software\microsoft\enterprisecertificates\root\certificates</TargetObject>
 			</Rule>
